@@ -1,8 +1,41 @@
 .page {
+  position: relative;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at 92% 4%, var(--gold-100), transparent 30%),
-    radial-gradient(circle at 8% 12%, var(--green-100), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(126, 190, 52, 0.24), transparent 34%),
+    radial-gradient(circle at 74% 42%, rgba(158, 210, 74, 0.15), transparent 40%),
+    radial-gradient(circle at 12% 8%, rgba(98, 164, 226, 0.12), transparent 34%),
     var(--cream);
+}
+
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.2;
+  background:
+    repeating-linear-gradient(90deg, rgba(72, 131, 40, 0.05) 0 64px, rgba(31, 79, 147, 0.015) 64px 128px);
+}
+
+.page::after {
+  content: '';
+  position: fixed;
+  right: -110px;
+  top: -30px;
+  width: 280px;
+  height: calc(100vh + 80px);
+  transform: skewX(-12deg);
+  background: linear-gradient(90deg, rgba(18, 56, 112, 0.1), rgba(31, 79, 147, 0.12), rgba(126, 190, 52, 0.14));
+  box-shadow: inset 4px 0 0 rgba(18, 56, 112, 0.18), inset 10px 0 0 rgba(18, 56, 112, 0.12);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page > * {
+  position: relative;
+  z-index: 1;
 }
 
 .nav {
@@ -14,8 +47,8 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem clamp(1rem, 3vw, 3rem);
-  background: rgba(250, 251, 247, 0.9);
-  border-bottom: 1px solid var(--slate-200);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--color-border);
   backdrop-filter: blur(12px);
 }
 
@@ -48,18 +81,23 @@
   letter-spacing: 0.06em;
   color: var(--slate-600);
   font-weight: 600;
-  padding: 0.3rem 0.45rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 6px;
+  border: 1px solid transparent;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .navLinks a:hover {
-  color: var(--green-800);
-  background: var(--green-100);
+  color: var(--green-900);
+  background: rgba(126, 190, 52, 0.16);
+  border-color: rgba(95, 159, 40, 0.35);
 }
 
 .navLinkActive {
   color: var(--green-900) !important;
-  background: var(--green-100);
+  background: rgba(126, 190, 52, 0.28);
+  border-color: rgba(95, 159, 40, 0.45);
 }
 
 .hero {
@@ -79,9 +117,9 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--green-700);
-  background: var(--green-100);
-  border: 1px solid var(--green-200);
+  color: var(--green-800);
+  background: #ecf8df;
+  border: 1px solid #c6e7a8;
 }
 
 .heroTitle {
@@ -101,9 +139,10 @@
 .abstractPanel {
   margin-top: 2rem;
   padding: 1.4rem;
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   background: var(--white);
+  box-shadow: 0 12px 24px rgba(17, 45, 93, 0.06);
 }
 
 .abstractPanel h2 {
@@ -132,7 +171,7 @@
 
 .mediaCard {
   background: var(--white);
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   padding: 1rem;
 }
@@ -145,7 +184,7 @@
 .placeholderBox {
   margin-top: 0.8rem;
   min-height: 140px;
-  border: 2px dashed var(--slate-300);
+  border: 2px dashed #c8d8ea;
   border-radius: 10px;
   padding: 1rem;
   color: var(--slate-500);
@@ -172,7 +211,7 @@
 }
 
 .teamCard {
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 0.85rem;
   background: var(--white);
@@ -195,7 +234,7 @@
   aspect-ratio: 4 / 3;
   margin-bottom: 0.6rem;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--green-100), var(--gold-100));
+  background: linear-gradient(135deg, #dcecff, #ecf5ff 45%, #edf8b8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,11 +248,11 @@
 }
 
 .section {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .sectionAlt {
-  background: var(--cream);
+  background: rgba(247, 253, 244, 0.9);
 }
 
 .sectionHeader {
@@ -251,7 +290,7 @@
 
 .card {
   background: var(--white);
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 1rem;
 }
@@ -271,7 +310,7 @@
   max-width: 1100px;
   margin: 1rem auto 0;
   background: var(--white);
-  border: 1px solid var(--slate-200);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 1rem;
   overflow-x: auto;
@@ -291,7 +330,7 @@ table {
 
 th,
 td {
-  border: 1px solid var(--slate-200);
+  border: 1px solid #dde7f3;
   padding: 0.6rem;
   text-align: left;
   font-size: 0.88rem;
@@ -299,7 +338,7 @@ td {
 
 th {
   color: var(--green-900);
-  background: var(--green-50);
+  background: #eef5ff;
 }
 
 td {
@@ -322,16 +361,16 @@ td {
   margin: 1rem auto 0;
   padding: 1rem;
   border-radius: 10px;
-  background: var(--green-100);
-  color: var(--green-800);
-  border: 1px solid var(--green-200);
+  background: #edf8d2;
+  color: var(--green-900);
+  border: 1px solid #b9de83;
 }
 
 .footer {
   padding: 1.2rem;
   text-align: center;
   background: var(--green-900);
-  color: var(--green-100);
+  color: #d7e7fd;
   font-size: 0.86rem;
 }
 
@@ -355,6 +394,11 @@ td {
   .nav {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .page::after {
+    width: 180px;
+    right: -120px;
   }
 
   .contentGrid,

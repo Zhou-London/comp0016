@@ -1,23 +1,23 @@
 :root {
-  /* Greens — field-inspired */
-  --green-900: #0C2E1A;
-  --green-800: #14482B;
-  --green-700: #1B5E3A;
-  --green-600: #237A4B;
-  --green-500: #2D9B5F;
-  --green-400: #4DB87A;
-  --green-300: #7DD4A0;
-  --green-200: #B5E8C9;
-  --green-100: #E0F5EA;
-  --green-50: #F2FAF5;
+  /* Navy-blue core accents (menu v2 inspired) */
+  --green-900: #07224f;
+  --green-800: #123870;
+  --green-700: #1f4f93;
+  --green-600: #2c66b1;
+  --green-500: #3f82cb;
+  --green-400: #62a4e2;
+  --green-300: #93c3ee;
+  --green-200: #c5def6;
+  --green-100: #e7f2fc;
+  --green-50: #f4f9ff;
 
-  /* Gold — warm accent */
-  --gold-600: #C48A1E;
-  --gold-500: #E8A838;
-  --gold-400: #F0BE5E;
-  --gold-300: #F5D48A;
-  --gold-200: #FAE6B5;
-  --gold-100: #FDF3DB;
+  /* Green-lime highlights (menu button inspired) */
+  --gold-600: #5f9f28;
+  --gold-500: #7fbe34;
+  --gold-400: #9ed24a;
+  --gold-300: #bae06f;
+  --gold-200: #d6ee9b;
+  --gold-100: #edf8cd;
 
   /* Neutrals */
   --slate-900: #1A1F2B;
@@ -32,7 +32,7 @@
   --slate-50: #F8F9FA;
 
   --white: #FFFFFF;
-  --cream: #FAFBF7;
+  --cream: #fbfdff;
 
   /* Semantic */
   --color-primary: var(--green-700);
@@ -44,7 +44,7 @@
   --color-text: var(--slate-800);
   --color-text-secondary: var(--slate-600);
   --color-text-muted: var(--slate-400);
-  --color-border: var(--slate-200);
+  --color-border: #dbe5f1;
 
   /* Type */
   --font-display: 'Unbounded', system-ui, sans-serif;
@@ -97,6 +97,6 @@ img {
 }
 
 ::selection {
-  background-color: var(--green-200);
+  background-color: var(--gold-400);
   color: var(--green-900);
 }
