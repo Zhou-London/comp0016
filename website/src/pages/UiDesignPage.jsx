@@ -12,11 +12,55 @@ export default function UiDesignPage() {
 
                 <div className={styles.abstractPanel}>
                     <h3>Design Principles</h3>
-                    <p>Simplicity, consistency, visibility, feedback, tolerance.</p>
+                    <p style={{marginTop: '1rem'}}><b>Simplicity:</b> Reducing
+                        visual clutter is particularly important for autistic
+                        children who may be sensitive to overstimulation. Clean
+                        layouts, limited animations, and avoiding unnecessary
+                        elements keeps the focus on the gameplay and allows the
+                        player to easily interact with the game. Also, instructions
+                        and UI text should be simple and jargon-free. Players may
+                        struggle with abstract or figurative language, so clarity
+                        is essential.</p>
+
+                    <p style={{marginTop: '1rem'}}><b>Consistency:</b> Once a
+                        gesture or interaction pattern is established, it should
+                        behave the same way every time. Unpredictable behaviour is
+                        especially disorienting for autistic users. Also, consistency
+                        in design is also key. We will ensure the use of the same
+                        fonts, sizes, layouts and colour scheme across the whole game.</p>
+
+                    <p style={{marginTop: '1rem'}}><b>Visibility:</b> All buttons and
+                        text should be large and clear when displayed on both a TV and
+                        a laptop, as required by our client. UI elements with related
+                        functions should be grouped together, and elements with different
+                        functions should be kept separate – for example, text for score
+                        and best score may be displayed in one corner, while the pause
+                        button would be placed elsewhere.</p>
+
+                    <p style={{marginTop: '1rem'}}><b>Efficiency:</b> The game should
+                        allow the player to start playing with as little friction as
+                        possible – they can go straight to the games if they know how
+                        to play already, and tutorials can be navigated to if needed.
+                        Furthermore, it should be easy to always pause, exit, or
+                        restart a minigame easily. </p>
+
+                    <p style={{marginTop: '1rem'}}><b>Feedback:</b> When interacting
+                        with the game, both visual and auditory feedback should be
+                        provided, to ensure that the users know exactly what their
+                        actions will result in. For example, when a motion is successfully
+                        detected (e.g. kicking, saving), the game should clearly confirm
+                        this and convey it to the player. This responsiveness ensures
+                        that players understand the cause and effects of their actions
+                        and can intuitively navigate the game.</p>
+
+                    <p style={{marginTop: '1rem'}}><b>Tolerance:</b> The UI is made to
+                        be quite simple and easy to navigate, making it hard to make
+                        mistakes. Users can quickly and easily navigate back to the
+                        correct screen even if they misclick.</p>
                 </div>
 
                 <div className={styles.abstractPanel}>
-                    <h3>Initial sketches</h3>
+                <h3>Initial sketches</h3>
 
                     <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
                         <ImageWithCaption src="/sketches/initial sketches/main menu.png" caption="Main menu screen layout" />
