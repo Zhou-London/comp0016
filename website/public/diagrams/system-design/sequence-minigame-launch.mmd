@@ -1,0 +1,28 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'signalColor': '#2f5f8f', 'activationBorderColor': '#6eaa3a', 'fontFamily': 'Trebuchet MS'}}}%%
+sequenceDiagram
+    participant P as Player
+    participant MMC as MenuController
+    participant MIM as MotionInputManager
+    participant CIR as ConfigRepository
+    participant MIP as ProcessAdapter
+    participant W as MotionInput Window
+    participant SM as SceneManager
+
+    P->>MMC: Click "Free Kick" (or other minigame)
+    MMC->>MIM: RequestModeSwitch(mode)
+
+    alt MotionInput disabled in GameSettings
+        MIM-->>MMC: Return without launch
+        MMC->>SM: LoadScene(targetScene)
+    else MotionInput enabled
+        alt Not initialized
+            MIM->>CIR: TrySetMode(mode)
+            MIM->>MIP: TryLaunch(motioninput.exe, --config persistentConfig)
+            MIP-->>W: Start external process
+            MIM->>MIM: DetectMotionInputWindowStarted()
+        else Already running
+            MIM->>CIR: TrySetMode(mode)
+            MIM->>W: Focus + Shift+R reload
+        end
+        MMC->>SM: LoadScene(targetScene)
+    end

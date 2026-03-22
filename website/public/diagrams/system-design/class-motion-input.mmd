@@ -1,0 +1,47 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'fontFamily': 'Trebuchet MS'}}}%%
+classDiagram
+    class MotionInputManager {
+      +Instance
+      +mode : string
+      +defaultMode : string
+      +RequestModeSwitch(newMode)
+      +TerminateMotionInput()
+      +RegisterTransform(transform)
+      +IsMotionInputInitialized() bool
+      -StartMotionInput()
+      -SwitchModeCoroutine()
+      -ChangeMode() bool
+    }
+
+    class MotionInputConfigRepository {
+      +PersistentConfigPath : string
+      +EnsurePersistentConfig()
+      +ModeExists(mode) bool
+      +TrySetMode(mode) bool
+      +GetCurrentMode() string
+    }
+
+    class MotionInputProcessAdapter {
+      +ExecutableExists(appPath, app) bool
+      +TryLaunch(appPath, app, configPath, errorMessage) bool
+    }
+
+    class MotionInputWindowAdapter {
+      +CaptureForegroundWindow() IntPtr
+      +FindByTitle(windowTitle) IntPtr
+      +CloseByTitle(windowTitle)
+      +Focus(hWnd)
+      +SendReloadShortcut(hWnd)
+      +RemoveHeader(hWnd)
+      +ApplyTransform(hWnd, rectTransform, unityWindow)
+    }
+
+    class MotionInputTransformRegistrar {
+      +sceneMode : string
+      +Start()
+    }
+
+    MotionInputManager --> MotionInputConfigRepository : uses
+    MotionInputManager --> MotionInputProcessAdapter : uses
+    MotionInputManager --> MotionInputWindowAdapter : uses
+    MotionInputTransformRegistrar --> MotionInputManager : registers transform and mode

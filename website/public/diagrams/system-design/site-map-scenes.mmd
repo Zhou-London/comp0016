@@ -1,0 +1,45 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'fontFamily': 'Trebuchet MS'}}}%%
+flowchart TD
+    Launch[Launch]
+    MainMenu[MainMenuScene]
+    MinigamesMenu[MinigamesMenuScene]
+    SettingsScene[SettingsScene]
+    CreditsScene[CreditsScene]
+    TutorialsScene[TutorialsScene]
+
+    Freekick[FreekickScene]
+    Goalkeeping[GoalkeepingScene]
+    Penalty[PenaltyShootoutScene]
+    Obstacle[ObstacleCourseScene]
+
+    Launch --> MainMenu
+
+    MainMenu -->|Play| MinigamesMenu
+    MainMenu -->|Settings| SettingsScene
+    MainMenu -->|Credits| CreditsScene
+    MainMenu -->|Quit| Exit[Application Exit]
+
+    MinigamesMenu -->|Tutorials| TutorialsScene
+    MinigamesMenu -->|Free Kick| Freekick
+    MinigamesMenu -->|Goalkeeping| Goalkeeping
+    MinigamesMenu -->|Penalty Shootout| Penalty
+    MinigamesMenu -->|Obstacle Course| Obstacle
+
+    CreditsScene -->|Back| MainMenu
+    SettingsScene -->|Back| MainMenu
+    TutorialsScene -->|Back| MinigamesMenu
+
+    Freekick -->|Back/Quit/Complete| MinigamesMenu
+    Goalkeeping -->|Back/Quit/Complete| MinigamesMenu
+    Penalty -->|Back/Quit/Complete| MinigamesMenu
+    Obstacle -->|Back/Quit/Complete| MinigamesMenu
+
+    classDef hub fill:#e9f7d5,stroke:#6eaa3a,stroke-width:1.3px,color:#173a1a;
+    classDef menu fill:#ecf4ff,stroke:#3b6a9c,stroke-width:1.3px,color:#173a1a;
+    classDef game fill:#fff8df,stroke:#b2872f,stroke-width:1.3px,color:#3d2e0d;
+    classDef exit fill:#ffe8e8,stroke:#b55656,stroke-width:1.3px,color:#4a1b1b;
+
+    class Launch,MainMenu,SettingsScene,CreditsScene,TutorialsScene menu;
+    class MinigamesMenu hub;
+    class Freekick,Goalkeeping,Penalty,Obstacle game;
+    class Exit exit;

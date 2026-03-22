@@ -1,0 +1,83 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'secondaryColor': '#e9f7d5', 'tertiaryColor': '#fff8df', 'fontFamily': 'Trebuchet MS'}}}%%
+flowchart LR
+    subgraph MinigameAssemblies
+        FK[Freekick.asmdef]
+        GK[Goalkeeping.asmdef]
+        PS[PenaltyShootout.asmdef]
+        OC[ObstacleCourse.asmdef]
+    end
+
+    subgraph SharedAssemblies
+        SC[SharedCore.asmdef]
+        SGS[SharedGameSettings.asmdef]
+        GAS[GlobalAudioShared.asmdef]
+        SL[SharedLogging.asmdef]
+        SA[SharedAnimation.asmdef]
+    end
+
+    subgraph AppShell
+        AC[Assembly-CSharp]
+    end
+
+    subgraph TestAssemblies
+        ET[EditModeTests.asmdef]
+        PT[PlayModeTests.asmdef]
+    end
+
+    FK --> SC
+    GK --> SC
+    PS --> SC
+    OC --> SC
+
+    SC --> SGS
+    SC --> GAS
+
+    FK --> SL
+    GK --> SL
+    PS --> SL
+    OC --> SL
+    AC --> SL
+
+    AC --> SGS
+    AC --> GAS
+    AC --> SC
+
+    ET --> SC
+    ET --> SGS
+    ET --> GAS
+    ET --> SL
+    ET --> SA
+
+    PT --> SGS
+    PT --> SL
+
+    API1[IAudioService]
+    API2[ISettingsService]
+    API3[SessionFlow<TState>]
+
+    FK -. consumes .-> API1
+    GK -. consumes .-> API1
+    PS -. consumes .-> API1
+    OC -. consumes .-> API1
+
+    FK -. consumes .-> API2
+    GK -. consumes .-> API2
+    PS -. consumes .-> API2
+    OC -. consumes .-> API2
+
+    FK -. orchestrates .-> API3
+    GK -. orchestrates .-> API3
+    PS -. orchestrates .-> API3
+    OC -. orchestrates .-> API3
+
+    classDef minigame fill:#fff8df,stroke:#b2872f,stroke-width:1.2px,color:#3d2e0d;
+    classDef shared fill:#e9f7d5,stroke:#6eaa3a,stroke-width:1.2px,color:#173a1a;
+    classDef shell fill:#ecf4ff,stroke:#3b6a9c,stroke-width:1.2px,color:#173a1a;
+    classDef tests fill:#ffe8e8,stroke:#b55656,stroke-width:1.2px,color:#4a1b1b;
+    classDef api fill:#f3edff,stroke:#6e53b1,stroke-width:1.2px,color:#2b1f4f;
+
+    class FK,GK,PS,OC minigame;
+    class SC,SGS,GAS,SL,SA shared;
+    class AC shell;
+    class ET,PT tests;
+    class API1,API2,API3 api;
