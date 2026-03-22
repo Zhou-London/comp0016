@@ -1,9 +1,44 @@
+import { useEffect, useRef } from 'react'
 import styles from '../App.module.css'
 import SectionHeader from '../components/SectionHeader'
 import nasLogo from '../assets/partners/nas.jpg'
 import motioninputLogo from '../assets/partners/motioninput.jpg'
 import intelLogo from '../assets/partners/intel.svg'
 import cocacolaLogo from '../assets/partners/cocacola.png'
+
+/* ── Scroll-reveal animation hook ── */
+function useScrollReveal() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('revealed')
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  return ref
+}
+
+function RevealSection({ children, className = '', style = {}, delay = 0 }) {
+  const ref = useScrollReveal()
+  return (
+    <div
+      ref={ref}
+      className={`reveal-on-scroll ${className}`}
+      style={{ ...style, transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  )
+}
 
 /* ── Reusable style constants ── */
 const accent = {
@@ -36,16 +71,11 @@ function PartnerChip({ logo, name, desc }) {
       padding: '0.7rem 1rem', borderRadius: 10,
       background: 'linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)',
       border: '1px solid #e2e8f0',
-      transition: 'box-shadow 0.2s ease',
     }}>
       <img
         src={logo}
         alt={`${name} logo`}
-        style={{
-          width: 48, height: 48, objectFit: 'contain',
-          borderRadius: 8, background: '#fff',
-          padding: 4, border: '1px solid #e2e8f0', flexShrink: 0,
-        }}
+        style={{ width: 44, height: 44, objectFit: 'contain', flexShrink: 0 }}
       />
       <div>
         <strong style={{ fontSize: '0.88rem', color: 'var(--green-900)' }}>{name}</strong>
@@ -230,16 +260,23 @@ export default function RequirementsPage() {
       <SectionHeader title="Requirements" subtitle="Partner context, goals, requirement gathering, personas, use cases, and MoSCoW prioritised requirements." />
 
       {/* ────────── Partner Introduction & Project Background ────────── */}
+      <RevealSection>
       <div className={styles.contentGrid}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Partner Introduction and Project Background</h3>
 
           {/* Partner chips */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.6rem', marginBottom: '1rem', marginTop: '0.5rem' }}>
-            <PartnerChip logo={nasLogo} name="National Autistic Society" desc="Domain expertise on autism & accessibility" />
-            <PartnerChip logo={motioninputLogo} name="MotionInput Games Ltd" desc="Body-tracking engine & gesture recognition" />
-            <PartnerChip logo={intelLogo} name="Intel" desc="Hardware expertise & MPU technology" />
-            <PartnerChip logo={cocacolaLogo} name="Coca-Cola" desc="2026 FIFA World Cup partnership" />
+            {[
+              { logo: nasLogo, name: 'National Autistic Society', desc: 'Domain expertise on autism & accessibility' },
+              { logo: motioninputLogo, name: 'MotionInput Games Ltd', desc: 'Body-tracking engine & gesture recognition' },
+              { logo: intelLogo, name: 'Intel', desc: 'Hardware expertise & MPU technology' },
+              { logo: cocacolaLogo, name: 'Coca-Cola', desc: '2026 FIFA World Cup partnership' },
+            ].map((p, i) => (
+              <RevealSection key={p.name} className="partner-chip-enter" delay={i * 120}>
+                <PartnerChip logo={p.logo} name={p.name} desc={p.desc} />
+              </RevealSection>
+            ))}
           </div>
 
           <p>
@@ -258,22 +295,32 @@ export default function RequirementsPage() {
           </p>
         </article>
       </div>
+      </RevealSection>
 
       {/* ────────── Project Goals ────────── */}
+      <RevealSection>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Project Goals</h3>
           <div style={{ display: 'grid', gap: '0.5rem', marginTop: '0.5rem' }}>
-            <GoalCard num="1">Develop an accessible, motion-controlled football game that uses full-body tracking and gesture recognition to interact with gameplay elements, removing the barrier of traditional input methods.</GoalCard>
-            <GoalCard num="2">Design engaging football minigames (penalty shootout, free kicks, goalkeeping, obstacle course) that target coordination, reaction time, and motor skill development in autistic children.</GoalCard>
-            <GoalCard num="3">Create a sensory-friendly and adaptable user interface with customisable visual and audio feedback to accommodate different sensitivities and preferences, helping children gain confidence and enjoy sport.</GoalCard>
-            <GoalCard num="4">Encourage physical activity and social inclusion by providing a safe, structured environment where children can practise football skills at their own pace without overwhelming social pressure.</GoalCard>
-            <GoalCard num="5">Showcase the system in alignment with the 2026 FIFA World Cup, promoting inclusion and accessibility in sports through interactive technology.</GoalCard>
+            {[
+              'Develop an accessible, motion-controlled football game that uses full-body tracking and gesture recognition to interact with gameplay elements, removing the barrier of traditional input methods.',
+              'Design engaging football minigames (penalty shootout, free kicks, goalkeeping, obstacle course) that target coordination, reaction time, and motor skill development in autistic children.',
+              'Create a sensory-friendly and adaptable user interface with customisable visual and audio feedback to accommodate different sensitivities and preferences, helping children gain confidence and enjoy sport.',
+              'Encourage physical activity and social inclusion by providing a safe, structured environment where children can practise football skills at their own pace without overwhelming social pressure.',
+              'Showcase the system in alignment with the 2026 FIFA World Cup, promoting inclusion and accessibility in sports through interactive technology.',
+            ].map((goal, i) => (
+              <RevealSection key={i} className="goal-roll-in" delay={i * 100}>
+                <GoalCard num={i + 1}>{goal}</GoalCard>
+              </RevealSection>
+            ))}
           </div>
         </article>
       </div>
+      </RevealSection>
 
       {/* ────────── Requirement Gathering ────────── */}
+      <RevealSection>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Requirement Gathering</h3>
@@ -300,13 +347,19 @@ export default function RequirementsPage() {
           </div>
         </article>
       </div>
+      </RevealSection>
 
       {/* ────────── Personas ────────── */}
+      <RevealSection>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Personas</h3>
           <p style={{ marginBottom: '0.5rem' }}>Below are two representative user personas that guided our design decisions.</p>
         </article>
+      </div>
+      </RevealSection>
+      <RevealSection className="persona-slide-left" delay={100}>
+      <div className={styles.contentGrid}>
         <PersonaCard
           name="Sara Howard"
           role="SEND Teacher"
@@ -329,6 +382,10 @@ export default function RequirementsPage() {
             'Sensory overload and complex decision-making',
           ]}
         />
+      </div>
+      </RevealSection>
+      <RevealSection className="persona-slide-right" delay={200}>
+      <div className={styles.contentGrid}>
         <PersonaCard
           name="James Chen"
           role="Parent / Caregiver"
@@ -356,8 +413,10 @@ export default function RequirementsPage() {
           ]}
         />
       </div>
+      </RevealSection>
 
       {/* ────────── Use Cases ────────── */}
+      <RevealSection className="diagram-scale-in">
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Use Case Diagram</h3>
@@ -365,7 +424,9 @@ export default function RequirementsPage() {
           <UseCaseDiagram />
         </article>
       </div>
+      </RevealSection>
 
+      <RevealSection className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>List of Use Cases</h3>
         <table>
@@ -392,8 +453,10 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
+      </RevealSection>
 
       {/* ────────── MoSCoW Functional Requirements ────────── */}
+      <RevealSection className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>MoSCoW Functional Requirements</h3>
         <table>
@@ -432,8 +495,10 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
+      </RevealSection>
 
       {/* ────────── MoSCoW Non-Functional Requirements ────────── */}
+      <RevealSection className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>MoSCoW Non-Functional Requirements</h3>
         <table>
@@ -468,6 +533,7 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
+      </RevealSection>
     </section>
   )
 }

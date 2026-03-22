@@ -100,3 +100,105 @@ img {
   background-color: var(--gold-400);
   color: var(--green-900);
 }
+
+/* ── Scroll-reveal animations ── */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered partner chip entrance */
+.partner-chip-enter {
+  opacity: 0;
+  transform: translateX(-24px) scale(0.95);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.partner-chip-enter.revealed {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Goal card roll-in */
+.goal-roll-in {
+  opacity: 0;
+  transform: translateX(-40px) rotate(-2deg);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.goal-roll-in.revealed {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* Table row fade-in-up */
+.table-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.table-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Persona card slide-in */
+.persona-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.persona-slide-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.persona-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.persona-slide-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Diagram scale-in */
+.diagram-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagram-scale-in.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .partner-chip-enter,
+  .goal-roll-in,
+  .table-reveal,
+  .persona-slide-left,
+  .persona-slide-right,
+  .diagram-scale-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
