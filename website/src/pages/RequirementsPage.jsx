@@ -1,5 +1,9 @@
 import styles from '../App.module.css'
 import SectionHeader from '../components/SectionHeader'
+import nasLogo from '../assets/partners/nas.jpg'
+import motioninputLogo from '../assets/partners/motioninput.jpg'
+import intelLogo from '../assets/partners/intel.svg'
+import cocacolaLogo from '../assets/partners/cocacola.png'
 
 /* ── Reusable style constants ── */
 const accent = {
@@ -25,15 +29,24 @@ function MoscowBadge({ priority }) {
 }
 
 /* ── Partner badge chip ── */
-function PartnerChip({ icon, name, desc }) {
+function PartnerChip({ logo, name, desc }) {
   return (
     <div style={{
-      display: 'flex', alignItems: 'center', gap: '0.65rem',
+      display: 'flex', alignItems: 'center', gap: '0.75rem',
       padding: '0.7rem 1rem', borderRadius: 10,
       background: 'linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)',
       border: '1px solid #e2e8f0',
+      transition: 'box-shadow 0.2s ease',
     }}>
-      <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>{icon}</span>
+      <img
+        src={logo}
+        alt={`${name} logo`}
+        style={{
+          width: 48, height: 48, objectFit: 'contain',
+          borderRadius: 8, background: '#fff',
+          padding: 4, border: '1px solid #e2e8f0', flexShrink: 0,
+        }}
+      />
       <div>
         <strong style={{ fontSize: '0.88rem', color: 'var(--green-900)' }}>{name}</strong>
         <p style={{ fontSize: '0.78rem', color: 'var(--slate-500)', margin: 0, lineHeight: 1.4 }}>{desc}</p>
@@ -223,10 +236,10 @@ export default function RequirementsPage() {
 
           {/* Partner chips */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.6rem', marginBottom: '1rem', marginTop: '0.5rem' }}>
-            <PartnerChip icon={'\ud83e\udde9'} name="National Autistic Society" desc="Domain expertise on autism & accessibility" />
-            <PartnerChip icon={'\ud83c\udfae'} name="MotionInput Games Ltd" desc="Body-tracking engine & gesture recognition" />
-            <PartnerChip icon={'\ud83d\udcbb'} name="Intel" desc="Hardware expertise & MPU technology" />
-            <PartnerChip icon={'\u26bd'} name="Coca-Cola" desc="2026 FIFA World Cup partnership" />
+            <PartnerChip logo={nasLogo} name="National Autistic Society" desc="Domain expertise on autism & accessibility" />
+            <PartnerChip logo={motioninputLogo} name="MotionInput Games Ltd" desc="Body-tracking engine & gesture recognition" />
+            <PartnerChip logo={intelLogo} name="Intel" desc="Hardware expertise & MPU technology" />
+            <PartnerChip logo={cocacolaLogo} name="Coca-Cola" desc="2026 FIFA World Cup partnership" />
           </div>
 
           <p>
