@@ -63,24 +63,43 @@ function MoscowBadge({ priority }) {
   )
 }
 
-/* ── Partner badge chip ── */
-function PartnerChip({ logo, name, desc }) {
+/* ── Partner logo marquee ── */
+const partners = [
+  { logo: nasLogo, name: 'National Autistic Society' },
+  { logo: motioninputLogo, name: 'MotionInput Games Ltd' },
+  { logo: intelLogo, name: 'Intel' },
+  { logo: cocacolaLogo, name: 'Coca-Cola' },
+]
+
+function PartnerMarquee() {
+  const items = [...partners, ...partners, ...partners]
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: '0.75rem',
-      padding: '0.7rem 1rem', borderRadius: 10,
-      background: 'linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)',
-      border: '1px solid #e2e8f0',
-    }}>
-      <img
-        src={logo}
-        alt={`${name} logo`}
-        style={{ width: 44, height: 44, objectFit: 'contain', flexShrink: 0 }}
-      />
-      <div>
-        <strong style={{ fontSize: '0.88rem', color: 'var(--green-900)' }}>{name}</strong>
-        <p style={{ fontSize: '0.78rem', color: 'var(--slate-500)', margin: 0, lineHeight: 1.4 }}>{desc}</p>
+    <>
+      <style>{`
+        @keyframes mq { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
+        .mq-track { display:flex; width:max-content; animation: mq 26s linear infinite; }
+        .mq-wrap:hover .mq-track { animation-play-state: paused; }
+      `}</style>
+      <div className="marquee-wrap mq-wrap" style={{ margin: '0.8rem 0 1rem' }}>
+        <div className="mq-track">
+          {items.map((p, i) => (
+            <div key={i} className="marquee-item">
+              <img src={p.logo} alt={`${p.name} logo`} />
+              <span>{p.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
+    </>
+  )
+}
+
+/* ── Reveal wrapper for individual elements (text, list items, etc.) ── */
+function Reveal({ children, className = '', delay = 0, style = {} }) {
+  const ref = useScrollReveal()
+  return (
+    <div ref={ref} className={`reveal-on-scroll ${className}`} style={{ ...style, transitionDelay: `${delay}ms` }}>
+      {children}
     </div>
   )
 }
@@ -260,48 +279,40 @@ export default function RequirementsPage() {
       <SectionHeader title="Requirements" subtitle="Partner context, goals, requirement gathering, personas, use cases, and MoSCoW prioritised requirements." />
 
       {/* ────────── Partner Introduction & Project Background ────────── */}
-      <RevealSection>
       <div className={styles.contentGrid}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
-          <h3>Partner Introduction and Project Background</h3>
+          <Reveal><h3>Partner Introduction and Project Background</h3></Reveal>
 
-          {/* Partner chips */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.6rem', marginBottom: '1rem', marginTop: '0.5rem' }}>
-            {[
-              { logo: nasLogo, name: 'National Autistic Society', desc: 'Domain expertise on autism & accessibility' },
-              { logo: motioninputLogo, name: 'MotionInput Games Ltd', desc: 'Body-tracking engine & gesture recognition' },
-              { logo: intelLogo, name: 'Intel', desc: 'Hardware expertise & MPU technology' },
-              { logo: cocacolaLogo, name: 'Coca-Cola', desc: '2026 FIFA World Cup partnership' },
-            ].map((p, i) => (
-              <RevealSection key={p.name} className="partner-chip-enter" delay={i * 120}>
-                <PartnerChip logo={p.logo} name={p.name} desc={p.desc} />
-              </RevealSection>
-            ))}
-          </div>
+          {/* Rolling partner logo marquee */}
+          <PartnerMarquee />
 
+          <Reveal delay={100}>
           <p>
             This project is a collaboration between UCL Computer Science and four external partners.
             The <strong>National Autistic Society (NAS)</strong> advises on the needs of autistic children, accessibility, and sensory design.
             <strong> MotionInput Games Ltd</strong> supplies the MotionInput Engine for full-body gesture recognition.
             <strong> Intel</strong> contributes hardware expertise with MPU technology, and <strong>Coca-Cola</strong> supports the project in the context of the upcoming 2026 FIFA World Cup.
           </p>
+          </Reveal>
+          <Reveal delay={200}>
           <div style={{ marginTop: '0.8rem', padding: '0.8rem 1rem', borderRadius: 10, background: 'linear-gradient(135deg, #fef9c3 0%, #fefce8 100%)', border: '1px solid #fde68a' }}>
             <p style={{ margin: 0, fontSize: '0.9rem', color: '#713f12', lineHeight: 1.6 }}>
               <strong>The Problem:</strong> Children with autism spectrum disorder often face challenges with physical coordination, social interaction, and sensory processing. Traditional sports environments can be overwhelming, and existing sports video games rely on standard controllers that may not be accessible.
             </p>
           </div>
+          </Reveal>
+          <Reveal delay={300}>
           <p style={{ marginTop: '0.6rem' }}>
             The MotionInput Football Practice project addresses this gap by developing an interactive, motion-controlled football training game. Children practise football through natural body movements &mdash; kicking with their feet and saving goals with their hands &mdash; in a structured, sensory-friendly environment. While designed primarily for autistic children, the game is inclusive and suitable for all players who enjoy football.
           </p>
+          </Reveal>
         </article>
       </div>
-      </RevealSection>
 
       {/* ────────── Project Goals ────────── */}
-      <RevealSection>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
-          <h3>Project Goals</h3>
+          <Reveal><h3>Project Goals</h3></Reveal>
           <div style={{ display: 'grid', gap: '0.5rem', marginTop: '0.5rem' }}>
             {[
               'Develop an accessible, motion-controlled football game that uses full-body tracking and gesture recognition to interact with gameplay elements, removing the barrier of traditional input methods.',
@@ -317,37 +328,52 @@ export default function RequirementsPage() {
           </div>
         </article>
       </div>
-      </RevealSection>
 
       {/* ────────── Requirement Gathering ────────── */}
-      <RevealSection>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
-          <h3>Requirement Gathering</h3>
+          <Reveal><h3>Requirement Gathering</h3></Reveal>
 
+          <Reveal delay={80}>
           <h4 style={{ color: 'var(--green-700)', fontSize: '0.95rem', marginTop: '0.6rem', marginBottom: '0.4rem' }}>How did we collect the requirements?</h4>
+          </Reveal>
+          <Reveal delay={150}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.7rem' }}>
-            <MethodTag icon={'\ud83d\udcca'} label="Partner Presentations" />
-            <MethodTag icon={'\ud83d\udcdd'} label="Documented Feedback" />
-            <MethodTag icon={'\ud83d\udd04'} label="Iterative Refinement" />
-            <MethodTag icon={'\ud83e\udd1d'} label="In-person & Online Meetings" />
+            {[
+              ['\ud83d\udcca', 'Partner Presentations'],
+              ['\ud83d\udcdd', 'Documented Feedback'],
+              ['\ud83d\udd04', 'Iterative Refinement'],
+              ['\ud83e\udd1d', 'In-person & Online Meetings'],
+            ].map(([icon, label], i) => (
+              <Reveal key={label} className="fade-in-scale" delay={200 + i * 80} style={{ display: 'inline-block' }}>
+                <MethodTag icon={icon} label={label} />
+              </Reveal>
+            ))}
           </div>
+          </Reveal>
+          <Reveal delay={250}>
           <p>
             Requirements were gathered through a series of well-prepared presentations and meetings with our project partners, conducted both online and in-person. Each session was carefully documented, capturing detailed notes and partner feedback. The feedback was then systematically reviewed and used to iteratively refine the game design, features, and accessibility settings.
           </p>
+          </Reveal>
+          <Reveal delay={300}>
           <p style={{ marginTop: '0.5rem' }}>
             Key meetings included sessions with our NAS contact (Marius, a school teacher working with autistic children), our MotionInput technical mentor (Peter Ling), and our UCL supervisor (Prof. Dean Mohamedally). These recurring touchpoints ensured requirements stayed grounded in real classroom needs and technical feasibility.
           </p>
+          </Reveal>
 
+          <Reveal delay={350}>
           <h4 style={{ color: 'var(--green-700)', fontSize: '0.95rem', marginTop: '0.9rem', marginBottom: '0.4rem' }}>Survey design and data analysis</h4>
+          </Reveal>
+          <Reveal delay={400}>
           <div style={{ padding: '0.7rem 1rem', borderRadius: 10, background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
             <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--slate-700)', lineHeight: 1.6 }}>
               Feedback collected from partner presentations was analysed using a <strong>qualitative analysis</strong> approach. Open-ended responses and verbal feedback from each session were reviewed for recurring themes and patterns, including accessibility concerns, desired game features, sensory preferences, and classroom constraints. These themes were then mapped to concrete functional and non-functional requirements, ensuring every requirement traces back to real stakeholder input.
             </p>
           </div>
+          </Reveal>
         </article>
       </div>
-      </RevealSection>
 
       {/* ────────── Personas ────────── */}
       <RevealSection>
