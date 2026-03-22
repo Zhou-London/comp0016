@@ -95,7 +95,7 @@ export default function UiDesignPage() {
                 </div>
 
                 <div className={styles.abstractPanel}>
-                    <h3>Final UI designs</h3>
+                    <h3>Final UI improvements</h3>
 
                     <div
                         style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
@@ -108,6 +108,21 @@ export default function UiDesignPage() {
                         <ImageWithCaption src="/final game UI/pause menu.png" caption="Pause menu"/>
                         <ImageWithCaption src="/final game UI/settings in minigame.png" caption="Settings when accessed from the pause menu"/>
                         <ImageWithCaption src="/final game UI/minigame complete.png" caption="Minigame completion screen"/>
+                    </div>
+
+                    <p style={{marginTop: '2rem', color: 'var(--slate-700)'}}>
+                        Add your description of the sketches here — what each one shows, the design decisions made, and
+                        how they informed the final UI.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>MotionInput window UI</h3>
+
+                    <div
+                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
+                        <ImageWithCaption src="/final game UI/mi window kick.png" caption="MotionInput window in game, kicking mode"/>
+                        <ImageWithCaption src="/final game UI/mi window hands.png" caption="MotionInput window in game, hands-only mode"/>
+                        <ImageWithCaption src="/final game UI/motion kick.png" caption="Glowing icons when kick is registered"/>
+                        <ImageWithCaption src="/final game UI/motion hands.png" caption="Glowing icons when a hand is registered"/>
                     </div>
 
                     <p style={{marginTop: '2rem', color: 'var(--slate-700)'}}>
