@@ -54,18 +54,27 @@ export default function HomePage() {
           <h2>Abstract</h2>
           <h3>Problem Statement</h3>
           <p>
-            Placeholder paragraph. Explain the real-world problem and project motivation in detail, including the gap in current
-            football accessibility/training experiences and why this audience needs a tailored solution.
-          </p>
+            Children with autism often face significant barriers to participating in physical sports. In a traditional
+            football game, they may face sensory overload in a fast paced, competitive environment, or be left behind
+            due to a lack of accessible training tools designed with neurodivergent children in mind. In many football
+            video games, they are then faced with the complexities and fine motor control required of traditional
+            control schemes, such as keyboard and mouse or controllers. This limits the opportunity for physical
+            development, social connection, and enjoyment of one of the world’s most popular sports.</p>
           <h3>Our Solution</h3>
           <p>
-            Placeholder paragraph. Summarise the application solution delivered in MotionInput Football Practice,
-            including core architecture and key experiences delivered across minigames and settings.
-          </p>
+            Our team developed MotionInput Football Practice, a camera-based football game with 4 minigames: Free Kick,
+            Goalkeeping, Penalty Shootout, and Obstacle Course. Built in Unity and powered by MotionInput technology
+            using OpenCV, our game lets you play through natural body movements. No controllers or specialist hardware
+            is required. Our game design philosophy is based on decision making rather than reaction time, reducing
+            pressure and creating a calmer, more accessible environment to experience football. The game was developed
+            in collaboration with the National Autistic Society, with inclusivity and accessibility at the core of every
+            design decision.</p>
           <h3>Achievement and Impact</h3>
           <p>
-            Placeholder paragraph. Describe major outcomes, user value, measurable improvements, and expected long-term impact.
-          </p>
+            MotionInput Football Practice successfully delivers a fun, sensory-friendly football experience that is
+            accessible to children who would otherwise be excluded from the sport. We’ve turned physical movement into
+            gameplay – our game supports the development of motor skills, coordination and confidence in autistic
+            children, and it provides an exciting and meaningful way to participate in football.</p>
         </div>
 
         <div className={styles.mediaGrid}>

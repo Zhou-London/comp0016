@@ -285,7 +285,12 @@ export default function UiDesignPage() {
                     </p>
 
                     <p style={{marginTop: '1rem', color: 'var(--slate-700)'}}>
-                        Additionally, the position of the back and pause button have changed from where they were placed in our initial sketches. This is because we implemented a setting that allows the player to turn the MotionInput window on and off, meaning the original position no longer works for both of these cases – when the window is not there, the back/pause button will appear to be in the middle of the screen with a large space to its right. Therefore, we moved it to the bottom right corner instead.
+                        Additionally, the position of the back and pause button have changed from where they were placed
+                        in our initial sketches. This is because we implemented a setting that allows the player to turn
+                        the MotionInput window on and off, meaning the original position no longer works for both of
+                        these cases – when the window is not there, the back/pause button will appear to be in the
+                        middle of the screen with a large space to its right. Therefore, we moved it to the bottom right
+                        corner instead.
                     </p>
 
                     <div
