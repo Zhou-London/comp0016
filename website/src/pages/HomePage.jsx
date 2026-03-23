@@ -1,6 +1,22 @@
 import styles from '../App.module.css'
+import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
 
 export default function HomePage() {
+  const teamMembers = [
+    { name: 'Team Member 1', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
+    { name: 'Team Member 2', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
+    { name: 'Team Member 3', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
+    { name: 'Team Member 4', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
+    {
+      name: 'Zhouzhou Zhang',
+      email: 'zhouzhou.zhang.24@ucl.ac.uk',
+      roles: 'Programmer',
+      bio: 'CS Student at UCL passionate about performance engineering',
+      linkedin: 'https://www.linkedin.com/in/zhouzhou-zhang-aa16b0282/',
+      photo: zhouzhouPhoto,
+    },
+  ]
+
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
@@ -42,14 +58,42 @@ export default function HomePage() {
         <div className={styles.teamBlock}>
           <h2>The Development Team</h2>
           <div className={styles.teamGrid}>
-            {['Team Member 1', 'Team Member 2', 'Team Member 3', 'Team Member 4', 'Team Member 5'].map((name) => (
-              <article key={name} className={styles.teamCard}>
-                <div className={styles.avatarPlaceholder}>Photo</div>
-                <h3>{name}</h3>
-                <p>Email: name@ucl.ac.uk</p>
-                <p>Role(s): Client liaison, UI design, researcher, programmer, report editor, tester</p>
-                <p>Bio / background placeholder</p>
-                <p>LinkedIn: add profile link</p>
+            {teamMembers.map((member) => (
+              <article key={member.name} className={styles.teamCard}>
+                {member.photo ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    style={{
+                      width: '100%',
+                      aspectRatio: '4 / 3',
+                      objectFit: 'cover',
+                      borderRadius: 10,
+                      marginBottom: '0.6rem',
+                    }}
+                  />
+                ) : (
+                  <div className={styles.avatarPlaceholder}>Photo</div>
+                )}
+                <h3>{member.name}</h3>
+                <p>Email: {member.email}</p>
+                <p>Role(s): {member.roles}</p>
+                <p>{member.bio}</p>
+                {member.linkedin ? (
+                  <p>
+                    LinkedIn:{' '}
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: 'var(--green-600)', textDecoration: 'underline' }}
+                    >
+                      {member.name}
+                    </a>
+                  </p>
+                ) : (
+                  <p>LinkedIn: add profile link</p>
+                )}
               </article>
             ))}
           </div>
