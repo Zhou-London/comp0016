@@ -243,7 +243,7 @@ export default function UiDesignPage() {
                     </div>
 
                     <div
-                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', marginTop: '2rem'}}>
+                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2.5rem', marginTop: '2rem'}}>
                         <ImageWithCaption src="/final game UI/main menu.png" caption="Main menu"/>
                         <ImageWithCaption src="/final game UI/minigames menu.png"
                                           caption="Minigames menu, with added obstacle course minigame"/>
@@ -262,7 +262,7 @@ export default function UiDesignPage() {
                     </p>
 
                     <div
-                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', marginTop: '1.5rem'}}>
+                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2.5rem', marginTop: '1.5rem'}}>
                         <ImageWithCaption src="/final game UI/tutorials.png" caption="Tutorials screen"/>
                         <ImageWithCaption src="/final game UI/start up menu.png"
                                           caption="Menu in each minigame to select difficulty and mode"/>
@@ -271,7 +271,7 @@ export default function UiDesignPage() {
                     </div>
 
                     <p style={{marginTop: '1.5rem', color: 'var(--slate-700)'}}>
-                        We have added an additional menu to select the difficulty
+                        We have added another menu to select the difficulty
                         and mode when starting a minigame, structured in a way that
                         leads you through the selection process and allows for a
                         quick start. The position of the power bar in our penalty
@@ -284,8 +284,12 @@ export default function UiDesignPage() {
                         and more intuitive to play.
                     </p>
 
+                    <p style={{marginTop: '1rem', color: 'var(--slate-700)'}}>
+                        Additionally, the position of the back and pause button have changed from where they were placed in our initial sketches. This is because we implemented a setting that allows the player to turn the MotionInput window on and off, meaning the original position no longer works for both of these cases – when the window is not there, the back/pause button will appear to be in the middle of the screen with a large space to its right. Therefore, we moved it to the bottom right corner instead.
+                    </p>
+
                     <div
-                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', marginTop: '1.5rem'}}>
+                        style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2.5rem', marginTop: '1.5rem'}}>
                         <ImageWithCaption src="/final game UI/pause menu.png" caption="Pause menu"/>
                         <ImageWithCaption src="/final game UI/settings in minigame.png"
                                           caption="Settings when accessed from the pause menu"/>
@@ -311,7 +315,12 @@ export default function UiDesignPage() {
                     <h3 style={{marginTop: '2rem'}}>MotionInput window UI</h3>
 
                     <p style={{marginTop: '1.5rem', color: 'var(--slate-700)'}}>
-                        The MotionInput window that is displayed in the corner while playing also requires good UI design. This window displays icons that the player can trigger with certain body parts. In the free kick, penalty shootout and obstacle course minigames, the player must use either foot to kick these icons. In goalkeeping (or in hands-only mode), the player must use either hand to trigger these icons. The placement and design of these icons are crucial to the gameplay and user experience.
+                        The MotionInput window that is displayed in the corner while playing also requires good UI
+                        design. This window displays icons that the player can trigger with certain body parts. In the
+                        free kick, penalty shootout and obstacle course minigames, the player must use either foot to
+                        kick these icons. In goalkeeping (or in hands-only mode), the player must use either hand to
+                        trigger these icons. The placement and design of these icons are crucial to the gameplay and
+                        user experience.
                     </p>
 
                     <div
@@ -334,7 +343,14 @@ export default function UiDesignPage() {
                     </p>
 
                     <p style={{marginTop: '1.5rem', color: 'var(--slate-700)'}}>
-                        For the kicking mode, we used icons of footballs that the player can ‘kick’. For the hands-only/goalkeeping mode, we used goalkeeper gloves on top of a football, to retain the circular shaped trigger but relate the icon to the gesture used. After several people playtested our game during the showcase, we also observed that the left and right icons in goalkeeping were hard to reach while standing (we had only tested this mode ourselves while sitting), and so we moved these closer to the centre. In both modes, when a icon is successfully triggered, the icon will light up, providing clear and instant feedback to the player that the input was successfully registered.
+                        For the kicking mode, we used icons of footballs that the player can ‘kick’. For the
+                        hands-only/goalkeeping mode, we used goalkeeper gloves on top of a football, to retain the
+                        circular shaped trigger but relate the icon to the gesture used. After several people playtested
+                        our game during the showcase, we also observed that the left and right icons in goalkeeping were
+                        hard to reach while standing (we had only tested this mode ourselves while sitting), and so we
+                        moved these closer to the centre. In both modes, when a icon is successfully triggered, the icon
+                        will light up, providing clear and instant feedback to the player that the input was
+                        successfully registered.
                     </p>
                 </div>
 
