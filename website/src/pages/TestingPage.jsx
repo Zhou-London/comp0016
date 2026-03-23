@@ -94,9 +94,9 @@ export default function TestingPage() {
                     </div>
 
                     <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
-                        <ImageWithCaption src="/report-assets/editmode-tests.png" caption="EditMode — 320 tests passing" />
-                        <ImageWithCaption src="/report-assets/playmode-tests-1.png" caption="PlayMode — 59 tests (top)" />
-                        <ImageWithCaption src="/report-assets/playmode-tests-2.png" caption="PlayMode — 59 tests (bottom)" />
+                        <ImageWithCaption src="/testing/editmode-tests.png" caption="EditMode — 320 tests passing" />
+                        <ImageWithCaption src="/testing/playmode-tests-1.png" caption="PlayMode — 59 tests (top)" />
+                        <ImageWithCaption src="/testing/playmode-tests-2.png" caption="PlayMode — 59 tests (bottom)" />
                     </div>
 
                     <h3 style={{marginTop: '2rem'}}>What We Test</h3>
@@ -155,6 +155,12 @@ export default function TestingPage() {
                         <li><b>Obstacle Course:</b> task generation through round completion, endless mode progression over five rounds, and verification that difficulty settings produce different task sequences.</li>
                         <li><b>Free Kick:</b> the full shot pipeline from lane selection through zone mapping to trajectory generation, scoring streak accumulation with block chance calculations, and exhaustive validation that all nine goal zones produce valid trajectories.</li>
                     </ul>
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1.5rem'}}>
+                        <div style={{width: '60%'}}>
+                            <ImageWithCaption src="/testing/integration.png" caption="Integration tests — 12 tests passing" />
+                        </div>
+                    </div>
+
                     <p style={{marginTop: '1rem'}}>
                         These integration tests catch interaction bugs that unit tests miss — for instance, ensuring
                         that a ball's Bezier curve path correctly feeds into the game manager's scoring system, or that
@@ -171,6 +177,15 @@ export default function TestingPage() {
                         clients and partners. Participants played through the minigames using MotionInput hand and body
                         tracking, and we collected feedback on gameplay feel, accessibility, and usability.
                     </p>
+
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
+                        <div style={{aspectRatio: '4/3', overflow: 'hidden', borderRadius: '8px', border: '1px solid #dde7f3'}}>
+                            <img src="/testing/showcase (1).jpg" alt="Showcase playtesting session" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+                        </div>
+                        <div style={{aspectRatio: '4/3', overflow: 'hidden', borderRadius: '8px', border: '1px solid #dde7f3'}}>
+                            <img src="/testing/showcase (2).jpg" alt="Showcase playtesting session" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+                        </div>
+                    </div>
 
                     <h3 style={{marginTop: '2rem'}}>Feedback Received</h3>
                     <p style={{marginTop: '1rem'}}>
@@ -231,6 +246,14 @@ export default function TestingPage() {
                         <li><b>Tutorial screens:</b> added tutorial pages with video slides so players can preview controls and objectives before entering gameplay.</li>
                         <li><b>Power bar repositioning:</b> moved the Penalty Shootout power meter to a position where it does not obscure the goal area.</li>
                     </ul>
+
+                    <h3 style={{marginTop: '2rem'}}>Some of the Changes According to the Showcase Feedback</h3>
+
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
+                        <ImageWithCaption src="/testing/aftershowcase (1).png" caption="Repositioned power bar above the goal" />
+                        <ImageWithCaption src="/testing/aftershowcase (2).png" caption="Enlarged SAVE! text with green colouring" />
+                        <ImageWithCaption src="/testing/aftershowcase (3).png" caption="Game speed setting added to settings menu" />
+                    </div>
                 </div>
 
                 <div className={styles.abstractPanel}>
