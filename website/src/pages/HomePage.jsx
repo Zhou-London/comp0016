@@ -1,4 +1,5 @@
 import styles from '../App.module.css'
+import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
 
 export default function HomePage() {
   const teamMembers = [
@@ -26,9 +27,10 @@ export default function HomePage() {
     {
       name: 'Zhouzhou Zhang',
       email: 'zhouzhou.zhang.24@ucl.ac.uk',
-      roles: 'Graphics & Visual Design',
-      bio: 'Bio / background placeholder',
+      roles: 'Programmer',
+      bio: 'CS Student at UCL passionate about performance engineering',
       linkedin: 'https://www.linkedin.com/in/zhouzhou-zhang-aa16b0282/',
+      photo: zhouzhouPhoto,
     },
     {
       name: 'Antony Wiles',
@@ -36,7 +38,7 @@ export default function HomePage() {
       roles: 'Game Programmer',
       bio: 'Bio / background placeholder',
       linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
-    },
+    }
   ]
 
   return (
@@ -81,14 +83,42 @@ export default function HomePage() {
           <h2>The Development Team</h2>
           <div className={styles.teamGrid}>
             {teamMembers.map((member) => (
-                <article key={member.name} className={styles.teamCard}>
+              <article key={member.name} className={styles.teamCard}>
+                {member.photo ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    style={{
+                      width: '100%',
+                      aspectRatio: '4 / 3',
+                      objectFit: 'cover',
+                      borderRadius: 10,
+                      marginBottom: '0.6rem',
+                    }}
+                  />
+                ) : (
                   <div className={styles.avatarPlaceholder}>Photo</div>
-                  <h3>{member.name}</h3>
-                  <p>Email: {member.email}</p>
-                  <p>Role(s): {member.roles}</p>
-                  <p>{member.bio}</p>
-                  <p>LinkedIn: <a href={member.linkedin} target="_blank" rel="noreferrer">{member.linkedin}</a></p>
-                </article>
+                )}
+                <h3>{member.name}</h3>
+                <p>Email: {member.email}</p>
+                <p>Role(s): {member.roles}</p>
+                <p>{member.bio}</p>
+                {member.linkedin ? (
+                  <p>
+                    LinkedIn:{' '}
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: 'var(--green-600)', textDecoration: 'underline' }}
+                    >
+                      {member.name}
+                    </a>
+                  </p>
+                ) : (
+                  <p>LinkedIn: add profile link</p>
+                )}
+              </article>
             ))}
           </div>
         </div>

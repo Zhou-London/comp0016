@@ -100,3 +100,175 @@ img {
   background-color: var(--gold-400);
   color: var(--green-900);
 }
+
+/* ═══════════════════════════════════════════
+   Partner Logo Marquee (infinite horizontal)
+   ═══════════════════════════════════════════ */
+.marquee-wrap {
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f8faff 0%, #f0fdf4 50%, #f8faff 100%);
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0;
+}
+
+/* Fade edges so logos blend in/out */
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-wrap::before { left: 0;  background: linear-gradient(90deg, #f8faff, transparent); }
+.marquee-wrap::after  { right: 0; background: linear-gradient(270deg, #f8faff, transparent); }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1.6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.marquee-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.marquee-item span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--green-900);
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+/* ═══════════════════════════════════════════
+   Scroll-reveal animations
+   ═══════════════════════════════════════════ */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade + scale pop */
+.fade-in-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Goal card roll-in from left */
+.goal-roll-in {
+  opacity: 0;
+  transform: translateX(-40px) rotate(-2deg);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.goal-roll-in.revealed {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* Table slide-up */
+.table-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+
+.table-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Persona card slide from left */
+.persona-slide-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.persona-slide-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Persona card slide from right */
+.persona-slide-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.persona-slide-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Diagram scale-in */
+.diagram-scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diagram-scale-in.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .fade-in-scale,
+  .goal-roll-in,
+  .table-reveal,
+  .persona-slide-left,
+  .persona-slide-right,
+  .diagram-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
