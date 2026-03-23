@@ -21,7 +21,7 @@ export default function HomePage() {
       name: 'William Xing',
       email: 'weimin.xing.22@ucl.ac.uk',
       roles: 'Game Programmer, QA & Testing Lead',
-      bio: 'CS Student at UCL passionate about performance engineering',
+      bio: 'Bio / background placeholder',
       linkedin: 'https://www.linkedin.com/in/wangweimin-xing-2bb1b8300/',
     },
     {
