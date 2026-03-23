@@ -20,18 +20,7 @@
   padding: 0;
 }
 
-.tabsBar {
-  display: flex;
-  gap: 0.2rem;
-  border-bottom: 2px solid #e2eaf5;
-  padding: 0 0 0 0;
-  background: none;
-  border-radius: 0;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  margin-bottom: 1.2rem;
-}
+/* Only keep the correct, complete .tabsBar block below */
 
 .tab {
   background: none;
@@ -416,31 +405,40 @@
   z-index: 2;
 }
 
-.tab {
-  background: none;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 1.01rem;
+
+.tab, .tabActive {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--slate-600);
   font-weight: 600;
-  color: var(--green-800);
-  padding: 0.7rem 1.3rem 0.6rem 1.3rem;
-  border-radius: 12px 12px 0 0;
+  padding: 0.7rem 1.1rem 0.6rem 1.1rem;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid transparent;
+  background: none;
   cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-  border-bottom: 2.5px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  outline: none;
+  margin-right: 0.2rem;
+  margin-bottom: -1px;
+  position: relative;
+  top: 1px;
+  min-height: 2.4rem;
+  display: flex;
+  align-items: center;
 }
 
 .tab:hover {
-  background: #f3f8e7;
   color: var(--green-900);
+  background: rgba(126, 190, 52, 0.16);
+  border-color: rgba(95, 159, 40, 0.35);
 }
 
 .tabActive {
-  background: #e9f7d5;
-  color: var(--green-900);
-  border-bottom: 2.5px solid var(--green-700);
-  z-index: 1;
+  color: var(--green-900) !important;
+  background: rgba(126, 190, 52, 0.28);
+  border-color: rgba(95, 159, 40, 0.45);
+  z-index: 2;
 }
 
 .tabPanel {

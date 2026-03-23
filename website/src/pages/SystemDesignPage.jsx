@@ -14,7 +14,7 @@ const tabs = [
           external MotionInput process. The diagram below highlights runtime boundaries and data flow through PlayerPrefs and
           MotionInput configuration files.
         </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/architecture.svg" alt="System architecture diagram" />
+        <img className={styles.diagramImageWide} src="/diagrams/system-design/architecture.png" alt="System architecture diagram" />
       </section>
     ),
   },
@@ -28,7 +28,7 @@ const tabs = [
           Scene flow starts from MainMenuScene to MinigamesMenuScene, then branches to four minigames, tutorials, settings,
           and credits. Each minigame supports a return path to MinigamesMenuScene.
         </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/site-map-scenes.svg" alt="Scene site map diagram" />
+        <img className={styles.diagramImageWide} src="/diagrams/system-design/game-map.png" alt="Game map diagram" />
       </section>
     ),
   },
@@ -98,7 +98,7 @@ const tabs = [
           Assembly dependencies and shared APIs are defined via asmdef boundaries and shared interfaces. This keeps
           minigame code independent while reusing shared systems.
         </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.svg" alt="Assembly dependency and API map" />
+        <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.png" alt="Assembly dependency and API map" />
       </section>
     ),
   },
