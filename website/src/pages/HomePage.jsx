@@ -1,6 +1,44 @@
 import styles from '../App.module.css'
 
 export default function HomePage() {
+  const teamMembers = [
+    {
+      name: 'Mariha Subhan',
+      email: 'mariha.subhan.24@ucl.ac.uk',
+      roles: 'Team Lead, Client Liaison, Game Programmer',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/mariha-subhan-ba0672324/',
+    },
+    {
+      name: 'Sunain Syed',
+      email: 'sunain.syed.24@ucl.ac.uk',
+      roles: 'Lead Game Developer, Systems Architect',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/sunain-syed/',
+    },
+    {
+      name: 'William Xing',
+      email: 'weimin.xing.22@ucl.ac.uk',
+      roles: 'Game Programmer, QA & Testing Lead',
+      bio: 'CS Student at UCL passionate about performance engineering',
+      linkedin: 'https://www.linkedin.com/in/wangweimin-xing-2bb1b8300/',
+    },
+    {
+      name: 'Zhouzhou Zhang',
+      email: 'zhouzhou.zhang.24@ucl.ac.uk',
+      roles: 'Graphics & Visual Design',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/zhouzhou-zhang-aa16b0282/',
+    },
+    {
+      name: 'Antony Wiles',
+      email: 'antony.wiles.24@ucl.ac.uk',
+      roles: 'Game Programmer',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
+    },
+  ]
+
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
@@ -42,15 +80,15 @@ export default function HomePage() {
         <div className={styles.teamBlock}>
           <h2>The Development Team</h2>
           <div className={styles.teamGrid}>
-            {['Team Member 1', 'Team Member 2', 'Team Member 3', 'Team Member 4', 'Team Member 5'].map((name) => (
-              <article key={name} className={styles.teamCard}>
-                <div className={styles.avatarPlaceholder}>Photo</div>
-                <h3>{name}</h3>
-                <p>Email: name@ucl.ac.uk</p>
-                <p>Role(s): Client liaison, UI design, researcher, programmer, report editor, tester</p>
-                <p>Bio / background placeholder</p>
-                <p>LinkedIn: add profile link</p>
-              </article>
+            {teamMembers.map((member) => (
+                <article key={member.name} className={styles.teamCard}>
+                  <div className={styles.avatarPlaceholder}>Photo</div>
+                  <h3>{member.name}</h3>
+                  <p>Email: {member.email}</p>
+                  <p>Role(s): {member.roles}</p>
+                  <p>{member.bio}</p>
+                  <p>LinkedIn: <a href={member.linkedin} target="_blank" rel="noreferrer">{member.linkedin}</a></p>
+                </article>
             ))}
           </div>
         </div>
