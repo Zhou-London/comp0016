@@ -10,8 +10,8 @@ const navItems = [
   { to: '/implementation', label: 'Implementation' },
   { to: '/testing', label: 'Testing' },
   { to: '/evaluation', label: 'Evaluation' },
-  { to: '/appendices', label: 'Appendices' },
   { to: '/blog', label: 'Blog' },
+  { to: '/appendices', label: 'Appendices' },
 ]
 
 export default function TopNav() {
