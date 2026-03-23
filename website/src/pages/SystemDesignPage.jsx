@@ -80,7 +80,7 @@ const tabs = [
     label: 'Data',
     content: (
       <section>
-        <h2>Data Storage and Schema</h2>
+        <h2>Data Storage</h2>
         <p>
           This project does not use a relational database. Runtime data storage is split between PlayerPrefs keys and a
           persistent MotionInput JSON config. The schema diagram below documents those structures and relationships.
