@@ -3,18 +3,42 @@ import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
 
 export default function HomePage() {
   const teamMembers = [
-    { name: 'Team Member 1', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
-    { name: 'Team Member 2', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
-    { name: 'Team Member 3', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
-    { name: 'Team Member 4', email: 'name@ucl.ac.uk', roles: 'Client liaison, UI design, researcher, programmer, report editor, tester', bio: 'Bio / background placeholder', linkedin: null, photo: null },
+    {
+      name: 'Mariha Subhan',
+      email: 'mariha.subhan.24@ucl.ac.uk',
+      roles: 'Team Lead, Client Liaison, Game Programmer',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/mariha-subhan-ba0672324/',
+    },
+    {
+      name: 'Sunain Syed',
+      email: 'sunain.syed.24@ucl.ac.uk',
+      roles: 'Lead Game Developer, Systems Architect',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/sunain-syed/',
+    },
+    {
+      name: 'William Xing',
+      email: 'weimin.xing.22@ucl.ac.uk',
+      roles: 'Game Programmer, QA & Testing Lead',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/wangweimin-xing-2bb1b8300/',
+    },
     {
       name: 'Zhouzhou Zhang',
       email: 'zhouzhou.zhang.24@ucl.ac.uk',
-      roles: 'Programmer',
+      roles: 'Graphics & Visual Design',
       bio: 'CS Student at UCL passionate about performance engineering',
       linkedin: 'https://www.linkedin.com/in/zhouzhou-zhang-aa16b0282/',
       photo: zhouzhouPhoto,
     },
+    {
+      name: 'Antony Wiles',
+      email: 'antony.wiles.24@ucl.ac.uk',
+      roles: 'Game Programmer',
+      bio: 'Bio / background placeholder',
+      linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
+    }
   ]
 
   return (
@@ -30,18 +54,27 @@ export default function HomePage() {
           <h2>Abstract</h2>
           <h3>Problem Statement</h3>
           <p>
-            Placeholder paragraph. Explain the real-world problem and project motivation in detail, including the gap in current
-            football accessibility/training experiences and why this audience needs a tailored solution.
-          </p>
+            Children with autism often face significant barriers to participating in physical sports. In a traditional
+            football game, they may face sensory overload in a fast paced, competitive environment, or be left behind
+            due to a lack of accessible training tools designed with neurodivergent children in mind. In many football
+            video games, they are then faced with the complexities and fine motor control required of traditional
+            control schemes, such as keyboard and mouse or controllers. This limits the opportunity for physical
+            development, social connection, and enjoyment of one of the world’s most popular sports.</p>
           <h3>Our Solution</h3>
           <p>
-            Placeholder paragraph. Summarise the application solution delivered in MotionInput Football Practice,
-            including core architecture and key experiences delivered across minigames and settings.
-          </p>
+            Our team developed MotionInput Football Practice, a camera-based football game with 4 minigames: Free Kick,
+            Goalkeeping, Penalty Shootout, and Obstacle Course. Built in Unity and powered by MotionInput technology
+            using OpenCV, our game lets you play through natural body movements. No controllers or specialist hardware
+            is required. Our game design philosophy is based on decision making rather than reaction time, reducing
+            pressure and creating a calmer, more accessible environment to experience football. The game was developed
+            in collaboration with the National Autistic Society, with inclusivity and accessibility at the core of every
+            design decision.</p>
           <h3>Achievement and Impact</h3>
           <p>
-            Placeholder paragraph. Describe major outcomes, user value, measurable improvements, and expected long-term impact.
-          </p>
+            MotionInput Football Practice successfully delivers a fun, sensory-friendly football experience that is
+            accessible to children who would otherwise be excluded from the sport. We’ve turned physical movement into
+            gameplay – our game supports the development of motor skills, coordination and confidence in autistic
+            children, and it provides an exciting and meaningful way to participate in football.</p>
         </div>
 
         <div className={styles.mediaGrid}>
