@@ -27,7 +27,7 @@ export default function HomePage() {
     {
       name: 'Zhouzhou Zhang',
       email: 'zhouzhou.zhang.24@ucl.ac.uk',
-      roles: 'Programmer',
+      roles: 'Graphics & Visual Design',
       bio: 'CS Student at UCL passionate about performance engineering',
       linkedin: 'https://www.linkedin.com/in/zhouzhou-zhang-aa16b0282/',
       photo: zhouzhouPhoto,
