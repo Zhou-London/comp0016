@@ -1,44 +1,11 @@
-import { useEffect, useRef } from 'react'
 import styles from '../App.module.css'
 import SectionHeader from '../components/SectionHeader'
+import { Reveal } from '../components/Reveal'
 import nasLogo from '../assets/partners/nas.jpg'
 import motioninputLogo from '../assets/partners/motioninput.jpg'
 import intelLogo from '../assets/partners/intel.svg'
 import cocacolaLogo from '../assets/partners/cocacola.png'
 
-/* ── Scroll-reveal animation hook ── */
-function useScrollReveal() {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add('revealed')
-          observer.unobserve(el)
-        }
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-  return ref
-}
-
-function RevealSection({ children, className = '', style = {}, delay = 0 }) {
-  const ref = useScrollReveal()
-  return (
-    <div
-      ref={ref}
-      className={`reveal-on-scroll ${className}`}
-      style={{ ...style, transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  )
-}
 
 /* ── Reusable style constants ── */
 const accent = {
@@ -91,16 +58,6 @@ function PartnerMarquee() {
         </div>
       </div>
     </>
-  )
-}
-
-/* ── Reveal wrapper for individual elements (text, list items, etc.) ── */
-function Reveal({ children, className = '', delay = 0, style = {} }) {
-  const ref = useScrollReveal()
-  return (
-    <div ref={ref} className={`reveal-on-scroll ${className}`} style={{ ...style, transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
   )
 }
 
@@ -321,9 +278,9 @@ export default function RequirementsPage() {
               'Encourage physical activity and social inclusion by providing a safe, structured environment where children can practise football skills at their own pace without overwhelming social pressure.',
               'Showcase the system in alignment with the 2026 FIFA World Cup, promoting inclusion and accessibility in sports through interactive technology.',
             ].map((goal, i) => (
-              <RevealSection key={i} className="goal-roll-in" delay={i * 100}>
+              <Reveal key={i} className="goal-roll-in" delay={i * 100}>
                 <GoalCard num={i + 1}>{goal}</GoalCard>
-              </RevealSection>
+              </Reveal>
             ))}
           </div>
         </article>
@@ -376,15 +333,15 @@ export default function RequirementsPage() {
       </div>
 
       {/* ────────── Personas ────────── */}
-      <RevealSection>
+      <Reveal>
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Personas</h3>
           <p style={{ marginBottom: '0.5rem' }}>Below are two representative user personas that guided our design decisions.</p>
         </article>
       </div>
-      </RevealSection>
-      <RevealSection className="persona-slide-left" delay={100}>
+      </Reveal>
+      <Reveal className="persona-slide-left" delay={100}>
       <div className={styles.contentGrid}>
         <PersonaCard
           name="Sara Howard"
@@ -409,8 +366,8 @@ export default function RequirementsPage() {
           ]}
         />
       </div>
-      </RevealSection>
-      <RevealSection className="persona-slide-right" delay={200}>
+      </Reveal>
+      <Reveal className="persona-slide-right" delay={200}>
       <div className={styles.contentGrid}>
         <PersonaCard
           name="James Chen"
@@ -439,10 +396,10 @@ export default function RequirementsPage() {
           ]}
         />
       </div>
-      </RevealSection>
+      </Reveal>
 
       {/* ────────── Use Cases ────────── */}
-      <RevealSection className="diagram-scale-in">
+      <Reveal className="diagram-scale-in">
       <div className={styles.contentGrid} style={{ marginTop: '1rem' }}>
         <article className={styles.card} style={{ gridColumn: 'span 3' }}>
           <h3>Use Case Diagram</h3>
@@ -450,9 +407,9 @@ export default function RequirementsPage() {
           <UseCaseDiagram />
         </article>
       </div>
-      </RevealSection>
+      </Reveal>
 
-      <RevealSection className="table-reveal" delay={100}>
+      <Reveal className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>List of Use Cases</h3>
         <table>
@@ -479,10 +436,10 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
-      </RevealSection>
+      </Reveal>
 
       {/* ────────── MoSCoW Functional Requirements ────────── */}
-      <RevealSection className="table-reveal" delay={100}>
+      <Reveal className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>MoSCoW Functional Requirements</h3>
         <table>
@@ -521,10 +478,10 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
-      </RevealSection>
+      </Reveal>
 
       {/* ────────── MoSCoW Non-Functional Requirements ────────── */}
-      <RevealSection className="table-reveal" delay={100}>
+      <Reveal className="table-reveal" delay={100}>
       <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
         <h3>MoSCoW Non-Functional Requirements</h3>
         <table>
@@ -559,7 +516,7 @@ export default function RequirementsPage() {
           </tbody>
         </table>
       </div>
-      </RevealSection>
+      </Reveal>
     </section>
   )
 }

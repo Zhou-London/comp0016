@@ -2,36 +2,7 @@ import { useEffect, useRef } from 'react'
 import styles from '../App.module.css'
 import SectionHeader from '../components/SectionHeader'
 import ImageWithCaption from '../components/ImageWithCaption'
-
-/* ── Scroll-reveal hook ── */
-function useScrollReveal() {
-    const ref = useRef(null)
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    el.classList.add('revealed')
-                    observer.unobserve(el)
-                }
-            },
-            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-        )
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [])
-    return ref
-}
-
-function Reveal({ children, className = '', delay = 0, style = {} }) {
-    const ref = useScrollReveal()
-    return (
-        <div ref={ref} className={`reveal-on-scroll ${className}`} style={{ ...style, transitionDelay: `${delay}ms` }}>
-            {children}
-        </div>
-    )
-}
+import { Reveal } from '../components/Reveal'
 
 /* ── Blog entry ── */
 function BlogEntry({ weeks, title, body, delay = 0, animClass = '' }) {
