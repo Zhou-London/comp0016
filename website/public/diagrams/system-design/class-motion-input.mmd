@@ -1,0 +1,48 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'fontFamily': 'Trebuchet MS'}}}%%
+classDiagram
+    class MotionInputManager {
+      +Instance : MotionInputManager
+      +mode : string
+      +defaultMode : string
+      +RequestModeSwitch(newMode)
+      +TerminateMotionInput()
+      +RegisterTransform(transform)
+      +IsMotionInputInitialized() bool
+      -StartMotionInput()
+      -SwitchModeCoroutine()
+      -ChangeMode() bool
+      -processAdapter : MotionInputProcessAdapter
+      -windowAdapter : MotionInputWindowAdapter
+      -configRepository : MotionInputConfigRepository
+    }
+
+    class MotionInputConfigRepository {
+      +PersistentConfigPath : string
+      +EnsurePersistentConfig()
+      +ModeExists(mode) bool
+      +TrySetMode(mode) bool
+      +GetCurrentMode() string
+      -streamingConfigPath : string
+      -persistentConfigPath : string
+      -modesFolderPath : string
+    }
+
+    class MotionInputProcessAdapter {
+      +ExecutableExists(appPath, app) bool
+      +TryLaunch(appPath, app, configPath, errorMessage) bool
+    }
+
+    class MotionInputWindowAdapter {
+      +CaptureForegroundWindow() IntPtr
+      +FindByTitle(windowTitle) IntPtr
+      +CloseByTitle(windowTitle)
+      +Focus(hWnd)
+      +SendReloadShortcut(hWnd)
+      +RemoveHeader(hWnd)
+      +ApplyTransform(hWnd, rectTransform, unityWindow)
+    }
+
+
+    MotionInputManager --> MotionInputConfigRepository : holds reference
+    MotionInputManager --> MotionInputProcessAdapter : holds reference
+    MotionInputManager --> MotionInputWindowAdapter : holds reference

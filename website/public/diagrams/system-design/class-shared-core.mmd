@@ -1,0 +1,70 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e9f7d5', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#6eaa3a', 'lineColor': '#3b6a9c', 'fontFamily': 'Trebuchet MS'}}}%%
+classDiagram
+    class SessionFlow~TState~ {
+      +CurrentState : TState
+      +IsInitialized : bool
+      +Register(state, onEnter, onTick, onExit)
+      +TransitionTo(state)
+      +Tick()
+    }
+
+    class IAudioService {
+      <<interface>>
+      +PlayUiClick()
+      +PlayKick()
+      +PlayWhistle()
+      +PlayBallBlock()
+      +PlayGoalScored()
+      +StartAmbientCrowd()
+      +StopAmbientCrowd()
+      +StartMenuMusic()
+      +PauseMenuMusic()
+    }
+
+    class ISettingsService {
+      <<interface>>
+      +GameSpeedMultiplier : float
+      +MotionInputEnabled : bool
+      +HandsOnlyMode : bool
+    }
+
+    class GlobalAudioServiceAdapter {
+      +PlayUiClick()
+      +PlayKick()
+      +PlayWhistle()
+      +PlayBallBlock()
+      +PlayGoalScored()
+      +StartAmbientCrowd()
+      +StopAmbientCrowd()
+    }
+
+    class GameSettingsServiceAdapter {
+      +GameSpeedMultiplier : float
+      +MotionInputEnabled : bool
+      +HandsOnlyMode : bool
+    }
+
+    class GlobalGameAudio {
+      +Instance
+      +SetSfxVolume(volume)
+      +SetCrowdVolume(volume)
+      +SetMusicVolume(volume)
+      +PlayUiClick()
+      +PlayKick()
+    }
+
+    class GameSettings {
+      +Instance
+      +gameSpeedMultiplier : float
+      +motionInputEnabled : bool
+      +handsOnlyMode : bool
+    }
+
+    GlobalAudioServiceAdapter ..|> IAudioService
+    GameSettingsServiceAdapter ..|> ISettingsService
+    GlobalAudioServiceAdapter --> GlobalGameAudio : delegates to singleton
+    GameSettingsServiceAdapter --> GameSettings : reads singleton
+    SessionFlow~TState~ <.. FreekickController : lifecycle orchestration
+    SessionFlow~TState~ <.. GoalkeeperGameManager : lifecycle orchestration
+    SessionFlow~TState~ <.. PenaltyController : lifecycle orchestration
+    SessionFlow~TState~ <.. ObstacleCourseGameManager : lifecycle orchestration

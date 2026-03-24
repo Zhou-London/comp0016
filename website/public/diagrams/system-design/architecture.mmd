@@ -1,0 +1,93 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e9f7d5', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#6eaa3a', 'lineColor': '#3b6a9c', 'secondaryColor': '#ecf4ff', 'tertiaryColor': '#fff8df', 'fontFamily': 'Trebuchet MS'}}}%%
+flowchart LR
+    User[Player]
+
+    subgraph Shell[Application Shell]
+        MainMenu[MainMenuScene]
+        MinigamesMenu[MinigamesMenuScene]
+        SettingsScene[SettingsScene]
+        CreditsScene[CreditsScene]
+        TutorialsScene[TutorialsScene]
+        MenuController[MinigameMenuController]
+        SettingsUI[SettingsUI]
+    end
+
+    subgraph Minigames[Minigame Modules]
+        Freekick[FreekickScene + Freekick module]
+        Goalkeeping[GoalkeepingScene + Goalkeeping module]
+        Penalty[PenaltyShootoutScene + Penalty module]
+        Obstacle[ObstacleCourseScene + Obstacle module]
+    end
+
+    subgraph Shared[Shared Runtime Systems]
+        MotionManager[MotionInputManager]
+        GameSettings[GameSettings singleton]
+        GlobalAudio[GlobalGameAudio singleton]
+        SessionFlow[SessionFlow<TState>]
+        Logger[GameLogger]
+    end
+
+    subgraph External[External Runtime]
+        MotionExe[motioninput.exe]
+        ModesFolder[data/modes/*.json]
+    end
+
+    subgraph Storage[Data and Persistence]
+        PlayerPrefs[(PlayerPrefs)]
+        PersistentConfig[(persistentDataPath/config.json)]
+        StreamingConfig[(StreamingAssets/MotionInput/data/config.json)]
+    end
+
+    User --> MainMenu
+    MainMenu --> MinigamesMenu
+    MainMenu --> SettingsScene
+    MainMenu --> CreditsScene
+    MinigamesMenu --> TutorialsScene
+    MinigamesMenu --> Freekick
+    MinigamesMenu --> Goalkeeping
+    MinigamesMenu --> Penalty
+    MinigamesMenu --> Obstacle
+
+    MenuController --> MotionManager
+    SettingsUI --> GameSettings
+    SettingsUI --> GlobalAudio
+    SettingsUI --> MotionManager
+
+    Freekick --> SessionFlow
+    Goalkeeping --> SessionFlow
+    Penalty --> SessionFlow
+    Obstacle --> SessionFlow
+
+    Freekick --> GlobalAudio
+    Goalkeeping --> GlobalAudio
+    Penalty --> GlobalAudio
+    Obstacle --> GlobalAudio
+
+    Freekick --> GameSettings
+    Goalkeeping --> GameSettings
+    Penalty --> GameSettings
+    Obstacle --> GameSettings
+
+    MotionManager --> MotionExe
+    MotionManager --> PersistentConfig
+    MotionManager --> ModesFolder
+    MotionManager --> StreamingConfig
+
+    GameSettings --> PlayerPrefs
+    GlobalAudio --> PlayerPrefs
+    Logger --> Freekick
+    Logger --> Goalkeeping
+    Logger --> Penalty
+    Logger --> Obstacle
+
+    classDef shell fill:#ecf4ff,stroke:#3b6a9c,stroke-width:1.3px,color:#173a1a;
+    classDef minigame fill:#fff8df,stroke:#b2872f,stroke-width:1.3px,color:#3d2e0d;
+    classDef shared fill:#e9f7d5,stroke:#6eaa3a,stroke-width:1.3px,color:#173a1a;
+    classDef external fill:#ffe8e8,stroke:#b55656,stroke-width:1.3px,color:#4a1b1b;
+    classDef storage fill:#f3edff,stroke:#6e53b1,stroke-width:1.3px,color:#2b1f4f;
+
+    class MainMenu,MinigamesMenu,SettingsScene,CreditsScene,TutorialsScene,MenuController,SettingsUI shell;
+    class Freekick,Goalkeeping,Penalty,Obstacle minigame;
+    class MotionManager,GameSettings,GlobalAudio,SessionFlow,Logger shared;
+    class MotionExe,ModesFolder external;
+    class PlayerPrefs,PersistentConfig,StreamingConfig storage;

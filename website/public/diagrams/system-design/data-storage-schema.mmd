@@ -1,0 +1,43 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#f3edff', 'primaryTextColor': '#2b1f4f', 'primaryBorderColor': '#6e53b1', 'lineColor': '#6e53b1', 'fontFamily': 'Trebuchet MS'}}}%%
+erDiagram
+    PLAYER_PREFS {
+        int MotionInputEnabled
+        int HandsOnlyMode
+        int GlobalAudio_SfxEnabled
+        int GlobalAudio_CrowdEnabled
+        float GlobalAudio_SfxVolume
+        float GlobalAudio_CrowdVolume
+        float GlobalAudio_MusicVolume
+    }
+
+    MOTIONINPUT_CONFIG_JSON {
+        string mode
+        float version
+        bool relative_mouse_movement
+        bool object_tracking
+        bool realtime_processing
+        string device
+    }
+
+    MODE_FILE_JSON {
+        string mode_path
+        string mode_name
+    }
+
+    GAME_SETTINGS_RUNTIME {
+        float gameSpeedMultiplier
+        bool motionInputEnabled
+        bool handsOnlyMode
+    }
+
+    GLOBAL_AUDIO_RUNTIME {
+        float sfxVolume
+        float crowdVolume
+        float musicVolume
+        bool sfxEnabled
+        bool crowdEnabled
+    }
+
+    GAME_SETTINGS_RUNTIME ||--|| PLAYER_PREFS : persists_to
+    GLOBAL_AUDIO_RUNTIME ||--|| PLAYER_PREFS : persists_to
+    MOTIONINPUT_CONFIG_JSON ||--o{ MODE_FILE_JSON : references_mode_from

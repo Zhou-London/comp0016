@@ -1,0 +1,29 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'signalColor': '#2f5f8f', 'activationBorderColor': '#6eaa3a', 'fontFamily': 'Trebuchet MS'}}}%%
+sequenceDiagram
+    participant Player
+    participant Controller as Minigame Controller
+    participant Flow as SessionFlow<TState>
+    participant UI as ModeMenu/Pause/Completion UI
+
+    Player->>UI: Select difficulty + mode
+    UI->>Controller: StartGame(config)
+    Controller->>Flow: Register(states)
+    Controller->>Flow: TransitionTo(Menu/Countdown)
+
+    loop Every frame
+        Controller->>Flow: Tick()
+        Flow-->>Controller: onTick callback for current state
+    end
+
+    Controller->>Flow: TransitionTo(Playing)
+    Note over Controller,Flow: Gameplay events update score/timer/streak
+
+    alt Target score reached or rounds complete
+        Controller->>Flow: TransitionTo(Complete)
+        Controller->>UI: Show completion panel
+        Player->>UI: Quit
+        UI->>Controller: ReturnToMinigamesMenu()
+    else Player pauses/restarts
+        Player->>UI: Pause
+        UI->>Controller: Pause/Resume/Restart
+    end
