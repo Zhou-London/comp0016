@@ -134,6 +134,14 @@ const tabs = [
             </p>
             <SystemDesignImage src="/diagrams/system-design/freekick-class-overview.png" alt="Class diagram for Freekick minigame" caption="Class diagram for Freekick minigame"/>
         </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Goalkeeping Minigame Class Diagram</h3>
+          <p>
+            The Goalkeeping minigame is structured around a central <b>GoalkeeperGameManager</b> that manages the session state machine, scoring, UI, and audio. The <b>GoalkeeperCompositionRoot</b> wires up all dependencies and scene references. Ball spawning and targeting are handled by <b>GoalkeeperBallShooter</b>, which assigns Bezier curve trajectories to each ball using <b>GoalkeeperBallCurvePath</b>. The <b>GoalkeeperFPSController</b> manages hand position and input, while <b>GoalkeeperGloveSetup</b> instantiates and parents glove models for hand tracking. Save and goal outcomes are detected by <b>GoalkeeperSaveDetector</b> and <b>GoalkeeperGoalDetector</b>, which notify the manager of results. This architecture enables clear separation of concerns, robust hand/motion input integration, and maintainable gameplay logic.
+          </p>
+          <SystemDesignImage src="/diagrams/system-design/goalkeeping-class-overview.png" alt="Class diagram for Goalkeeping minigame" caption="Class diagram for Goalkeeping minigame"
+          />
+        </div>
       </section>
     ),
   },
