@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 
-export default function ImageWithCaption({ src, alt, caption }) {
+export default function ImageWithCaption({ src, alt, caption, imgStyle }) {
     const [hovered, setHovered] = useState(false)
     const [open, setOpen] = useState(false)
 
@@ -13,7 +13,7 @@ export default function ImageWithCaption({ src, alt, caption }) {
                 onMouseLeave={() => setHovered(false)}
                 onClick={() => setOpen(true)}
             >
-                <img src={src} alt={alt || caption} style={{ width: '100%', display: 'block' }} />
+                <img src={src} alt={alt || caption} style={{ width: '100%', display: 'block', ...imgStyle }} />
                 <div style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0,
                     padding: '0.6rem 0.8rem',
