@@ -127,6 +127,13 @@ const tabs = [
           </p>
           <SystemDesignImage src="/diagrams/system-design/class-shared-logging.png" alt="Class diagram for shared logging subsystem" caption="Class diagram for shared logging subsystem" />
         </div>
+        <div className={styles.componentBreakdown}>
+        <h3>Freekick Minigame Class Diagram</h3>
+            <p>
+              The Freekick minigame uses a thin-controller and service-oriented architecture. The <b>FreekickController</b> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <b>FreekickShotPlanningCoordinator</b>, <b>FreekickRoundManager</b>, and <b>FreekickSessionLifecycleService</b>. Scoring and round state are tracked by <b>FreekickScoreTracker</b> and <b>FreekickGoalTrigger</b>. Audio is handled directly via <b>GlobalGameAudio</b> calls from these classes, with no dedicated audio director. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
+            </p>
+            <SystemDesignImage src="/diagrams/system-design/freekick-class-overview.png" alt="Class diagram for Freekick minigame" caption="Class diagram for Freekick minigame"/>
+        </div>
       </section>
     ),
   },
