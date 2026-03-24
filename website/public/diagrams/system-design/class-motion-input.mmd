@@ -1,7 +1,7 @@
 %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ecf4ff', 'primaryTextColor': '#173a1a', 'primaryBorderColor': '#3b6a9c', 'lineColor': '#2f5f8f', 'fontFamily': 'Trebuchet MS'}}}%%
 classDiagram
     class MotionInputManager {
-      +Instance
+      +Instance : MotionInputManager
       +mode : string
       +defaultMode : string
       +RequestModeSwitch(newMode)
@@ -11,6 +11,9 @@ classDiagram
       -StartMotionInput()
       -SwitchModeCoroutine()
       -ChangeMode() bool
+      -processAdapter : MotionInputProcessAdapter
+      -windowAdapter : MotionInputWindowAdapter
+      -configRepository : MotionInputConfigRepository
     }
 
     class MotionInputConfigRepository {
@@ -19,6 +22,9 @@ classDiagram
       +ModeExists(mode) bool
       +TrySetMode(mode) bool
       +GetCurrentMode() string
+      -streamingConfigPath : string
+      -persistentConfigPath : string
+      -modesFolderPath : string
     }
 
     class MotionInputProcessAdapter {
@@ -36,12 +42,7 @@ classDiagram
       +ApplyTransform(hWnd, rectTransform, unityWindow)
     }
 
-    class MotionInputTransformRegistrar {
-      +sceneMode : string
-      +Start()
-    }
 
-    MotionInputManager --> MotionInputConfigRepository : uses
-    MotionInputManager --> MotionInputProcessAdapter : uses
-    MotionInputManager --> MotionInputWindowAdapter : uses
-    MotionInputTransformRegistrar --> MotionInputManager : registers transform and mode
+    MotionInputManager --> MotionInputConfigRepository : holds reference
+    MotionInputManager --> MotionInputProcessAdapter : holds reference
+    MotionInputManager --> MotionInputWindowAdapter : holds reference

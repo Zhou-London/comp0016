@@ -1,3 +1,31 @@
+/* SystemDesignPage component breakdown styling */
+.componentBreakdown {
+  margin: 2rem 0 0 0;
+  padding: 1.5rem 2rem 1.5rem 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  max-width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.componentBreakdown h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #234;
+}
+.componentBreakdown ul {
+  list-style: disc inside;
+  padding-left: 1.2em;
+  margin: 0;
+}
+.componentBreakdown li {
+  margin-bottom: 1.1em;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: #2a2a2a;
+}
 .diagramImageWide {
   display: block;
   width: 100%;

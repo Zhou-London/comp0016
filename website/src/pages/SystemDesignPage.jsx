@@ -10,11 +10,19 @@ const tabs = [
       <section>
         <h2>System Architecture Diagram</h2>
         <p>
-          The architecture combines a Unity scene-based shell, isolated minigame modules, shared runtime systems, and an
-          external MotionInput process. The diagram below highlights runtime boundaries and data flow through PlayerPrefs and
-          MotionInput configuration files.
+           The architecture is built around a modular <strong>Unity</strong> scene-based shell, with each minigame implemented as a self-contained module. Shared runtime systems—such as <b>MotionInputManager</b>, <b>GameSettings</b>, and <b>GlobalGameAudio</b>—provide core services accessible across all scenes. An external <b>motioninput.exe</b> process handles motion tracking, with configuration and state exchanged via persistent JSON files and PlayerPrefs. The diagram below shows how the application shell, minigame modules, shared systems, and external processes interact, including the control flow between them.
         </p>
         <img className={styles.diagramImageWide} src="/diagrams/system-design/architecture.png" alt="System architecture diagram" />
+        <div className={styles.componentBreakdown}>
+          <h3>Component Breakdown</h3>
+          <ul>
+            <li><b>Application Shell</b>: Hosts the main menu, minigames menu, settings, credits, and tutorials scenes. It manages user navigation, scene transitions, and global UI state. The shell is responsible for routing the user to the correct minigame or settings area and for maintaining persistent UI elements across scenes.</li>
+            <li><b>Minigame Modules</b>: Each minigame (Freekick, Goalkeeping, Penalty Shootout, Obstacle Course) is implemented as a separate scene and code module. These modules encapsulate their own gameplay logic, assets, and session flow, allowing for independent development and testing. They interact with shared systems for settings, audio, and motion input.</li>
+            <li><b>Shared Runtime Systems</b>: Core services such as <b>MotionInputManager</b>, <b>GameSettings</b>, <b>GlobalGameAudio</b>, <b>SessionFlow</b>, and <b>GameLogger</b> are implemented as singletons or service adapters. These provide cross-scene functionality, including input management, persistent settings, audio playback, session state management, and logging. They are accessible from any scene and ensure consistent behavior throughout the application.</li>
+            <li><b>External Runtime (MotionInput)</b>: The <b>motioninput.exe</b> process runs outside of Unity and handles all motion tracking and input processing. It is launched and managed by the <b>MotionInputManager</b>, and communicates with the Unity application via configuration files and window focus events. The <b>ModesFolder</b> and <b>StreamingConfig</b> provide mode definitions and default settings for the external process.</li>
+            <li><b>Data and Persistence</b>: User and runtime data is stored in <b>PlayerPrefs</b> (for settings like audio and input preferences), <b>PersistentConfig</b> (for motion input configuration), and <b>StreamingConfig</b> (for default config shipped with the app). These storage locations ensure that user preferences and system state persist across sessions and can be restored on startup.</li>
+          </ul>
+        </div>
       </section>
     ),
   },
@@ -23,11 +31,13 @@ const tabs = [
     content: (
       <section>
         <h2>Navigation and Runtime Flow</h2>
-        <h3>Site Map (Scene Navigation)</h3>
+        <div className={styles.componentBreakdown}>
+          <h3>Game Map (Scene Navigation)</h3>
         <p>
-          Scene flow starts from MainMenuScene to MinigamesMenuScene, then branches to four minigames, tutorials, settings,
-          and credits. Each minigame supports a return path to MinigamesMenuScene.
+           Navigation is managed through a clear scene flow: the user launches into <b>MainMenuScene</b>, proceed to <b>MinigamesMenuScene</b>, settings or credits. From MinigamesMenuScene the user can branch into any of the four minigames or the tutorials. Each minigame scene is designed to support seamless return to the MinigamesMenu, ensuring a consistent user experience. The game map navigation diagram visualises all possible navigation paths, including back/quit/completion routes for each minigame and the connections between menu, settings, and credits scenes.
         </p>
+        </div>
+        
         <img className={styles.diagramImageWide} src="/diagrams/system-design/game-map.png" alt="Game map diagram" />
       </section>
     ),
@@ -37,21 +47,23 @@ const tabs = [
     content: (
       <section>
         <h2>Sequence Diagrams</h2>
-        <h3>Minigame Launch and Mode Switch</h3>
+        <div className={styles.componentBreakdown}>
+          <h3>Minigame Launch and Mode Switch</h3>
         <p>
-          Before scene loading, the menu requests a MotionInput mode switch. Depending on runtime state, the manager either
-          launches MotionInput or hot-reloads mode by updating config and sending a reload shortcut.
+           When a player selects a minigame, the menu controller requests a mode switch from <b>MotionInputManager</b>. If MotionInput is not running, it is launched with the correct configuration; if already running, the mode is hot-reloaded by updating the config and sending a reload shortcut to the external process. The sequence diagram details this process, showing how the system handles both initialization and runtime mode switching, ensuring the correct input mode is always active for the selected minigame.
         </p>
+        </div>
         <img
           className={styles.diagramImageWide}
           src="/diagrams/system-design/sequence-minigame-launch.svg"
           alt="Sequence diagram for mode switching and minigame launch"
         />
+        <div className={styles.componentBreakdown}>
         <h3>Session Lifecycle</h3>
         <p>
-          Each minigame uses SessionFlow with registered states and per-frame tick callbacks, transitioning from
-          menu/countdown to active play and completion states.
+           Each minigame implements a <b>SessionFlow</b> state machine, registering all possible session states (menu, countdown, playing, complete) and their associated callbacks. The controller transitions between these states based on gameplay events, with per-frame tick logic driving state-specific behavior. The session lifecycle diagram illustrates how user actions, UI events, and controller logic interact to manage the full flow from game start to completion and return to the menu.
         </p>
+        </div>
         <img className={styles.diagramImageWide} src="/diagrams/system-design/sequence-session-flow.svg" alt="Session lifecycle sequence diagram" />
       </section>
     ),
@@ -61,17 +73,37 @@ const tabs = [
     content: (
       <section>
         <h2>Class Diagrams</h2>
-        <h3>MotionInput Integration</h3>
-        <p>
-          This diagram shows MotionInputManager orchestration and its dependency split across process launching, window
-          control, and config repository responsibilities.
-        </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/class-motion-input.svg" alt="Class diagram for MotionInput integration" />
-        <h3>Shared Core Contracts</h3>
-        <p>
-          Shared service interfaces and adapters decouple gameplay logic from singleton implementations while SessionFlow
-          handles typed state transitions.
-        </p>
+        <div className={styles.componentBreakdown}>
+          <h3>MotionInput Integration</h3>
+          <p>
+            The MotionInput integration subsystem is designed for modularity and testability, with clear separation of concerns. The main classes are:
+          </p>
+          <ul>
+            <li><b>MotionInputManager</b>: Central orchestrator, responsible for launching and terminating the external motioninput.exe process, switching modes, and managing the runtime state. Holds references to the process, window, and config adapters as private fields, ensuring all integration logic is encapsulated.</li>
+            <li><b>MotionInputProcessAdapter</b>: Abstracts process launching and existence checks, allowing the manager to start or verify the external process without direct dependency on .NET's Process API.</li>
+            <li><b>MotionInputWindowAdapter</b>: Handles all window management, including focusing, sending reload shortcuts, and manipulating window properties. This enables robust runtime control and user experience integration.</li>
+            <li><b>MotionInputConfigRepository</b>: Manages persistent and streaming configuration files, providing methods to check, set, and retrieve modes and config data. This keeps file I/O and schema logic out of the main manager class.</li>
+          </ul>
+          <p>
+            The class diagram shows these classes and their relationships, with the manager holding references to each adapter/repository and delegating responsibilities accordingly. This structure allows for easy extension, testing, and maintenance of the motion input integration.
+          </p>
+        </div>
+        <img className={styles.diagramImageWide} src="/diagrams/system-design/class-motion-input.png" alt="Class diagram for MotionInput integration" />
+        <div className={styles.componentBreakdown}>
+          <h3>Shared Core Contracts</h3>
+          <p>
+            The shared core subsystem uses interface-driven design to decouple gameplay logic from Unity singletons and enable flexible, testable code. The main elements are:
+          </p>
+          <ul>
+            <li><b>IAudioService</b> and <b>ISettingsService</b>: Interfaces that define the contract for audio and settings operations, allowing gameplay code to depend on abstractions, not concrete implementations.</li>
+            <li><b>GlobalAudioServiceAdapter</b> and <b>GameSettingsServiceAdapter</b>: Implement these interfaces, acting as adapters that delegate calls to the underlying Unity singletons (<b>GlobalGameAudio</b> and <b>GameSettings</b>). This makes it easy to swap implementations or mock services for testing.</li>
+            <li><b>SessionFlow&lt;TState&gt;</b>: A generic state machine used by all minigame controllers to manage session lifecycle, with explicit registration of states and transitions. This enables consistent, maintainable flow control across all minigames.</li>
+            <li>The diagram also shows how adapters interact with singletons, and how <b>SessionFlow</b> is used by each minigame controller (Freekick, Goalkeeper, Penalty, Obstacle Course) for lifecycle orchestration.</li>
+          </ul>
+          <p>
+            This approach ensures that core services are reusable, extensible, and easy to test, while keeping gameplay logic clean and focused on game-specific behavior.
+          </p>
+        </div>
         <img className={styles.diagramImageWide} src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" />
       </section>
     ),
@@ -81,27 +113,56 @@ const tabs = [
     content: (
       <section>
         <h2>Data Storage</h2>
-        <p>
-          This project does not use a relational database. Runtime data storage is split between PlayerPrefs keys and a
-          persistent MotionInput JSON config. The schema diagram below documents those structures and relationships.
-        </p>
+        <div className={styles.componentBreakdown}>
+          {/* <h3>Data Storage Model</h3> */}
+          <ul>
+            <li>
+              <b>File-based approach:</b> The project avoids a traditional relational database, instead using simple files for all persistent data. This keeps the system lightweight and easy to maintain. <b>No user data is captured or stored at any point.</b>
+            </li>
+            <li>
+              <b>Unity PlayerPrefs:</b> Used for lightweight, per-user runtime settings. Examples include:
+              <ul>
+                <li>Audio preferences: <code>GlobalAudio_SfxEnabled</code>, <code>GlobalAudio_CrowdEnabled</code>, <code>GlobalAudio_MusicVolume</code>, etc.</li>
+                <li>Input toggles: <code>MotionInputEnabled</code>, <code>HandsOnlyMode</code></li>
+                <li>Other simple configuration values frequently read/updated by UI or systems</li>
+              </ul>
+              PlayerPrefs provides automatic persistence across sessions and is ideal for settings that change often.
+            </li>
+            <li>
+              <b>MotionInput JSON Config:</b> A structured file (<code>config.json</code>) storing all configuration for the external motion input process, including:
+              <ul>
+                <li>Current mode, version, and device</li>
+                <li>Camera and view settings</li>
+                <li>Speech and accessibility features</li>
+                <li>Advanced calibration data (hands, head, forcefield, etc.)</li>
+              </ul>
+              The schema is extensible, with nested objects for each subsystem. The config is loaded at startup, updated on mode switches, and written back as needed.
+            </li>
+            <li>
+              <b>Schema Overview:</b> The diagram below shows the structure and relationships between these data stores. Key PlayerPrefs fields and MotionInput config fields are highlighted, showing how user preferences and system-critical configuration are separated for efficiency and reliability.
+            </li>
+            <li>
+              <b>Benefits:</b> This approach balances ease of use, flexibility, and maintainability. It also makes it straightforward to back up, migrate, or audit configuration data as the project evolves.
+            </li>
+          </ul>
+        </div>
         <img className={styles.diagramImageWide} src="/diagrams/system-design/data-storage-schema.png" alt="Data storage schema for PlayerPrefs and MotionInput config" />
       </section>
     ),
   },
-  {
-    label: 'Packages & APIs',
-    content: (
-      <section>
-        <h2>Packages and APIs</h2>
-        <p>
-          Assembly dependencies and shared APIs are defined via asmdef boundaries and shared interfaces. This keeps
-          minigame code independent while reusing shared systems.
-        </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.png" alt="Assembly dependency and API map" />
-      </section>
-    ),
-  },
+  // {
+  //   label: 'Packages & APIs',
+  //   content: (
+  //     <section>
+  //       <h2>Packages and APIs</h2>
+  //       <p>
+  //         Assembly dependencies and shared APIs are defined via asmdef boundaries and shared interfaces. This keeps
+  //         minigame code independent while reusing shared systems.
+  //       </p>
+  //       <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.png" alt="Assembly dependency and API map" />
+  //     </section>
+  //   ),
+  // },
   {
     label: 'Design Patterns',
     content: (
@@ -259,7 +320,7 @@ const tabs = [
             </tr>
 
             {/* ARCHITECTURAL */}
-            <tr>
+            {/* <tr>
               <td rowSpan={1}>Architectural</td>
               <td>Modular Minigame</td>
               <td>
@@ -271,7 +332,7 @@ const tabs = [
               <td>
                 <p>Divides the project into self-contained minigame modules and shared systems, allowing independent development, testing, and reuse. Ensures that cross-cutting concerns (settings, audio, logging) are implemented once and reused everywhere, while each minigame can evolve separately.</p>
               </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </section>
