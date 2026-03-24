@@ -109,7 +109,7 @@ const tabs = [
             This approach ensures that core services are reusable, extensible, and easy to test, while keeping gameplay logic clean and focused on game-specific behavior.
           </p>
         </div>
-        <SystemDesignImage src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" caption="Class diagram for shared core interfaces and adapters" />
+        <SystemDesignImage src="/diagrams/system-design/class-shared-core.png" alt="Class diagram for shared core interfaces and adapters" caption="Class diagram for shared core interfaces and adapters" />
 
         <div className={styles.componentBreakdown}>
           <h3>Shared Logging</h3>
@@ -151,6 +151,17 @@ const tabs = [
             src="/diagrams/system-design/penalty-class-overview.png"
             alt="Class diagram for Penalty Shootout minigame"
             caption="Class diagram for Penalty Shootout minigame"
+          />
+        </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Obstacle Course Minigame Class Diagram</h3>
+          <p>
+            The Obstacle Course minigame is managed by the <b>ObstacleCourseGameManager</b>, which orchestrates session flow, player movement, and round progression. The <b>ObstacleCourseCompositionRoot</b> wires up all core dependencies. Task sequencing is handled by <b>ObstacleTaskCatalog</b>, while <b>ObstacleCourseObstacleManager</b> manages task spawning, completion detection, and scoring. The <b>ObstacleCoursePlayer</b> and <b>ObstacleCourseBallManager</b> handle player and ball behavior, respectively. UI is managed by <b>ObstacleCourseUIManager</b>, and <b>StartMenuUI</b> provides pre-game selection. This architecture enables modular task management, clear separation of concerns, and robust session control for a variety of challenge types and difficulty modes.
+          </p>
+          <SystemDesignImage
+            src="/diagrams/system-design/obstacle-course-class-overview.png"
+            alt="Class diagram for Obstacle Course minigame"
+            caption="Class diagram for Obstacle Course minigame"
           />
         </div>
       </section>
