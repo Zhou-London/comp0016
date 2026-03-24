@@ -76,7 +76,7 @@ const tabs = [
       <section>
         <h2>Class Diagrams</h2>
         <p>
-           This section includes class diagrams for the key subsystems of the project, including the MotionInput integration and the shared core contracts. The diagrams show the main classes, their relationships, and how they interact to provide functionality across the application. Each diagram is accompanied by a breakdown of the main components and their responsibilities, highlighting design patterns and architectural decisions that contribute to a modular, maintainable codebase. This is not an exhaustive set of class diagrams, as there are too many class dependencies within each minigame implementation to capture, but it focuses on the core shared systems that are ubiquitous within the architecture.
+           This section includes class diagrams for the key subsystems of the project, including the MotionInput integration, shared core contracts, and high-level overviews of each minigame. For minigames, only the main architectural subsystems and their relationships are shown—full class diagrams for each minigame would be too complex to represent clearly on this page. Each diagram is accompanied by a breakdown of the main components and their responsibilities, highlighting design patterns and architectural decisions that contribute to a modular, maintainable codebase. This approach ensures the diagrams remain readable and focused on the overarching structure, rather than every class dependency within each minigame implementation.
         </p>
         <div className={styles.componentBreakdown}>
           <h3>MotionInput Integration</h3>
@@ -130,7 +130,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
         <h3>Freekick Minigame Class Diagram</h3>
             <p>
-              The Freekick minigame uses a thin-controller and service-oriented architecture. The <b>FreekickController</b> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <b>FreekickShotPlanningCoordinator</b>, <b>FreekickRoundManager</b>, and <b>FreekickSessionLifecycleService</b>. Scoring and round state are tracked by <b>FreekickScoreTracker</b> and <b>FreekickGoalTrigger</b>. Audio is handled directly via <b>GlobalGameAudio</b> calls from these classes, with no dedicated audio director. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
+              The Freekick minigame uses a controller and service-oriented architecture. The <b>FreekickController</b> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <b>FreekickShotPlanningCoordinator</b>, <b>FreekickRoundManager</b>, and <b>FreekickSessionLifecycleService</b>. Scoring and round state are tracked by <b>FreekickScoreTracker</b> and <b>FreekickGoalTrigger</b>. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
             </p>
             <SystemDesignImage src="/diagrams/system-design/freekick-class-overview.png" alt="Class diagram for Freekick minigame" caption="Class diagram for Freekick minigame"/>
         </div>
