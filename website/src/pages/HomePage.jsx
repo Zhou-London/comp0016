@@ -54,6 +54,13 @@ export default function HomePage() {
         </p>
 
         <div className={styles.abstractPanel}>
+          <h3>Introduction Video (2-4 minutes)</h3>
+          <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 2 minutes, clear narration,
+            high resolution).
+          </div>
+        </div>
+
+        <div className={styles.abstractPanel}>
           <h2>Abstract</h2>
           <h3>Problem Statement</h3>
           <p>
@@ -81,7 +88,7 @@ export default function HomePage() {
         </div>
 
         <div className={styles.abstractPanel}>
-          <h3>Introduction Video (8 minutes)</h3>
+          <h3>Technical Video (8 minutes)</h3>
           <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 8 minutes, clear narration,
             high resolution).
           </div>
