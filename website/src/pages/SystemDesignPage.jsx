@@ -1,6 +1,8 @@
+
 import styles from '../App.module.css';
 import SectionHeader from '../components/SectionHeader';
 import Tabs from '../components/Tabs';
+import SystemDesignImage from '../components/SystemDesignImage';
 
 
 const tabs = [
@@ -12,7 +14,7 @@ const tabs = [
         <p>
            The architecture is built around a modular <strong>Unity</strong> scene-based shell, with each minigame implemented as a self-contained module. Shared runtime systems—such as <b>MotionInputManager</b>, <b>GameSettings</b>, and <b>GlobalGameAudio</b>—provide core services accessible across all scenes. An external <b>motioninput.exe</b> process handles motion tracking, with configuration and state exchanged via persistent JSON files and PlayerPrefs. The diagram below shows how the application shell, minigame modules, shared systems, and external processes interact, including the control flow between them.
         </p>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/architecture.png" alt="System architecture diagram" />
+        <SystemDesignImage src="/diagrams/system-design/architecture.png" alt="System architecture diagram" caption="System architecture diagram" />
         <div className={styles.componentBreakdown}>
           <h3>Component Breakdown</h3>
           <ul>
@@ -38,7 +40,7 @@ const tabs = [
         </p>
         </div>
         
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/game-map.png" alt="Game map diagram" />
+        <SystemDesignImage src="/diagrams/system-design/game-map.png" alt="Game map diagram" caption="Game map and scene navigation diagram" />
       </section>
     ),
   },
@@ -53,10 +55,10 @@ const tabs = [
            When a player selects a minigame, the menu controller requests a mode switch from <b>MotionInputManager</b>. If MotionInput is not running, it is launched with the correct configuration; if already running, the mode is hot-reloaded by updating the config and sending a reload shortcut to the external process. The sequence diagram details this process, showing how the system handles both initialization and runtime mode switching, ensuring the correct input mode is always active for the selected minigame.
         </p>
         </div>
-        <img
-          className={styles.diagramImageWide}
+        <SystemDesignImage
           src="/diagrams/system-design/sequence-minigame-launch.svg"
           alt="Sequence diagram for mode switching and minigame launch"
+          caption="Sequence diagram for mode switching and minigame launch"
         />
         <div className={styles.componentBreakdown}>
         <h3>Session Lifecycle</h3>
@@ -64,7 +66,7 @@ const tabs = [
            Each minigame implements a <b>SessionFlow</b> state machine, registering all possible session states (menu, countdown, playing, complete) and their associated callbacks. The controller transitions between these states based on gameplay events, with per-frame tick logic driving state-specific behavior. The session lifecycle diagram illustrates how user actions, UI events, and controller logic interact to manage the full flow from game start to completion and return to the menu.
         </p>
         </div>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/sequence-session-flow.svg" alt="Session lifecycle sequence diagram" />
+        <SystemDesignImage src="/diagrams/system-design/sequence-session-flow.svg" alt="Session lifecycle sequence diagram" caption="Session lifecycle sequence diagram" />
       </section>
     ),
   },
@@ -91,7 +93,7 @@ const tabs = [
             The class diagram shows these classes and their relationships, with the manager holding references to each adapter/repository and delegating responsibilities accordingly. This structure allows for easy extension, testing, and maintenance of the motion input integration.
           </p>
         </div>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/class-motion-input.png" alt="Class diagram for MotionInput integration" />
+        <SystemDesignImage src="/diagrams/system-design/class-motion-input.png" alt="Class diagram for MotionInput integration" caption="Class diagram for MotionInput integration" />
         <div className={styles.componentBreakdown}>
           <h3>Shared Core Contracts</h3>
           <p>
@@ -107,7 +109,7 @@ const tabs = [
             This approach ensures that core services are reusable, extensible, and easy to test, while keeping gameplay logic clean and focused on game-specific behavior.
           </p>
         </div>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" />
+        <SystemDesignImage src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" caption="Class diagram for shared core interfaces and adapters" />
 
         <div className={styles.componentBreakdown}>
           <h3>Shared Logging</h3>
@@ -123,7 +125,7 @@ const tabs = [
           <p>
             This design decouples logging logic from the rest of the codebase, supports per-subsystem log toggling, and enables robust testing by allowing filters to be swapped or stubbed as needed.
           </p>
-          <img className={styles.diagramImageWide} src="/diagrams/system-design/class-shared-logging.png" alt="Class diagram for shared logging subsystem" />
+          <SystemDesignImage src="/diagrams/system-design/class-shared-logging.png" alt="Class diagram for shared logging subsystem" caption="Class diagram for shared logging subsystem" />
         </div>
       </section>
     ),
@@ -166,7 +168,7 @@ const tabs = [
             </li>
           </ul>
         </div>
-        <img className={styles.diagramImageWide} src="/diagrams/system-design/data-storage-schema.png" alt="Data storage schema for PlayerPrefs and MotionInput config" />
+        <SystemDesignImage src="/diagrams/system-design/data-storage-schema.png" alt="Data storage schema for PlayerPrefs and MotionInput config" caption="Data storage schema for PlayerPrefs and MotionInput config" />
       </section>
     ),
   },
