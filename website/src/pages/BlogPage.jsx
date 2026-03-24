@@ -34,9 +34,9 @@ function Reveal({ children, className = '', delay = 0, style = {} }) {
 }
 
 /* ── Blog entry ── */
-function BlogEntry({ weeks, title, body, delay = 0 }) {
+function BlogEntry({ weeks, title, body, delay = 0, animClass = '' }) {
     return (
-        <Reveal delay={delay}>
+        <Reveal delay={delay} className={animClass}>
             <div style={{
                 display: 'flex', gap: '1.5rem', alignItems: 'flex-start',
                 paddingBottom: '2.5rem', borderBottom: '1px solid #e5e7eb',
@@ -76,7 +76,7 @@ export default function BlogPage() {
             <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
                 {/* Monthly Videos */}
-                <Reveal>
+                <Reveal className="fade-in-scale">
                     <div className={styles.abstractPanel}>
                         <h2>Monthly Video Logs</h2>
                         <p style={{ color: 'var(--slate-600)', marginTop: '0.5rem' }}>
@@ -114,6 +114,7 @@ export default function BlogPage() {
                         weeks="Weeks 1–2"
                         title="Project Kickoff"
                         delay={0}
+                        animClass="goal-roll-in"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We had our initial client meeting where we were given our project brief. We spent the
@@ -128,6 +129,7 @@ export default function BlogPage() {
                         weeks="Weeks 3–4"
                         title="Understanding Our Users"
                         delay={50}
+                        animClass="persona-slide-left"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We focused on gathering requirements this fortnight. We conducted pseudo interviews and
@@ -145,6 +147,7 @@ export default function BlogPage() {
                         weeks="Weeks 5–6"
                         title="Sketches, Prototypes & Learning Unity"
                         delay={50}
+                        animClass="table-reveal"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We completed our HCI coursework with hand-drawn sketches and early prototypes of the
@@ -165,6 +168,7 @@ export default function BlogPage() {
                         weeks="Weeks 7–8"
                         title="Unity & Project Setup"
                         delay={50}
+                        animClass="persona-slide-right"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Continued building our Unity skills and got the project properly set up — repository created, folder
@@ -185,6 +189,7 @@ export default function BlogPage() {
                         weeks="Weeks 9–10"
                         title="First Playable Build"
                         delay={50}
+                        animClass="diagram-scale-in"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Got our first basic scenes and gameplay mechanics running in Unity. By the end of the fortnight we had a
@@ -204,6 +209,7 @@ export default function BlogPage() {
                         weeks="Weeks 11–12"
                         title="Gameplay Loops"
                         delay={50}
+                        animClass="goal-roll-in"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Working on the core gameplay loops for all four minigames. A lot of iteration to get the mechanics feeling
@@ -216,6 +222,7 @@ export default function BlogPage() {
                         weeks="Weeks 13–14"
                         title="Minigame Progress"
                         delay={50}
+                        animClass="table-reveal"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Completed the gameplay loops for Free Kick, Goalkeeping and Obstacle Course. These are feeling solid,
@@ -236,6 +243,7 @@ export default function BlogPage() {
                         weeks="Weeks 15–16"
                         title="BETT Conference & Asset Work"
                         delay={50}
+                        animClass="persona-slide-left"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We prepared and delivered our elevator pitch, and two of our team members presented at the BETT
@@ -255,6 +263,7 @@ export default function BlogPage() {
                         weeks="Weeks 17–18"
                         title="Features, UI & Motion Input"
                         delay={50}
+                        animClass="diagram-scale-in"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We added hard difficulty and endless/limited modes across all minigames, updated the menus, and integrated
@@ -273,6 +282,7 @@ export default function BlogPage() {
                         weeks="Weeks 19–20"
                         title="Polish & Testing"
                         delay={50}
+                        animClass="persona-slide-right"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Finished goalkeeping and penalty minigames, created 2D crowd sprites and added crowd generation to bring
@@ -292,6 +302,7 @@ export default function BlogPage() {
                         weeks="Weeks 21–22"
                         title="Showcase, Feedback & Refactor"
                         delay={50}
+                        animClass="table-reveal"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 We showcased the game and gathered feedback, which we quickly acted on to improve the minigames. Added
@@ -319,6 +330,7 @@ export default function BlogPage() {
                         weeks="Weeks 23–24"
                         title="Final Stretch"
                         delay={50}
+                        animClass="goal-roll-in"
                         body={<>
                             <p style={{ color: 'var(--slate-700)', lineHeight: 1.7 }}>
                                 Final testing and bug fixes across the board. Added in-game tutorials to help new players get started.
