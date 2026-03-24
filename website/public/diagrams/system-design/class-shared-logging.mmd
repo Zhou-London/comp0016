@@ -1,0 +1,26 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#f3edff', 'primaryTextColor': '#2b1f4f', 'primaryBorderColor': '#6e53b1', 'lineColor': '#6e53b1', 'fontFamily': 'Trebuchet MS'}}}%%
+classDiagram
+  direction LR
+    class GameLogger {
+      <<static>>
+      +SetFilter(filter)
+      +SetEnabled(category, enabled)
+      +IsEnabled(category) bool
+      +Log(category, message)
+      +LogWarning(category, message)
+    }
+
+    class ILogChannelFilter {
+      <<interface>>
+      +IsEnabled(category) bool
+    }
+
+    class DefaultLogChannelFilter {
+      +SetEnabled(category, enabled)
+      +IsEnabled(category) bool
+      -_channels : Dictionary<LogCategory, bool>
+    }
+
+    GameLogger --> ILogChannelFilter : uses
+    DefaultLogChannelFilter ..|> ILogChannelFilter
+    GameLogger --> DefaultLogChannelFilter : default filter

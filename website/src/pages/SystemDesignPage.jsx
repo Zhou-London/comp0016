@@ -73,6 +73,9 @@ const tabs = [
     content: (
       <section>
         <h2>Class Diagrams</h2>
+        <p>
+           This section includes class diagrams for the key subsystems of the project, including the MotionInput integration and the shared core contracts. The diagrams show the main classes, their relationships, and how they interact to provide functionality across the application. Each diagram is accompanied by a breakdown of the main components and their responsibilities, highlighting design patterns and architectural decisions that contribute to a modular, maintainable codebase. This is not an exhaustive set of class diagrams, as there are too many class dependencies within each minigame implementation to capture, but it focuses on the core shared systems that are ubiquitous within the architecture.
+        </p>
         <div className={styles.componentBreakdown}>
           <h3>MotionInput Integration</h3>
           <p>
@@ -105,6 +108,23 @@ const tabs = [
           </p>
         </div>
         <img className={styles.diagramImageWide} src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" />
+
+        <div className={styles.componentBreakdown}>
+          <h3>Shared Logging</h3>
+          
+          <p>
+            The shared logging subsystem provides a flexible, testable way to control log output across the codebase:
+          </p>
+          <ul>
+            <li><b>GameLogger</b> is a static facade used throughout the project. It exposes methods to log messages and warnings, enable/disable logging per category, and swap out the active filter for testing or customization.</li>
+            <li><b>ILogChannelFilter</b> is an interface that defines the contract for log filtering. It allows custom strategies for enabling/disabling log output by category, making it easy to test or extend logging behavior.</li>
+            <li><b>DefaultLogChannelFilter</b> is the standard implementation, using a dictionary to track which log categories are enabled. It is used by default but can be replaced at runtime for advanced scenarios or unit testing.</li>
+          </ul>
+          <p>
+            This design decouples logging logic from the rest of the codebase, supports per-subsystem log toggling, and enables robust testing by allowing filters to be swapped or stubbed as needed.
+          </p>
+          <img className={styles.diagramImageWide} src="/diagrams/system-design/class-shared-logging.png" alt="Class diagram for shared logging subsystem" />
+        </div>
       </section>
     ),
   },
