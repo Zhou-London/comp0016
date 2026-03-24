@@ -76,7 +76,7 @@ const tabs = [
       <section>
         <h2>Class Diagrams</h2>
         <p>
-           This section includes class diagrams for the key subsystems of the project, including the MotionInput integration and the shared core contracts. The diagrams show the main classes, their relationships, and how they interact to provide functionality across the application. Each diagram is accompanied by a breakdown of the main components and their responsibilities, highlighting design patterns and architectural decisions that contribute to a modular, maintainable codebase. This is not an exhaustive set of class diagrams, as there are too many class dependencies within each minigame implementation to capture, but it focuses on the core shared systems that are ubiquitous within the architecture.
+           This section includes class diagrams for the key subsystems of the project, including the MotionInput integration, shared core contracts, and high-level overviews of each minigame. For minigames, only the main architectural subsystems and their relationships are shown—full class diagrams for each minigame would be too complex to represent clearly on this page. Each diagram is accompanied by a breakdown of the main components and their responsibilities, highlighting design patterns and architectural decisions that contribute to a modular, maintainable codebase. This approach ensures the diagrams remain readable and focused on the overarching structure, rather than every class dependency within each minigame implementation.
         </p>
         <div className={styles.componentBreakdown}>
           <h3>MotionInput Integration</h3>
@@ -109,7 +109,7 @@ const tabs = [
             This approach ensures that core services are reusable, extensible, and easy to test, while keeping gameplay logic clean and focused on game-specific behavior.
           </p>
         </div>
-        <SystemDesignImage src="/diagrams/system-design/class-shared-core.svg" alt="Class diagram for shared core interfaces and adapters" caption="Class diagram for shared core interfaces and adapters" />
+        <SystemDesignImage src="/diagrams/system-design/class-shared-core.png" alt="Class diagram for shared core interfaces and adapters" caption="Class diagram for shared core interfaces and adapters" />
 
         <div className={styles.componentBreakdown}>
           <h3>Shared Logging</h3>
@@ -126,6 +126,43 @@ const tabs = [
             This design decouples logging logic from the rest of the codebase, supports per-subsystem log toggling, and enables robust testing by allowing filters to be swapped or stubbed as needed.
           </p>
           <SystemDesignImage src="/diagrams/system-design/class-shared-logging.png" alt="Class diagram for shared logging subsystem" caption="Class diagram for shared logging subsystem" />
+        </div>
+        <div className={styles.componentBreakdown}>
+        <h3>Freekick Minigame Class Diagram</h3>
+            <p>
+              The Freekick minigame uses a controller and service-oriented architecture. The <b>FreekickController</b> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <b>FreekickShotPlanningCoordinator</b>, <b>FreekickRoundManager</b>, and <b>FreekickSessionLifecycleService</b>. Scoring and round state are tracked by <b>FreekickScoreTracker</b> and <b>FreekickGoalTrigger</b>. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
+            </p>
+            <SystemDesignImage src="/diagrams/system-design/freekick-class-overview.png" alt="Class diagram for Freekick minigame" caption="Class diagram for Freekick minigame"/>
+        </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Goalkeeping Minigame Class Diagram</h3>
+          <p>
+            The Goalkeeping minigame is structured around a central <b>GoalkeeperGameManager</b> that manages the session state machine, scoring, UI, and audio. The <b>GoalkeeperCompositionRoot</b> wires up all dependencies and scene references. Ball spawning and targeting are handled by <b>GoalkeeperBallShooter</b>, which assigns Bezier curve trajectories to each ball using <b>GoalkeeperBallCurvePath</b>. The <b>GoalkeeperFPSController</b> manages hand position and input, while <b>GoalkeeperGloveSetup</b> instantiates and parents glove models for hand tracking. Save and goal outcomes are detected by <b>GoalkeeperSaveDetector</b> and <b>GoalkeeperGoalDetector</b>, which notify the manager of results. This architecture enables clear separation of concerns, robust hand/motion input integration, and maintainable gameplay logic.
+          </p>
+          <SystemDesignImage src="/diagrams/system-design/goalkeeping-class-overview.png" alt="Class diagram for Goalkeeping minigame" caption="Class diagram for Goalkeeping minigame"
+          />
+        </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Penalty Shootout Minigame Class Diagram</h3>
+          <p>
+            The Penalty Shootout minigame is orchestrated by the <b>PenaltyController</b>, which manages session state, round flow, resets, and completion transitions. The <b>PenaltyCompositionRoot</b> wires up all scene dependencies. Player shot input, run-up, and kick execution are handled by <b>PenaltyPlayer</b>, with power selection in hard mode managed by <b>PenaltyPowerMeter</b>. The <b>PenaltyModeMenu</b> provides mode, difficulty, and target score selection. Scoring and streaks are tracked by <b>PenaltyScore</b>, while <b>PenaltyGoalTrigger</b> and <b>PenaltyMissTrigger</b> detect outcomes and notify the controller. Goalkeeper movement and save logic are managed by <b>PenaltyGoalkeeperMovement</b> and <b>PenaltyGoalkeeperSave</b>. This architecture enables modular gameplay logic, clear separation of concerns, and robust handling of both easy and hard difficulty flows.
+          </p>
+          <SystemDesignImage
+            src="/diagrams/system-design/penalty-class-overview.png"
+            alt="Class diagram for Penalty Shootout minigame"
+            caption="Class diagram for Penalty Shootout minigame"
+          />
+        </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Obstacle Course Minigame Class Diagram</h3>
+          <p>
+            The Obstacle Course minigame is managed by the <b>ObstacleCourseGameManager</b>, which orchestrates session flow, player movement, and round progression. The <b>ObstacleCourseCompositionRoot</b> wires up all core dependencies. Task sequencing is handled by <b>ObstacleTaskCatalog</b>, while <b>ObstacleCourseObstacleManager</b> manages task spawning, completion detection, and scoring. The <b>ObstacleCoursePlayer</b> and <b>ObstacleCourseBallManager</b> handle player and ball behavior, respectively. UI is managed by <b>ObstacleCourseUIManager</b>, and <b>StartMenuUI</b> provides pre-game selection. This architecture enables modular task management, clear separation of concerns, and robust session control for a variety of challenge types and difficulty modes.
+          </p>
+          <SystemDesignImage
+            src="/diagrams/system-design/obstacle-course-class-overview.png"
+            alt="Class diagram for Obstacle Course minigame"
+            caption="Class diagram for Obstacle Course minigame"
+          />
         </div>
       </section>
     ),

@@ -1,0 +1,38 @@
+classDiagram
+    class ObstacleCourseGameManager {
+        +Session orchestration
+        +Player movement
+        +Round flow
+    }
+    class ObstacleCourseCompositionRoot {
+        +Dependency wiring
+    }
+    class ObstacleTaskCatalog {
+        +Task sequence
+    }
+    class ObstacleCourseObstacleManager {
+        +Task spawning
+        +Completion detection
+        +Scoring
+    }
+    class ObstacleCoursePlayer {
+        +Player behavior
+    }
+    class ObstacleCourseBallManager {
+        +Ball spawning
+    }
+    class ObstacleCourseUIManager {
+        +HUD
+        +Prompts
+        +Completion screen
+    }
+    class StartMenuUI {
+        +Pre-game selection
+    }
+    ObstacleCourseCompositionRoot --> ObstacleCourseGameManager : wires
+    ObstacleCourseGameManager --> ObstacleTaskCatalog : uses
+    ObstacleCourseGameManager --> ObstacleCourseObstacleManager : uses
+    ObstacleCourseGameManager --> ObstacleCoursePlayer : controls
+    ObstacleCourseGameManager --> ObstacleCourseBallManager : uses
+    ObstacleCourseGameManager --> ObstacleCourseUIManager : uses
+    StartMenuUI --> ObstacleCourseGameManager : starts

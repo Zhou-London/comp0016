@@ -1,0 +1,42 @@
+classDiagram
+    class GoalkeeperGameManager {
+        +Session state
+        +Score tracking
+        +UI
+        +Audio
+    }
+    class GoalkeeperCompositionRoot {
+        +Dependency wiring
+    }
+    class GoalkeeperFPSController {
+        +Hand position control
+        +Input
+    }
+    class GoalkeeperBallShooter {
+        +Ball spawning
+        +Targeting
+        +Trajectory
+    }
+    class GoalkeeperBallCurvePath {
+        +Bezier trajectory
+    }
+    class GoalkeeperSaveDetector {
+        +Save detection
+    }
+    class GoalkeeperGoalDetector {
+        +Goal detection
+    }
+    class GoalkeeperGloveSetup {
+        +Glove instantiation
+        +Hand parenting
+    }
+    GoalkeeperCompositionRoot --> GoalkeeperGameManager : wires
+    GoalkeeperGameManager --> GoalkeeperFPSController : uses
+    GoalkeeperGameManager --> GoalkeeperBallShooter : uses
+    GoalkeeperGameManager --> GoalkeeperSaveDetector : uses
+    GoalkeeperGameManager --> GoalkeeperGoalDetector : uses
+    GoalkeeperGameManager --> GoalkeeperGloveSetup : uses
+    GoalkeeperBallShooter --> GoalkeeperBallCurvePath : assigns
+    GoalkeeperFPSController --> GoalkeeperGloveSetup : controls
+    GoalkeeperSaveDetector --> GoalkeeperGameManager : notifies
+    GoalkeeperGoalDetector --> GoalkeeperGameManager : notifies

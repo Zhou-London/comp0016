@@ -1,0 +1,42 @@
+classDiagram
+    class FreekickController {
+        +Unity lifecycle
+        +Scene references
+        +State variables
+        +Direct audio calls
+    }
+    class FreekickCompositionRoot {
+        +Wiring
+        +References
+    }
+    class FreekickInitializer {
+        +Scene setup
+    }
+    class FreekickShotPlanningCoordinator {
+        +Plan shot
+    }
+    class FreekickRoundManager {
+        +Round setup/reset
+        +Direct audio calls
+    }
+    class FreekickSessionLifecycleService {
+        +Session transitions
+        +Direct audio calls
+    }
+    class FreekickScoreTracker {
+        +Score
+        +Streaks
+    }
+    class FreekickGoalTrigger {
+        +Goal detection
+        +HUD update
+        +Direct audio calls
+    }
+    FreekickController --> FreekickShotPlanningCoordinator : uses
+    FreekickController --> FreekickRoundManager : uses
+    FreekickController --> FreekickSessionLifecycleService : uses
+    FreekickController --> FreekickScoreTracker : uses
+    FreekickController --> FreekickGoalTrigger : references
+    FreekickCompositionRoot --> FreekickController : wires
+    FreekickInitializer --> FreekickController : sets up
+    FreekickGoalTrigger --> FreekickController : notifies
