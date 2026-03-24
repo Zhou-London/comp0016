@@ -142,6 +142,17 @@ const tabs = [
           <SystemDesignImage src="/diagrams/system-design/goalkeeping-class-overview.png" alt="Class diagram for Goalkeeping minigame" caption="Class diagram for Goalkeeping minigame"
           />
         </div>
+        <div className={styles.componentBreakdown}>
+          <h3>Penalty Shootout Minigame Class Diagram</h3>
+          <p>
+            The Penalty Shootout minigame is orchestrated by the <b>PenaltyController</b>, which manages session state, round flow, resets, and completion transitions. The <b>PenaltyCompositionRoot</b> wires up all scene dependencies. Player shot input, run-up, and kick execution are handled by <b>PenaltyPlayer</b>, with power selection in hard mode managed by <b>PenaltyPowerMeter</b>. The <b>PenaltyModeMenu</b> provides mode, difficulty, and target score selection. Scoring and streaks are tracked by <b>PenaltyScore</b>, while <b>PenaltyGoalTrigger</b> and <b>PenaltyMissTrigger</b> detect outcomes and notify the controller. Goalkeeper movement and save logic are managed by <b>PenaltyGoalkeeperMovement</b> and <b>PenaltyGoalkeeperSave</b>. This architecture enables modular gameplay logic, clear separation of concerns, and robust handling of both easy and hard difficulty flows.
+          </p>
+          <SystemDesignImage
+            src="/diagrams/system-design/penalty-class-overview.png"
+            alt="Class diagram for Penalty Shootout minigame"
+            caption="Class diagram for Penalty Shootout minigame"
+          />
+        </div>
       </section>
     ),
   },

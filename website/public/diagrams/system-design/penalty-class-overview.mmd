@@ -1,0 +1,62 @@
+classDiagram
+    class PenaltyController {
+        +Session state
+        +Round orchestration
+        +Resets
+        +Completion
+    }
+    class PenaltyCompositionRoot {
+        +Scene wiring
+    }
+    class PenaltyPlayer {
+        +Shot input
+        +Run-up
+        +Kick execution
+    }
+    class PenaltyModeMenu {
+        +Mode selection
+        +Difficulty selection
+        +Target score
+        +Menu UI
+    }
+    class PenaltyPowerMeter {
+        +Power selection
+        +Hard mode only
+    }
+    class PenaltyScore {
+        +Score tracking
+        +Streak tracking
+        +HUD updates
+    }
+    class PenaltyGoalTrigger {
+        +Goal detection
+    }
+    class PenaltyMissTrigger {
+        +Miss detection
+    }
+    class PenaltyGoalAnchor {
+        +Goal geometry
+    }
+    class PenaltyGoalkeeperMovement {
+        +Goalkeeper movement
+        +Oscillation
+    }
+    class PenaltyGoalkeeperSave {
+        +Save collider
+        +Save notification
+    }
+    PenaltyCompositionRoot --> PenaltyController : wires
+    PenaltyController --> PenaltyPlayer : uses
+    PenaltyController --> PenaltyScore : uses
+    PenaltyController --> PenaltyGoalTrigger : uses
+    PenaltyController --> PenaltyMissTrigger : uses
+    PenaltyController --> PenaltyPowerMeter : uses
+    PenaltyController --> PenaltyGoalkeeperMovement : uses
+    PenaltyController --> PenaltyGoalkeeperSave : uses
+    PenaltyController --> PenaltyModeMenu : uses
+    PenaltyController --> PenaltyGoalAnchor : uses
+    PenaltyPlayer --> PenaltyPowerMeter : reads
+    PenaltyGoalTrigger --> PenaltyController : notifies
+    PenaltyMissTrigger --> PenaltyController : notifies
+    PenaltyGoalkeeperSave --> PenaltyController : notifies
+    PenaltyGoalkeeperMovement --> PenaltyGoalkeeperSave : controls
