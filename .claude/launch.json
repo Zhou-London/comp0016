@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "website",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--port", "5173"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd website && npx vite --port 5173"],
       "port": 5173
     }
   ]

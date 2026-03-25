@@ -85,6 +85,47 @@ export default function ResearchPage() {
           </p>
         </div>
 
+        {/* Graphics Research */}
+        <div className={styles.abstractPanel}>
+          <h3>Graphics Research &amp; Optimisation</h3>
+
+          <p style={{marginTop: '1rem'}}>
+            Beyond engine and motion-tracking choices, dedicated research was conducted into the
+            game&rsquo;s graphics pipeline, shading, and asset management to achieve a consistent
+            visual style while maintaining performance on classroom hardware.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Toon Shader &amp; PBR Materials</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            The default URP/Lit shaders were replaced with the Unity Toon Shader, an open-source
+            implementation that substitutes continuous lighting with discrete light bands and adds
+            post-processing effects such as outlines and bloom. This produces a brighter, cartoon-style
+            rendering that consistently fits the overall game aesthetic. PBR grass materials with
+            normal maps were also applied to the football pitch, giving the field complex surface
+            detail that the shader can respond to, compared to the flat 2D texture used previously.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Deep-Learning Resolution Upscaling (AMD FSR)</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            To reduce GPU workload without sacrificing visual quality, AMD FidelityFX Super Resolution
+            (FSR) was integrated into the rendering pipeline. FSR renders at a lower internal
+            resolution and uses a spatial upscaling algorithm to reconstruct the output. In testing
+            on an RTX 5090 system locked at 60 FPS, the FSR-enabled scene consumed approximately
+            97 W compared to 118 W for the native-resolution scene &mdash; a roughly 18% reduction
+            in GPU power draw, indicating higher energy efficiency per frame.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Asset &amp; Material Deduplication</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            Many imported models from the Unity Asset Store used embedded textures, meaning each
+            asset bundled its own copy of shared materials. This caused significant storage and VRAM
+            bloat. By extracting embedded textures and consolidating duplicates so that multiple
+            models reference a single shared material, the repository size was reduced from
+            approximately 100 MB to 60 MB, and runtime VRAM usage decreased &mdash; an important
+            improvement for systems with integrated GPUs commonly found in classroom environments.
+          </p>
+        </div>
+
         {/* Technical Decisions */}
         <div className={styles.abstractPanel}>
           <h3>Technical Decision Summary</h3>
@@ -134,6 +175,14 @@ export default function ResearchPage() {
 
           <p style={{marginTop: '0.5rem'}}>
             [4] Unity Technologies, “Unity Real-Time Development Platform,” 2024. [Online]. Available: https://unity.com
+          </p>
+
+          <p style={{marginTop: '0.5rem'}}>
+            [5] AMD, “FidelityFX Super Resolution,” 2024. [Online]. Available: https://gpuopen.com/fidelityfx-superresolution/
+          </p>
+
+          <p style={{marginTop: '0.5rem'}}>
+            [6] Unity Technologies, “Unity Toon Shader,” 2024. [Online]. Available: https://github.com/Unity-Technologies/com.unity.toonshader
           </p>
         </div>
 
