@@ -99,7 +99,21 @@ export default function HomePage() {
         <div className={styles.abstractPanel} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <h3>Project Timeline</h3>
           <p style={{marginTop: '1rem', color: 'var(--slate-700)'}}>
-            Breakdown of project phases over the 24 weeks
+            Breakdown of project phases over the 24 weeks.
+          </p>
+          <p style={{marginTop: '1rem', color: 'var(--slate-700)', textAlign: 'center'}}>
+            This is a condensed version of our GANTT chart. Here is a{' '}
+            <a href="https://liveuclac-my.sharepoint.com/:f:/g/personal/zcabsub_ucl_ac_uk/IgD_KmXZsjvDRIJ6ZzeEt_XSAbN2WabdC0uR119GdSg2Rcg?e=6xENEr" target="_blank" rel="noreferrer"
+               style={{color: 'var(--green-700)', textDecoration: 'underline'}}>
+              link to our OneDrive folder
+            </a>
+            , with a more detailed version in a few different formats. You can view our chart in PDF or image form, or
+            for the best view, download either the .gantt or .csv file and upload to{' '}
+            <a href="https://www.onlinegantt.com/#/gantt" target="_blank" rel="noreferrer"
+               style={{color: 'var(--green-700)', textDecoration: 'underline'}}>
+              onlinegantt.com
+            </a>
+            .
           </p>
           <div style={{width: '80%', borderRadius: '10px', marginTop: '1rem'}}><ImageWithCaption
               src="/project timeline/project timeline.png" caption="Main menu screen layout"/></div>
