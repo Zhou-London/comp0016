@@ -329,7 +329,7 @@ export default function ImplementationPage() {
 
                 {/* Architecture & Scene Flow */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Architecture & Scene Flow</h3>
+                    <h2>Architecture & Scene Flow</h2>
 
                     <div style={{marginTop: '1.5rem'}}>
                         <ImageWithCaption src="/implementation/flowchart.png" caption="Architecture and scene flow overview" />
@@ -441,7 +441,7 @@ export default function ImplementationPage() {
 
                 {/* Free Kick */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Free Kick Minigame</h3>
+                    <h2>Free Kick Minigame</h2>
                     <p style={{marginTop: '1rem'}}>
                         A session-based minigame where the player selects a shot lane and executes a kick against a
                         wall-goalkeeper-goal setup. The player uses keyboard input or MotionInput foot tracking to aim
@@ -516,7 +516,7 @@ export default function ImplementationPage() {
 
                 {/* Goalkeeping */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Goalkeeping Minigame</h3>
+                    <h2>Goalkeeping Minigame</h2>
                     <p style={{marginTop: '1rem'}}>
                         A first-person minigame where the player controls a goalkeeper's hands to block incoming shots.
                         The player uses keyboard input or MotionInput hand tracking to move gloves into the path of balls
@@ -582,7 +582,7 @@ export default function ImplementationPage() {
 
                 {/* Penalty Shootout */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Penalty Shootout Minigame</h3>
+                    <h2>Penalty Shootout Minigame</h2>
                     <p style={{marginTop: '1rem'}}>
                         A round-based minigame where the player attempts to score penalties against a goalkeeper. In Hard
                         mode, each shot is controlled using a power meter; in Easy mode, a fixed force is used. The ball
@@ -635,7 +635,7 @@ export default function ImplementationPage() {
 
                 {/* Obstacle Course */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Obstacle Course Minigame</h3>
+                    <h2>Obstacle Course Minigame</h2>
                     <p style={{marginTop: '1rem'}}>
                         A sequential task minigame where the player completes eight challenges across eight pitch regions.
                         Each task requires kicking or dribbling a ball to hit targets, avoid defenders, pop balloons, or
@@ -704,7 +704,7 @@ export default function ImplementationPage() {
 
                 {/* Game Controllers */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Game Controllers</h3>
+                    <h2>Game Controllers</h2>
                     <p style={{marginTop: '1rem'}}>
                         Each minigame has its own control scheme, initially implemented using keyboard inputs and then
                         mapped to MotionInput gesture controls. The game uses Unity's legacy <code>Input.GetKeyDown</code> / <code>Input.GetKey</code> API
@@ -756,7 +756,7 @@ export default function ImplementationPage() {
 
                 {/* MotionInput */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>MotionInput Integration</h3>
+                    <h2>MotionInput Integration</h2>
                     <p style={{marginTop: '1rem'}}>
                         MotionInput is an external Windows application that translates physical gestures into input
                         events via a camera feed. It runs alongside the Unity process as a separate window, providing
@@ -827,7 +827,7 @@ export default function ImplementationPage() {
 
                 {/* Graphics */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Graphics & Visual Pipeline</h3>
+                    <h2>Graphics & Visual Pipeline</h2>
                     <p style={{marginTop: '1rem'}}>
                         The game runs on <b>Unity 6 with Universal Render Pipeline (URP)</b>. Visual style is achieved
                         through a combination of toon shading, a unified colour palette, and FSR upscaling.
@@ -881,7 +881,7 @@ export default function ImplementationPage() {
 
                 {/* Audio */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Audio System</h3>
+                    <h2>Audio System</h2>
                     <p style={{marginTop: '1rem'}}>
                         Audio is centralised in <code>GlobalGameAudio</code>, a singleton that bootstraps automatically
                         before any scene loads and persists across all scenes. All minigames and menus consume this
@@ -938,7 +938,7 @@ export default function ImplementationPage() {
 
                 {/* Configuration */}
                 <RevealSection className={styles.abstractPanel}>
-                    <h3>Configuration & Settings</h3>
+                    <h2>Configuration & Settings</h2>
                     <p style={{marginTop: '1rem'}}>
                         Configuration flows through four channels: <code>PlayerPrefs</code> for user-facing settings,
                         shared singletons for runtime state, inspector serialised fields for gameplay tuning, and
