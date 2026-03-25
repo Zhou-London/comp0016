@@ -26,44 +26,26 @@ function DeploymentManual() {
 function GDPR() {
   return (
     <section>
-      <h2>Privacy and Data Protection</h2>
+      <h2>GDPR & Privacy</h2>
       <div className={styles.componentBreakdown}>
-        <h3>Overview</h3>
+        <h3>This Application</h3>
         <p>
-          This application is designed with user privacy in mind. It does not collect, store, or process personal data.
-        </p><br/>
-
-        <h3>What Data is Collected?</h3>
+          This application is designed with user privacy in mind. It does not collect, store, or transmit any personal data. All user preferences (such as audio levels, input preferences, and UI customisations) are stored locally on your device. Gameplay and motion input data are processed in real-time for gameplay purposes only and are not stored or transmitted.
+        </p>
         <ul>
-          <li>
-            <b>User Preferences:</b> Settings such as audio levels, input preferences, and UI customisations are stored locally on the user's device using Unity PlayerPrefs.
-          </li>
-          <li>
-            <b>Gameplay Data:</b> Session-based data (e.g. score or streak) is stored only during gameplay and is cleared when the application is closed.
-          </li>
-          <li>
-            <b>Motion Input Data:</b> Motion tracking data is processed in real-time for gameplay purposes only and is not stored or transmitted.
-          </li>
+          <li><b>User Preferences:</b> Stored locally using Unity PlayerPrefs.</li>
+          <li><b>Gameplay Data:</b> Session-based, cleared when the application is closed.</li>
+          <li><b>Motion Input Data:</b> Processed in real-time, never stored or transmitted.</li>
         </ul>
-
-        <h3>How is Data Used?</h3>
-        <ul>
-          <li>Local preference data is used solely to improve gameplay experience and accessibility.</li>
-          <li>No data is transmitted, shared, or sold to any third parties.</li>
-        </ul>
-
-        <h3>Data Storage and Security</h3>
-        <ul>
-          <li>All data is stored locally on the user's device.</li>
-          <li>No cloud storage, external servers, or remote databases are used.</li>
-        </ul>
-
-        <h3>User Rights</h3>
+        <h3>Third-Party Privacy Policy</h3>
         <p>
-          As this application does not collect or store personal data, rights such as access, rectification, and erasure under GDPR are not applicable.
+          For all matters relating to the broader MotionInput Games privacy policy, including legal basis, data sharing, user rights, and GDPR compliance, please refer to the official policy:
         </p><br/>
-
-        <h3>Changes to This Policy</h3>
+        <b><a href="https://motioninputgames.com/privacy" target="_blank" rel="noopener noreferrer">https://motioninputgames.com/privacy</a></b><br/><br/>
+        <p>
+          This application is in compliance with the MotionInput Games Privacy Policy. By using this application, you acknowledge and agree that your privacy is protected in accordance with that policy.
+        </p><br/> 
+        <h3>Policy Updates</h3>
         <p>
           If data collection practices change in future updates, this policy will be updated accordingly.<br/>
           <b>This privacy policy was last updated on 25th March 2026</b>.
@@ -82,14 +64,14 @@ function Dependencies() {
   );
 }
 
-function Contributions() {
-  return (
-    <div>
-      <h2>Contributions</h2>
-      <p>Guidelines for contributing to the project. (Add contribution guidelines here.)</p>
-    </div>
-  );
-}
+// function Contributions() {
+//   return (
+//     <div>
+//       <h2>Contributions</h2>
+//       <p>Guidelines for contributing to the project. (Add contribution guidelines here.)</p>
+//     </div>
+//   );
+// }
 
 function Credits() {
   return (
@@ -106,7 +88,7 @@ export default function AppendicesPage() {
     { label: 'Deployment Manual', content: <DeploymentManual /> },
     { label: 'GDPR & Privacy', content: <GDPR /> },
     { label: 'Dependencies', content: <Dependencies /> },
-    { label: 'Contributions', content: <Contributions /> },
+    // { label: 'Contributions', content: <Contributions /> },
     { label: 'Credits', content: <Credits /> },
   ];
 
