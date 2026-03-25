@@ -88,9 +88,91 @@ function DeploymentManual() {
   return (
     <div>
       <h2>Deployment Manual</h2>
-      <p>Instructions for deploying the system, including any authentication, live URLs, and test credentials. (Add deployment steps here.)</p>
-      <div className={styles.noteCard}>
-        If authentication is needed for deployment, include live URL and test credentials for each user type.
+      <div className={styles.componentBreakdown}>
+        <h3>1. Introduction</h3>
+        <p>
+          This manual provides a step-by-step guide for setting up the development environment, opening the project in Unity, configuring MotionInput, and building the football practice game for distribution. Images will be added to illustrate each step.
+        </p>
+
+        <h3>2. System Requirements</h3>
+        <ul>
+          <li><b>Operating System:</b> Windows (required for MotionInput integration)</li>
+          <li><b>Unity Version:</b> 6000.2.12f1 or compatible</li>
+          <li><b>Hardware:</b> Standard PC with webcam for motion input</li>
+        </ul>
+
+        <h3>3. Environment Preparation</h3>
+        <ol>
+          <li>Install <b>Unity Hub</b> and add the required Unity version.</li>
+          <li>Ensure you have <b>Git</b> (for source code) and a suitable IDE (e.g., Visual Studio) for code editing.</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add Unity Hub screenshot here]</div>
+
+        <h3>4. Getting the Source Code</h3>
+        <ol>
+          <li>Clone the repository or download the source code as a .zip file.</li>
+          <li>Open Unity Hub, click <b>Add</b>, and select the project root folder.</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add project folder screenshot here]</div>
+
+        <h3>5. MotionInput Setup</h3>
+        <ol>
+          <li>Obtain the MotionInput build files (not included in the repository).</li>
+          <li>Copy <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder into <code>Assets/StreamingAssets/MotionInput/</code>.</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add MotionInput folder screenshot here]</div>
+
+        <h3>6. Opening the Project</h3>
+        <ol>
+          <li>Open the project in Unity Hub and launch it with the correct Unity version.</li>
+          <li>Wait for Unity to import assets and dependencies (first load may take time).</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add Unity Editor screenshot here]</div>
+
+        <h3>7. Installing Dependencies</h3>
+        <ol>
+          <li>Open <b>Window → Package Manager</b> in Unity.</li>
+          <li>Ensure the following packages are installed:
+            <ul>
+              <li>Universal Render Pipeline</li>
+              <li>Unity Toon Shader</li>
+              <li>Shader Graph</li>
+              <li>Unity UI</li>
+              <li>TextMeshPro</li>
+              <li>Input System</li>
+            </ul>
+          </li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add Package Manager screenshot here]</div>
+
+        <h3>8. Build Configuration</h3>
+        <ol>
+          <li>Go to <b>File → Build Settings</b> and ensure all scenes are included in the correct order:</li>
+          <li>Set the build target to <b>Windows (Standalone)</b>.</li>
+          <li>Click <b>Build and Run</b> to generate the executable.</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add Build Settings screenshot here]</div>
+
+        <h3>9. Running the Game</h3>
+        <ol>
+          <li>After building, locate the executable in the output directory and double-click to run.</li>
+          <li>Ensure the MotionInput window launches and overlays the game UI as expected.</li>
+        </ol>
+        <div className={styles.imagePlaceholder}>[Add running game screenshot here]</div>
+
+        <h3>10. Troubleshooting</h3>
+        <ul>
+          <li><b>MotionInput not launching:</b> Check that all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
+          <li><b>Build errors:</b> Ensure all dependencies are installed and the correct Unity version is used.</li>
+          <li><b>Game crashes or malfunctions:</b> Check log files in the output directory and verify input settings.</li>
+        </ul>
+        <div className={styles.imagePlaceholder}>[Add troubleshooting screenshot here]</div>
+
+        <h3>11. Additional Notes</h3>
+        <ul>
+          <li>MotionInput build files are not included in the repository due to size and licensing. Obtain them from the project maintainers.</li>
+          <li>All scenes must be present and correctly ordered in Build Settings for a successful build.</li>
+        </ul>
       </div>
     </div>
   );
