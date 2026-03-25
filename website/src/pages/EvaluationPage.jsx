@@ -76,20 +76,6 @@ function StatusBadge({ status }) {
   )
 }
 
-/* ── Evaluation score bar ── */
-function ScoreBar({ score, max = 10, color = '#488328' }) {
-  const pct = (score / max) * 100
-  return (
-    <div style={{ marginBottom: '0.5rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4, fontSize: '0.82rem', fontWeight: 700, color: 'var(--green-900)' }}>
-        <span>{score}/{max}</span>
-      </div>
-      <div style={{ height: 8, borderRadius: 4, background: '#e2e8f0', overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${pct}%`, borderRadius: 4, background: `linear-gradient(90deg, ${color}, ${color}cc)`, transition: 'width 1s ease' }} />
-      </div>
-    </div>
-  )
-}
 
 /* ── Achievement table data ── */
 const functionalReqs = [
@@ -133,111 +119,54 @@ const nonFunctionalReqs = [
 
 // bug list
 const bugs = [
-  ['B1', 'High',   'Description of bug here', 'Affected area', 'Open'],
-  ['B2', 'Medium', 'Description of bug here', 'Affected area', 'Resolved'],
-  ['B3', 'Low',    'Description of bug here', 'Affected area', 'Open'],
+  ['B1', 'Medium', 'JumpAnimScript instances are found via FindObjectsByType on every save/task completion, causing potential performance cost in scenes with large crowds', 'Goalkeeping, Obstacle Course', 'Open'],
+  ['B2', 'Medium', 'Ball out-of-bounds detection in Obstacle Course uses distance from spawn rather than pitch bounds, which may behave unexpectedly in edge regions', 'Obstacle Course', 'Open'],
+  ['B3', 'Low',    'Glove model extraction from FBX sub-meshes (Group001/Group002) is fragile and will break if the model asset changes', 'Goalkeeping', 'Open'],
+  ['B4', 'Low',    'GoalkeeperBallCurve (Magnus effect) component exists in Entities but is unused in the current trajectory path', 'Goalkeeping', 'Open'],
+  ['B5', 'Low',    'Shot timeout fallback can classify unresolved shots as misses even when the ball is still in play', 'Penalty Shootout', 'Open'],
+  ['B6', 'Low',    'Task sequence shuffle has a 100-attempt cap; very constrained pools could produce consecutive duplicate tasks in rare cases', 'Obstacle Course', 'Open'],
+  ['B7', 'Low',    'Menu-music and ambient audio transitions depend on correct menu state transitions; incorrect ordering can cause audio overlap', 'Freekick', 'Open'],
+  ['B8', 'Low',    'Some fallback scene discovery still exists alongside composition roots, creating two parallel wiring paths', 'All Minigames', 'Open'],
 ]
 
-/* ── Critical evaluation data ── */
-const evaluationAreas = [
-  {
-    title: 'User Interface / User Experience',
-    icon: '\uD83C\uDFA8',
-    score: 8,
-    strengths: [
-      'Clean, sensory-friendly design with calming colour palette and consistent layout',
-      'Simple navigation structure lets new users start playing within 2 minutes',
-      'Clear visual feedback with celebration effects and score updates after each action',
-    ],
-    improvements: [
-      'Menu transitions could benefit from smoother animations',
-      'Some UI elements could be larger for younger children with motor difficulties',
-    ],
-  },
-  {
-    title: 'Functionality',
-    icon: '\u2699\uFE0F',
-    score: 9,
-    strengths: [
-      'All four core minigames fully implemented with both difficulty modes',
-      'Full-match mode successfully combines minigame elements into a cohesive experience',
-      'Token economy and shop system provide effective positive reinforcement',
-    ],
-    improvements: [
-      'High-score tracking only partially implemented',
-      'Match duration configuration limited to score-based mode only',
-    ],
-  },
-  {
-    title: 'Stability',
-    icon: '\uD83D\uDEE1\uFE0F',
-    score: 8,
-    strengths: [
-      'Graceful fallback when MotionInput Engine encounters errors',
-      'No critical crashes observed during extended playtesting sessions',
-      'State machine architecture prevents invalid game states',
-    ],
-    improvements: [
-      'Occasional frame drops during complex Obstacle Course segments',
-      'Edge cases in gesture recognition can cause momentary unresponsiveness',
-    ],
-  },
-  {
-    title: 'Efficiency',
-    icon: '\u26A1',
-    score: 8,
-    strengths: [
-      'Consistent 30+ FPS maintained on target hardware',
-      'Gesture recognition latency within 100ms target threshold',
-      'Unity URP rendering optimisations reduce GPU workload',
-    ],
-    improvements: [
-      'Memory usage could be further optimised for lower-spec classroom machines',
-      'Initial loading time could be reduced with asset streaming',
-    ],
-  },
-  {
-    title: 'Compatibility',
-    icon: '\uD83D\uDD0C',
-    score: 7,
-    strengths: [
-      'Runs on standard Windows classroom PCs without specialised hardware',
-      'Works with multiple webcam models tested across different environments',
-      'No cloud dependencies \u2014 fully offline operation',
-    ],
-    improvements: [
-      'macOS and Linux support not currently available',
-      'Limited testing on very low-end hardware configurations',
-    ],
-  },
-  {
-    title: 'Maintainability',
-    icon: '\uD83D\uDD27',
-    score: 9,
-    strengths: [
-      'Modular architecture with composition roots and adapter patterns',
-      'Automated test suite covers core game logic and state machines',
-      'Clear separation between minigame modules and shared systems',
-    ],
-    improvements: [
-      'Some minigame-specific scripts could benefit from further refactoring',
-      'Documentation for the MotionInput integration layer could be expanded',
-    ],
-  },
-  {
-    title: 'Project Management',
-    icon: '\uD83D\uDCCB',
-    score: 8,
-    strengths: [
-      'Consistent weekly meetings with all partners and the UCL supervisor',
-      'Iterative development cycle aligned with partner feedback',
-      'Clear task allocation and regular progress tracking via Gantt chart',
-    ],
-    improvements: [
-      'Earlier integration testing with NAS classroom environments would have been beneficial',
-      'More formal sprint retrospectives could have been conducted',
-    ],
-  },
+/* ── Critical evaluation data — per requirement ── */
+const functionalEvals = [
+  { id: 'F1', evaluation: 'Fully implemented. The Penalty Shootout minigame includes a power meter that oscillates for the player to time their shot in hard mode, with directional shooting (left, middle, right). Easy mode bypasses the power bar and uses a fixed force. Shot outcomes are resolved through physics-based collision and trigger detection, with goal, save, miss, and timeout paths all working correctly.' },
+  { id: 'F2', evaluation: 'Fully implemented. The Freekick minigame allows the player to select a shot lane, and the trajectory is computed by FreekickTrajectoryPlanner with randomised shot profiles (intent, execution, target). Wall and goalkeeper setups vary by spawn position. The spin mechanic is handled through lateral acceleration applied during ball flight. Fallback behaviour exists for planning failure.' },
+  { id: 'F3', evaluation: 'Fully implemented. The Goalkeeping minigame uses keyboard or hand-tracking input to move the goalkeeper between three snap positions. Incoming shots follow quadratic Bezier curve trajectories. Save detection is handled through both collider-based collision and distance-based judgement, with a ball timeout fallback counting as a save (benefit of the doubt).' },
+  { id: 'F4', evaluation: 'Fully implemented. The Obstacle Course features eight tasks per round across eight pitch regions, including three-target, swivel-target, defender, dribble, balloon pop, and colour-match tasks. Each task type has a dedicated executor. Easy and Hard pools produce different task sets, and the sequence is shuffled to avoid consecutive duplicates.' },
+  { id: 'F5', evaluation: 'Fully implemented. MotionInput integration is handled through MotionInputManager, which manages the external process lifecycle and mode switching. Each minigame sets the appropriate MotionInput mode (e.g. football/goalkeeping-easy, football/kicking-easy-right). Config updates use structured JSON serialisation rather than line-based file edits.' },
+  { id: 'F6', evaluation: 'Fully implemented. All four minigames offer Easy and Hard difficulty modes. In Freekick, difficulty affects wall behaviour and shot randomisation. In Goalkeeping, Hard mode targets outer positions with curved paths. In Penalty Shootout, Hard mode enables the power meter. In Obstacle Course, Hard mode introduces swivel targets, harder defenders, more balloons, and colour-match tasks.' },
+  { id: 'F7', evaluation: 'Fully implemented. GameSettings exposes a gameSpeedMultiplier read by all minigames to scale ball speed and obstacle speeds. The setting is persisted via PlayerPrefs and accessible through the shared settings UI.' },
+  { id: 'F8', evaluation: 'Fully implemented. The main menu provides a simple, visually clear layout with navigation to minigames, settings, credits, and tutorials. The scene flow is MainMenuScene \u2192 MinigamesMenuScene \u2192 selected minigame. Navigation is quick and requires minimal interaction to reach gameplay.' },
+  { id: 'F9', evaluation: 'Fully implemented. A hands-only mode toggle exists in GameSettings, persisted via PlayerPrefs. When enabled, minigames switch to a hand-gesture MotionInput mode (e.g. Obstacle Course switches from kicking to goalkeeping-easy mode) so children who cannot use foot gestures can still play.' },
+  { id: 'F10', evaluation: 'Partially implemented. Development of a turn-based 5v5 match mode was started but could not be completed within the project timeline. The architectural foundation (session flow, shared systems) could support this in future, but no playable match mode is available in the current build.' },
+  { id: 'F11', evaluation: 'Partially implemented. Each minigame tracks scores and streaks during gameplay, but the token-based reward system (1 coin per point) was not implemented. There is no persistent coin balance or spending mechanism.' },
+  { id: 'F12', evaluation: 'Not completed. No in-game shop exists in the current build. This was dependent on the token system (F11) being completed first.' },
+  { id: 'F13', evaluation: 'Fully implemented. All minigames provide visual and audio feedback: crowd jump animations on successful actions (via JumpAnimScript), score/streak HUD updates, outcome popups (Save!/Goal!), kick and block sound effects, ambient crowd audio, and celebration effects through GlobalGameAudio.' },
+  { id: 'F14', evaluation: 'Partially implemented. Game settings (audio volumes, game speed, MotionInput toggles, hands-only mode) persist across sessions via PlayerPrefs. However, there is no token balance, purchased items, or profile data persisted, as the token/shop system was not completed.' },
+  { id: 'F15', evaluation: 'Partially implemented. This was tied to the 5v5 match mode (F10), which was started but not completed. The turn-based pause-and-act structure was part of the design but is not available in the current build.' },
+  { id: 'F16', evaluation: 'Fully implemented. All minigames support configurable match duration: Endless mode (play until quit) and TargetScore mode (play until reaching N goals/saves/rounds). The Obstacle Course additionally supports single-round, multi-round (1\u201310), and endless configurations.' },
+  { id: 'F17', evaluation: 'Partially implemented. We discovered that persistent high-score tracking would constitute storing data about individual children, which raised privacy concerns under our data minimisation policy (NF7). Instead, each minigame tracks "best streak" within the current session only. This data is not persisted between sessions.' },
+  { id: 'F18', evaluation: 'Not planned. Real-time free-flowing match gameplay was explicitly out of scope for this project phase, as continuous real-time play significantly increases complexity and could overwhelm autistic players.' },
+  { id: 'F19', evaluation: 'Not planned. Multiplayer modes were explicitly out of scope per the project specification. The focus remains on single-player, self-paced practice in classroom settings.' },
+]
+
+const nonFunctionalEvals = [
+  { id: 'NF1', evaluation: 'Met. The game maintains 30+ FPS on standard classroom PCs during gameplay. Unity URP rendering settings are used to reduce GPU workload. However, FindObjectsByType calls on every save/task completion (for crowd animations) could become a performance concern in scenes with very large crowds.' },
+  { id: 'NF2', evaluation: 'Met. Gesture recognition latency is within the 100ms target. MotionInput processes gestures locally with no network round-trip, and in-game responses to input are immediate within the Unity update loop.' },
+  { id: 'NF3', evaluation: 'Met. The UI uses a calming colour palette, clear typography, and consistent layout patterns. There are no rapid flashing visuals. Menu structures are predictable and follow the same pattern across all minigames (mode selection \u2192 gameplay \u2192 completion panel).' },
+  { id: 'NF4', evaluation: 'Met. The navigation flow from main menu to gameplay requires only 3\u20134 clicks (Main Menu \u2192 Minigames \u2192 Select Game \u2192 Choose Mode \u2192 Play). Mode menus present simple difficulty and session type choices with sensible defaults.' },
+  { id: 'NF5', evaluation: 'Met where applicable. The game follows WCAG 2.2 principles in its UI design: sufficient colour contrast, keyboard navigability as fallback, and customisable audio/visual feedback. Full WCAG compliance is limited by the nature of a Unity-based game (not a web application).' },
+  { id: 'NF6', evaluation: 'Met. Audio volume and toggles are customisable through the shared settings UI and persisted via PlayerPrefs. Individual audio channels (music, SFX, ambient) can be adjusted independently. Visual feedback (celebration effects, popups) is present across all minigames.' },
+  { id: 'NF7', evaluation: 'Met. The system collects no personal data or biometric identifiers. Only aggregate gameplay settings (audio volumes, game speed, MotionInput preferences) are stored locally via PlayerPrefs. Session scores and streaks are held in memory only and discarded when the session ends.' },
+  { id: 'NF8', evaluation: 'Met. When MotionInput fails or is unavailable, the system falls back to keyboard input. MotionInputManager handles process lifecycle errors gracefully. Each minigame provides full keyboard controls (e.g. A/D/W for Goalkeeping, arrow keys for Freekick lane selection) as a reliable fallback.' },
+  { id: 'NF9', evaluation: 'Met. The codebase uses dedicated assembly definitions per minigame, composition roots for explicit scene wiring, adapter patterns (ISettingsService, IGoalkeeperMovementController), and service class decomposition. Minigame assemblies do not depend on each other. However, some fallback FindObjectsByType paths still exist alongside composition roots.' },
+  { id: 'NF10', evaluation: 'Met. The project includes edit-mode and play-mode test suites covering trajectory planning, shot mechanics, goal zone detection, session state transitions, composition root wiring, and scoring logic. Tests exist for Freekick, Goalkeeping, Penalty Shootout, and shared systems.' },
+  { id: 'NF11', evaluation: 'Met. New minigames can be added by creating a folder under Assets/Minigames, adding an asmdef, implementing a composition root, and using SharedCore session flow and adapters. The existing four minigames demonstrate this pattern. No changes to core shared systems are required.' },
+  { id: 'NF12', evaluation: 'Met. The system runs on standard Windows PCs with a compatible GPU and camera. No specialised hardware is required beyond what is typically available in classroom environments. MotionInput uses the built-in webcam for gesture capture.' },
+  { id: 'NF13', evaluation: 'Met. All processing is local with no cloud services. Unity URP rendering reduces GPU power consumption compared to the built-in render pipeline. No network calls are made during gameplay.' },
+  { id: 'NF14', evaluation: 'Met. The source code and documentation are maintained as closed source. The repository is private, with access limited to the project team and authorised partners.' },
 ]
 
 /* ── Future work items ── */
@@ -524,45 +453,71 @@ export default function EvaluationPage() {
           <article className={styles.card} style={{ gridColumn: 'span 3' }}>
             <h3>Critical Evaluation of the Project</h3>
             <p style={{ color: 'var(--slate-600)' }}>
-              Each area is assessed on a 1&ndash;10 scale based on team self-evaluation, partner feedback, and testing results.
+              Each requirement from the Requirements page is evaluated against its implementation in the final system.
             </p>
           </article>
         </div>
       </Reveal>
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.8rem' }}>
-        {evaluationAreas.map((area, idx) => {
-          const isLastOdd = idx === evaluationAreas.length - 1 && evaluationAreas.length % 2 !== 0
-          return (
-          <Reveal key={area.title} delay={idx * 80} style={isLastOdd ? { gridColumn: '1 / -1' } : {}}>
-            <div style={{
-              background: '#fff', borderRadius: 12, padding: '1.1rem 1.2rem',
-              border: '1px solid var(--color-border)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-                <span style={{ fontSize: '1.3rem' }}>{area.icon}</span>
-                <h4 style={{ margin: 0, color: 'var(--green-900)', fontSize: '1rem' }}>{area.title}</h4>
-              </div>
-              <ScoreBar score={area.score} />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', marginTop: '0.5rem' }}>
-                <div>
-                  <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#166534', marginBottom: '0.3rem' }}>{'\u2713'} Strengths</p>
-                  <ul style={{ paddingLeft: '1rem', margin: 0, fontSize: '0.82rem', color: 'var(--slate-700)' }}>
-                    {area.strengths.map((s, i) => <li key={i} style={{ marginBottom: 3, lineHeight: 1.4 }}>{s}</li>)}
-                  </ul>
-                </div>
-                <div>
-                  <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#854d0e', marginBottom: '0.3rem' }}>{'\u25B3'} Areas for Improvement</p>
-                  <ul style={{ paddingLeft: '1rem', margin: 0, fontSize: '0.82rem', color: 'var(--slate-700)' }}>
-                    {area.improvements.map((s, i) => <li key={i} style={{ marginBottom: 3, lineHeight: 1.4 }}>{s}</li>)}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-          )
-        })}
-      </div>
+      <Reveal delay={100}>
+        <div className={styles.tableWrap}>
+          <h3>Functional Requirements — Critical Evaluation</h3>
+          <table>
+            <thead>
+              <tr>
+                <th style={{ width: 40 }}>ID</th>
+                <th style={{ width: 80 }}>MoSCoW</th>
+                <th style={{ width: 100 }}>Status</th>
+                <th>Evaluation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {functionalEvals.map((item, i) => {
+                const req = functionalReqs.find(r => r[0] === item.id)
+                return (
+                  <tr key={item.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                    <td><strong>{item.id}</strong></td>
+                    <td style={{ textAlign: 'center' }}><MoscowBadge priority={req?.[2] || ''} /></td>
+                    <td style={{ textAlign: 'center' }}><StatusBadge status={req?.[3] || ''} /></td>
+                    <td style={{ fontSize: '0.85rem', lineHeight: 1.55, color: 'var(--slate-700)' }}>{item.evaluation}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Reveal>
+
+      <Reveal delay={100}>
+        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
+          <h3>Non-Functional Requirements — Critical Evaluation</h3>
+          <table>
+            <thead>
+              <tr>
+                <th style={{ width: 40 }}>ID</th>
+                <th style={{ width: 110 }}>Category</th>
+                <th style={{ width: 80 }}>MoSCoW</th>
+                <th style={{ width: 100 }}>Status</th>
+                <th>Evaluation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {nonFunctionalEvals.map((item, i) => {
+                const req = nonFunctionalReqs.find(r => r[0] === item.id)
+                return (
+                  <tr key={item.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                    <td><strong>{item.id}</strong></td>
+                    <td><span style={{ fontWeight: 600, fontSize: '0.84rem' }}>{req?.[1] || ''}</span></td>
+                    <td style={{ textAlign: 'center' }}><MoscowBadge priority={req?.[3] || ''} /></td>
+                    <td style={{ textAlign: 'center' }}><StatusBadge status={req?.[4] || ''} /></td>
+                    <td style={{ fontSize: '0.85rem', lineHeight: 1.55, color: 'var(--slate-700)' }}>{item.evaluation}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Reveal>
 
       {/* ── section divider ── */}
       <div style={{ maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0' }} />
