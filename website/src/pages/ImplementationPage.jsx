@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import styles from '../App.module.css'
 import ImageWithCaption from '../components/ImageWithCaption'
 import SectionHeader from '../components/SectionHeader'
@@ -37,6 +38,287 @@ function RevealSection({ children, className = '', style = {}, delay = 0 }) {
     )
 }
 
+function MediaCarousel({ items, width = '60%', height = '340px' }) {
+    const [idx, setIdx] = useState(0)
+    const [lightbox, setLightbox] = useState(null)
+    const len = items.length
+
+    const prev = () => setIdx((i) => (i - 1 + len) % len)
+    const next = () => setIdx((i) => (i + 1) % len)
+
+    const getCardStyle = (i) => {
+        const diff = ((i - idx) % len + len) % len
+        // 0 = current, 1 = next, len-1 = prev, others hidden
+        if (diff === 0) {
+            return {
+                transform: 'translateX(0) scale(1)',
+                opacity: 1,
+                zIndex: 3,
+                filter: 'none',
+                pointerEvents: 'auto',
+            }
+        } else if (diff === 1) {
+            return {
+                transform: 'translateX(65%) scale(0.85)',
+                opacity: 0.6,
+                zIndex: 2,
+                filter: 'brightness(0.8)',
+                pointerEvents: 'none',
+            }
+        } else if (diff === len - 1) {
+            return {
+                transform: 'translateX(-65%) scale(0.85)',
+                opacity: 0.6,
+                zIndex: 2,
+                filter: 'brightness(0.8)',
+                pointerEvents: 'none',
+            }
+        } else if (diff === 2) {
+            return {
+                transform: 'translateX(85%) scale(0.72)',
+                opacity: 0.25,
+                zIndex: 1,
+                filter: 'brightness(0.7)',
+                pointerEvents: 'none',
+            }
+        } else if (diff === len - 2) {
+            return {
+                transform: 'translateX(-85%) scale(0.72)',
+                opacity: 0.25,
+                zIndex: 1,
+                filter: 'brightness(0.7)',
+                pointerEvents: 'none',
+            }
+        }
+        return {
+            transform: 'translateX(0) scale(0.6)',
+            opacity: 0,
+            zIndex: 0,
+            filter: 'brightness(0.6)',
+            pointerEvents: 'none',
+        }
+    }
+
+    const renderMedia = (item, i) => {
+        const cardPos = getCardStyle(i)
+        const isCurrent = ((i - idx) % len + len) % len === 0
+        const shared = {
+            position: 'absolute',
+            maxWidth: '75%', maxHeight: '90%',
+            borderRadius: '10px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+            transition: 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease, filter 0.45s ease',
+            cursor: isCurrent ? 'zoom-in' : 'pointer',
+            ...cardPos,
+        }
+
+        const handleClick = () => {
+            if (!isCurrent) { setIdx(i); return }
+            if (item.type !== 'video') setLightbox(item)
+        }
+
+        if (item.type === 'video') {
+            return (
+                <video
+                    key={item.src}
+                    controls={isCurrent}
+                    muted
+                    preload="auto"
+                    style={{...shared, display: 'block'}}
+                    onClick={() => { if (!isCurrent) setIdx(i) }}
+                >
+                    <source src={item.src} type="video/mp4" />
+                </video>
+            )
+        }
+        return (
+            <img
+                key={item.src}
+                src={item.src}
+                alt={item.label}
+                style={{...shared, display: 'block', objectFit: 'contain'}}
+                onClick={handleClick}
+            />
+        )
+    }
+
+    return (
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1rem', gap: '0.6rem'}}>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', width: '100%'}}>
+                <button
+                    onClick={prev}
+                    style={{
+                        width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #dde7f3',
+                        background: '#fff', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--slate-600)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.08)', zIndex: 10,
+                        transition: 'background 0.2s, border-color 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#f0f7ff'; e.currentTarget.style.borderColor = '#93c5fd' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#dde7f3' }}
+                    aria-label="Previous"
+                >&#8249;</button>
+
+                <div style={{
+                    width, height, position: 'relative', overflow: 'visible',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                    {items.map((item, i) => renderMedia(item, i))}
+                </div>
+
+                <button
+                    onClick={next}
+                    style={{
+                        width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #dde7f3',
+                        background: '#fff', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--slate-600)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.08)', zIndex: 10,
+                        transition: 'background 0.2s, border-color 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#f0f7ff'; e.currentTarget.style.borderColor = '#93c5fd' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#dde7f3' }}
+                    aria-label="Next"
+                >&#8250;</button>
+            </div>
+
+            <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'opacity 0.3s ease'}}>
+                <span style={{fontWeight: 600, fontSize: '0.85rem', color: 'var(--green-900)'}}>
+                    {items[idx].label}
+                </span>
+                <span style={{fontSize: '0.78rem', color: 'var(--slate-500)'}}>
+                    ({idx + 1} / {items.length})
+                </span>
+            </div>
+
+            <div style={{display: 'flex', gap: '0.4rem'}}>
+                {items.map((_, i) => (
+                    <div
+                        key={i}
+                        onClick={() => setIdx(i)}
+                        style={{
+                            width: '8px', height: '8px', borderRadius: '50%', cursor: 'pointer',
+                            background: i === idx ? 'var(--green-700)' : '#d1d5db',
+                            transition: 'background 0.3s, transform 0.2s',
+                            transform: i === idx ? 'scale(1.3)' : 'scale(1)',
+                        }}
+                    />
+                ))}
+            </div>
+
+            {lightbox && createPortal(
+                <div
+                    onClick={() => setLightbox(null)}
+                    style={{
+                        position: 'fixed', inset: 0, zIndex: 9999,
+                        background: 'rgba(0,0,0,0.85)',
+                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                        cursor: 'zoom-out', padding: '2rem',
+                    }}
+                >
+                    <img
+                        src={lightbox.src}
+                        alt={lightbox.label}
+                        style={{ maxWidth: '90vw', maxHeight: '80vh', borderRadius: '10px', boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
+                    />
+                    {lightbox.label && (
+                        <p style={{ marginTop: '1rem', color: '#fff', fontSize: '0.95rem', opacity: 0.85 }}>
+                            {lightbox.label}
+                        </p>
+                    )}
+                    <p style={{ marginTop: '0.5rem', color: '#aaa', fontSize: '0.8rem' }}>Click anywhere to close</p>
+                </div>,
+                document.body
+            )}
+        </div>
+    )
+}
+
+function VideoCarousel({ videos }) {
+    const [idx, setIdx] = useState(0)
+
+    const prev = () => setIdx((i) => (i - 1 + videos.length) % videos.length)
+    const next = () => setIdx((i) => (i + 1) % videos.length)
+
+    return (
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1rem', gap: '0.6rem'}}>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', width: '100%'}}>
+                <button
+                    onClick={prev}
+                    style={{
+                        width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #dde7f3',
+                        background: '#fff', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--slate-600)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+                        transition: 'background 0.2s, border-color 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#f0f7ff'; e.currentTarget.style.borderColor = '#93c5fd' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#dde7f3' }}
+                    aria-label="Previous video"
+                >&#8249;</button>
+
+                <div style={{width: '60%', overflow: 'hidden', borderRadius: '10px', border: '1px solid #dde7f3', position: 'relative'}}>
+                    {videos.map((v, i) => (
+                        <video
+                            key={v.src}
+                            controls={i === idx}
+                            muted
+                            preload="auto"
+                            style={{
+                                width: '100%', display: 'block', borderRadius: '9px',
+                                position: i === 0 ? 'relative' : 'absolute',
+                                top: 0, left: 0,
+                                opacity: i === idx ? 1 : 0,
+                                pointerEvents: i === idx ? 'auto' : 'none',
+                                transition: 'opacity 0.4s ease',
+                            }}
+                        >
+                            <source src={v.src} type="video/mp4" />
+                        </video>
+                    ))}
+                </div>
+
+                <button
+                    onClick={next}
+                    style={{
+                        width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #dde7f3',
+                        background: '#fff', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--slate-600)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+                        transition: 'background 0.2s, border-color 0.2s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#f0f7ff'; e.currentTarget.style.borderColor = '#93c5fd' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#dde7f3' }}
+                    aria-label="Next video"
+                >&#8250;</button>
+            </div>
+
+            <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'opacity 0.3s ease'}}>
+                <span style={{fontWeight: 600, fontSize: '0.85rem', color: 'var(--green-900)'}}>
+                    {videos[idx].label}
+                </span>
+                <span style={{fontSize: '0.78rem', color: 'var(--slate-500)'}}>
+                    ({idx + 1} / {videos.length})
+                </span>
+            </div>
+
+            <div style={{display: 'flex', gap: '0.4rem'}}>
+                {videos.map((_, i) => (
+                    <div
+                        key={i}
+                        onClick={() => setIdx(i)}
+                        style={{
+                            width: '8px', height: '8px', borderRadius: '50%', cursor: 'pointer',
+                            background: i === idx ? 'var(--green-700)' : '#d1d5db',
+                            transition: 'background 0.3s, transform 0.2s',
+                            transform: i === idx ? 'scale(1.3)' : 'scale(1)',
+                        }}
+                    />
+                ))}
+            </div>
+        </div>
+    )
+}
+
 export default function ImplementationPage() {
     return (
         <section className={styles.section}>
@@ -48,6 +330,10 @@ export default function ImplementationPage() {
                 {/* Architecture & Scene Flow */}
                 <RevealSection className={styles.abstractPanel}>
                     <h3>Architecture & Scene Flow</h3>
+
+                    <div style={{marginTop: '1.5rem'}}>
+                        <ImageWithCaption src="/implementation/flowchart.png" caption="Architecture and scene flow overview" />
+                    </div>
 
                     <h3 style={{marginTop: '2rem'}}>Project Structure</h3>
                     <p style={{marginTop: '1rem'}}>
@@ -163,6 +449,11 @@ export default function ImplementationPage() {
                         timing shots to beat the goalkeeper.
                     </p>
 
+                    <VideoCarousel videos={[
+                        { src: '/implementation/freekick.mp4', label: 'Easy Mode' },
+                        { src: '/implementation/freekick_hard.mp4', label: 'Hard Mode' },
+                    ]} />
+
                     <h3 style={{marginTop: '2rem'}}>Session & Round Lifecycle</h3>
                     <p style={{marginTop: '1rem'}}>
                         Free Kick runs two coordinated state layers. The session flow manages the high-level
@@ -232,6 +523,11 @@ export default function ImplementationPage() {
                         launched on curved trajectories. Supports Easy/Hard difficulty and Endless or TargetScore modes.
                     </p>
 
+                    <VideoCarousel videos={[
+                        { src: '/implementation/goalkeeping.mp4', label: 'Easy Mode' },
+                        { src: '/implementation/goalkeeping_hard.mp4', label: 'Hard Mode' },
+                    ]} />
+
                     <h3 style={{marginTop: '2rem'}}>Bezier Curve Ball Flight</h3>
                     <p style={{marginTop: '1rem'}}>
                         <code>GoalkeeperBallCurvePath</code> implements quadratic Bezier movement for realistic curved ball
@@ -293,6 +589,11 @@ export default function ImplementationPage() {
                         is simulated using Unity physics, and outcomes are determined through collision and trigger detection.
                     </p>
 
+                    <VideoCarousel videos={[
+                        { src: '/implementation/penalty.mp4', label: 'Easy Mode' },
+                        { src: '/implementation/penalty_hard.mp4', label: 'Hard Mode' },
+                    ]} />
+
                     <h3 style={{marginTop: '2rem'}}>Shot Lifecycle</h3>
                     <p style={{marginTop: '1rem'}}>
                         Each penalty follows a consistent sequence managed by <code>PenaltyController</code>:
@@ -340,6 +641,11 @@ export default function ImplementationPage() {
                         Each task requires kicking or dribbling a ball to hit targets, avoid defenders, pop balloons, or
                         match colours. The player character moves automatically between regions as tasks are completed.
                     </p>
+
+                    <VideoCarousel videos={[
+                        { src: '/implementation/obastacle.mp4', label: 'Easy Mode' },
+                        { src: '/implementation/obstacle_hard.mp4', label: 'Hard Mode' },
+                    ]} />
 
                     <h3 style={{marginTop: '2rem'}}>Task System & Sequence Generation</h3>
                     <p style={{marginTop: '1rem'}}>
@@ -405,47 +711,39 @@ export default function ImplementationPage() {
                         throughout. All minigames support keyboard fallback when MotionInput is unavailable.
                     </p>
 
-                    <h3 style={{marginTop: '2rem'}}>Free Kick / Penalty Shootout / Obstacle Course Controls</h3>
+                    <h3 style={{marginTop: '2rem'}}>Control Schemes</h3>
                     <p style={{marginTop: '1rem'}}>
-                        These three minigames share the kicking gesture mode (<code>football/kicking-easy-right</code>):
+                        Free Kick, Penalty Shootout, and Obstacle Course share the kicking gesture
+                        mode (<code>football/kicking-easy-right</code>). Goalkeeping uses the hands-only
+                        mode (<code>football/goalkeeping-easy</code>).
                     </p>
                     <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Minigame</th>
                                     <th>Keybind</th>
                                     <th>Action</th>
                                     <th>MotionInput Equivalent</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><b>A</b></td><td>Kick left / select left lane</td><td>Left foot triggers left football icon</td></tr>
-                                <tr><td><b>W</b></td><td>Kick centre / select centre lane</td><td>Either foot triggers centre football icon</td></tr>
-                                <tr><td><b>D</b></td><td>Kick right / select right lane</td><td>Right foot triggers right football icon</td></tr>
+                                <tr><td rowSpan="3"><b>Free Kick / Penalty / Obstacle Course</b></td><td>A</td><td>Kick left / select left lane</td><td>Left foot triggers left football icon</td></tr>
+                                <tr><td>W</td><td>Kick centre / select centre lane</td><td>Either foot triggers centre football icon</td></tr>
+                                <tr><td>D</td><td>Kick right / select right lane</td><td>Right foot triggers right football icon</td></tr>
+                                <tr><td rowSpan="3"><b>Goalkeeping</b></td><td>A</td><td>Dive left</td><td>Left hand triggers left glove icon</td></tr>
+                                <tr><td>W</td><td>Raise hands to centre-top</td><td>Either hand triggers centre glove icon</td></tr>
+                                <tr><td>D</td><td>Dive right</td><td>Right hand triggers right glove icon</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <h3 style={{marginTop: '2rem'}}>Goalkeeping Controls</h3>
-                    <p style={{marginTop: '1rem'}}>
-                        Goalkeeping uses the hands-only gesture mode (<code>football/goalkeeping-easy</code>):
-                    </p>
-                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Keybind</th>
-                                    <th>Action</th>
-                                    <th>MotionInput Equivalent</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td><b>A / Left Arrow</b></td><td>Dive left</td><td>Left hand triggers left glove icon</td></tr>
-                                <tr><td><b>W / Up Arrow</b></td><td>Raise hands to centre-top</td><td>Either hand triggers centre glove icon</td></tr>
-                                <tr><td><b>D / Right Arrow</b></td><td>Dive right</td><td>Right hand triggers right glove icon</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <MediaCarousel width="50%" height="300px" items={[
+                        { type: 'image', src: '/implementation/gamecontroller (2).png', label: 'Free Kick Controller' },
+                        { type: 'image', src: '/implementation/gamecontroller (1).png', label: 'Penalty Shootout Controller' },
+                        { type: 'image', src: '/implementation/gamecontroller (3).png', label: 'Goalkeeping Controller' },
+                        { type: 'image', src: '/implementation/gamecontroller (4).png', label: 'Obstacle Course Controller' },
+                    ]} />
 
                     <h3 style={{marginTop: '2rem'}}>Hands-Only Mode</h3>
                     <p style={{marginTop: '1rem'}}>
@@ -485,6 +783,11 @@ export default function ImplementationPage() {
                         </table>
                     </div>
 
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
+                        <ImageWithCaption src="/implementation/foot.png" caption="MotionInput — kicking mode" />
+                        <ImageWithCaption src="/implementation/hands.png" caption="MotionInput — hands-only mode" />
+                    </div>
+
                     <h3 style={{marginTop: '2rem'}}>Runtime Lifecycle</h3>
                     <p style={{marginTop: '1rem'}}>
                         <code>MotionInputManager</code> is a singleton that persists for the full session. On startup, it
@@ -503,11 +806,14 @@ export default function ImplementationPage() {
 
                     <h3 style={{marginTop: '2rem'}}>Configuration Model</h3>
                     <p style={{marginTop: '1rem'}}>
-                        The bundled config in <code>StreamingAssets/MotionInput/data/config.json</code> is copied to
-                        <code> Application.persistentDataPath</code> on first run (with version-based upgrades and automatic backup).
-                        Mode switching writes only the <code>mode</code> field via structured JSON serialisation — StreamingAssets
-                        is never modified at runtime. Mode files are validated against the <code>modes/</code> folder before any
-                        write is attempted.
+                        The MotionInput build files are not included in the repository due to their size — they
+                        must be downloaded separately and placed into <code>Assets/StreamingAssets/MotionInput/</code> before
+                        building. On first run, the bundled <code>config.json</code> is copied
+                        to <code>Application.persistentDataPath</code>, with automatic version-based upgrades and backup of
+                        previous configs. All runtime reads and writes use this persistent copy — StreamingAssets is
+                        never modified. Mode switching updates only the <code>mode</code> field via structured JSON
+                        serialisation, and mode files are validated against the <code>modes/</code> folder before any write
+                        is attempted.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Window Positioning</h3>
@@ -555,6 +861,14 @@ export default function ImplementationPage() {
                         </table>
                     </div>
 
+                    <MediaCarousel width="50%" items={[
+                        { type: 'image', src: '/implementation/toonshader_and_footballmini.png', label: 'Toon Shader & Football Mini Assets' },
+                        { type: 'image', src: '/implementation/color material.png', label: 'Football_ColorPalette Material' },
+                        { type: 'image', src: '/implementation/asset_structure.png', label: 'Asset Structure' },
+                        { type: 'image', src: '/implementation/popup.png', label: 'Goal/Save Popup Animation Prefabs' },
+                        { type: 'image', src: '/implementation/2D_crowd.jpg', label: '2D Crowd Sprites' },
+                    ]} />
+
                     <h3 style={{marginTop: '2rem'}}>Rendering & Performance</h3>
                     <p style={{marginTop: '1rem'}}>
                         <b>FSR 1.0</b> upscaling renders at 75% resolution for improved GPU performance while maintaining
@@ -573,6 +887,12 @@ export default function ImplementationPage() {
                         before any scene loads and persists across all scenes. All minigames and menus consume this
                         shared system rather than creating scene-local audio logic.
                     </p>
+
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1.5rem'}}>
+                        <div style={{width: '50%'}}>
+                            <ImageWithCaption src="/implementation/globalaudio.png" caption="GlobalGameAudio singleton in Unity Inspector" />
+                        </div>
+                    </div>
 
                     <h3 style={{marginTop: '2rem'}}>Audio Channels & Routing</h3>
                     <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
@@ -652,8 +972,7 @@ export default function ImplementationPage() {
                     <h3 style={{marginTop: '2rem'}}>Inspector-Driven Gameplay Tuning</h3>
                     <p style={{marginTop: '1rem'}}>
                         Several systems rely on serialised inspector values for developer-only tuning that is not exposed
-                        to the player. These values are saved in the scene file and must be committed with the scene.
-                    </p>
+                        to the player.                    </p>
                     <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
                         <table>
                             <thead>

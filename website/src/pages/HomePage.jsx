@@ -1,4 +1,5 @@
 import styles from '../App.module.css'
+import williamPhoto from '../assets/team/William.jpg'
 import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
 
 export default function HomePage() {
@@ -21,8 +22,9 @@ export default function HomePage() {
       name: 'William Xing',
       email: 'weimin.xing.22@ucl.ac.uk',
       roles: 'Game Programmer, QA & Testing Lead',
-      bio: 'Bio / background placeholder',
+      bio: 'Passionate and creative software engineer skilled in systems development',
       linkedin: 'https://www.linkedin.com/in/wangweimin-xing-2bb1b8300/',
+      photo: williamPhoto,
     },
     {
       name: 'Zhouzhou Zhang',
@@ -92,6 +94,7 @@ export default function HomePage() {
                       width: '100%',
                       aspectRatio: '4 / 3',
                       objectFit: 'cover',
+                      ...(member.name === 'William Xing' ? { objectPosition: 'center 30%' } : {}),
                       borderRadius: 10,
                       marginBottom: '0.6rem',
                     }}
