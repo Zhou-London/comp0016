@@ -1,4 +1,5 @@
 import styles from '../App.module.css'
+import williamPhoto from '../assets/team/William.jpg'
 import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
 import marihaPhoto from '../assets/team/mariha.JPG'
 import ImageWithCaption from "../components/ImageWithCaption.jsx";
@@ -24,8 +25,9 @@ export default function HomePage() {
       name: 'William Xing',
       email: 'weimin.xing.22@ucl.ac.uk',
       roles: 'Game Programmer, QA & Testing Lead',
-      bio: 'Bio / background placeholder',
+      bio: 'Passionate and creative software engineer skilled in systems development',
       linkedin: 'https://www.linkedin.com/in/wangweimin-xing-2bb1b8300/',
+      photo: williamPhoto,
     },
     {
       name: 'Zhouzhou Zhang',

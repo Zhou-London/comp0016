@@ -179,12 +179,8 @@ export default function TestingPage() {
                     </p>
 
                     <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
-                        <div style={{aspectRatio: '4/3', overflow: 'hidden', borderRadius: '8px', border: '1px solid #dde7f3'}}>
-                            <img src="/testing/showcase (1).jpg" alt="Showcase playtesting session" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
-                        </div>
-                        <div style={{aspectRatio: '4/3', overflow: 'hidden', borderRadius: '8px', border: '1px solid #dde7f3'}}>
-                            <img src="/testing/showcase (2).jpg" alt="Showcase playtesting session" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
-                        </div>
+                        <ImageWithCaption src="/testing/showcase (1).jpg" caption="Showcase playtesting session" />
+                        <ImageWithCaption src="/testing/showcase (2).jpg" caption="Showcase playtesting session" />
                     </div>
 
                     <h3 style={{marginTop: '2rem'}}>Feedback Received</h3>
@@ -253,6 +249,133 @@ export default function TestingPage() {
                         <ImageWithCaption src="/testing/aftershowcase (1).png" caption="Repositioned power bar above the goal" />
                         <ImageWithCaption src="/testing/aftershowcase (2).png" caption="Enlarged SAVE! text with green colouring" />
                         <ImageWithCaption src="/testing/aftershowcase (3).png" caption="Game speed setting added to settings menu" />
+                    </div>
+                </div>
+
+                <div className={styles.abstractPanel}>
+                    <h3>Anonymous User Testing</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        In addition to the showcase playtesting with our partnered clients, we conducted anonymous user
+                        testing with consenting adult participants recruited from classmates and peers. This allowed us
+                        to gather broader feedback on gameplay feel, intuitiveness, and overall enjoyment from users
+                        without disabilities, complementing the targeted accessibility testing done with our SEND-focused
+                        partners.
+                    </p>
+                    <p style={{marginTop: '1rem'}}>
+                        Participants were asked to play through each minigame and then complete a short anonymous
+                        survey. The survey used a four-point Likert scale (Strongly Agree, Agree, Disagree, Strongly
+                        Disagree) to measure key usability and experience metrics. We collected <b>15 responses</b> in total.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>Survey Results</h3>
+
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '1.5rem'}}>
+                        {[
+                            {
+                                question: 'Did you find the game easy to play after your first try?',
+                                data: [
+                                    {label: 'Strongly Agree', value: 43, color: '#00804c'},
+                                    {label: 'Agree', value: 43, color: '#74c365'},
+                                    {label: 'Disagree', value: 14, color: '#e8a838'},
+                                ]
+                            },
+                            {
+                                question: 'Would you recommend this game to others?',
+                                data: [
+                                    {label: 'Strongly Agree', value: 57, color: '#00804c'},
+                                    {label: 'Agree', value: 36, color: '#74c365'},
+                                    {label: 'Disagree', value: 7, color: '#e8a838'},
+                                ]
+                            },
+                            {
+                                question: 'Were the controls intuitive and responsive?',
+                                data: [
+                                    {label: 'Strongly Agree', value: 33, color: '#00804c'},
+                                    {label: 'Agree', value: 40, color: '#74c365'},
+                                    {label: 'Disagree', value: 20, color: '#e8a838'},
+                                    {label: 'Strongly Disagree', value: 7, color: '#d94f4f'},
+                                ]
+                            },
+                            {
+                                question: 'Did you find the UI clear and easy to navigate?',
+                                data: [
+                                    {label: 'Strongly Agree', value: 47, color: '#00804c'},
+                                    {label: 'Agree', value: 40, color: '#74c365'},
+                                    {label: 'Disagree', value: 13, color: '#e8a838'},
+                                    {label: 'Strongly Disagree', value: 0, color: '#d94f4f'},
+                                ]
+                            },
+                        ].map(({question, data}) => {
+                            let cumulative = 0
+                            const slices = data.filter(d => d.value > 0).map(d => {
+                                const startAngle = cumulative * 3.6
+                                cumulative += d.value
+                                const endAngle = cumulative * 3.6
+                                const startRad = (startAngle - 90) * Math.PI / 180
+                                const endRad = (endAngle - 90) * Math.PI / 180
+                                const largeArc = (endAngle - startAngle) > 180 ? 1 : 0
+                                const x1 = 100 + 90 * Math.cos(startRad)
+                                const y1 = 100 + 90 * Math.sin(startRad)
+                                const x2 = 100 + 90 * Math.cos(endRad)
+                                const y2 = 100 + 90 * Math.sin(endRad)
+                                return (
+                                    <path
+                                        key={d.label}
+                                        d={`M100,100 L${x1},${y1} A90,90 0 ${largeArc},1 ${x2},${y2} Z`}
+                                        fill={d.color}
+                                        stroke="#fff"
+                                        strokeWidth="1.5"
+                                    />
+                                )
+                            })
+                            return (
+                                <div key={question} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                    <svg viewBox="0 0 200 200" style={{width: '200px', height: '200px'}}>
+                                        {slices}
+                                    </svg>
+                                    <p style={{
+                                        marginTop: '0.8rem', fontWeight: 600, fontSize: '0.88rem',
+                                        color: 'var(--green-900)', textAlign: 'center', maxWidth: '260px'
+                                    }}>{question}</p>
+                                    <div style={{display: 'flex', gap: '0.6rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem'}}>
+                                        {data.map(d => (
+                                            <div key={d.label} style={{display: 'flex', alignItems: 'center', gap: '0.25rem'}}>
+                                                <div style={{width: '12px', height: '12px', borderRadius: '2px', background: d.color}} />
+                                                <span style={{fontSize: '0.75rem', color: 'var(--slate-600)'}}>{d.label} ({d.value}%)</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Key Takeaways</h3>
+                    <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', color: 'var(--slate-700)', lineHeight: 1.8}}>
+                        <li><b>80%</b> of participants found the game easy to play after their first try, indicating strong initial learnability.</li>
+                        <li><b>86%</b> would recommend the game to others, reflecting positive overall engagement.</li>
+                        <li><b>Controls</b> scored slightly lower, with 27% reporting difficulty — primarily related to unfamiliarity with MotionInput gesture tracking rather than game design issues.</li>
+                        <li><b>UI clarity</b> scored highest, with 87% rating the interface as clear and easy to navigate, validating our design principles.</li>
+                    </ul>
+
+                    <h3 style={{marginTop: '2rem'}}>Written Feedback Highlights</h3>
+                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feedback</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>"Really fun once I got the hang of the motion controls"</td><td>Overall Experience</td></tr>
+                                <tr><td>"The goalkeeping mode felt very immersive"</td><td>Gameplay Feel</td></tr>
+                                <tr><td>"Would be great with a multiplayer or versus mode"</td><td>Feature Suggestion</td></tr>
+                                <tr><td>"Menus were very straightforward, never felt lost"</td><td>UI / Navigation</td></tr>
+                                <tr><td>"Took a moment to calibrate my movements but felt natural after that"</td><td>Controls / Onboarding</td></tr>
+                                <tr><td>"The obstacle course was my favourite — good variety of challenges"</td><td>Gameplay Content</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
