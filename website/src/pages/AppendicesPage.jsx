@@ -66,7 +66,7 @@ function GDPR() {
         <h3>Changes to This Policy</h3>
         <p>
           If data collection practices change in future updates, this policy will be updated accordingly.<br/>
-          <b>This privacy policy was last updated on [25/03/2026]</b>.
+          <b>This privacy policy was last updated on 25th March 2026</b>.
         </p>
       </div>
     </section>
