@@ -93,42 +93,49 @@ function ScoreBar({ score, max = 10, color = '#488328' }) {
 
 /* ── Achievement table data ── */
 const functionalReqs = [
-  ['F1',  'Penalty Shootout minigame with power bar and directional shooting', 'Must', 'completed', 'Sunain, Mariha'],
-  ['F2',  'Free Kick minigame with trajectory selection and spin mechanic', 'Must', 'completed', 'Sunain, Antony'],
-  ['F3',  'Goalkeeping minigame with hand gesture diving', 'Must', 'completed', 'Sunain, William'],
-  ['F4',  'Obstacle Course with diverse football skill challenges', 'Must', 'completed', 'Sunain, Mariha, Antony'],
-  ['F5',  'MotionInput Engine integration for full-body gesture recognition', 'Must', 'completed', 'Sunain, William'],
-  ['F6',  'Configurable difficulty levels (Normal / Hard) per minigame', 'Must', 'completed', 'Sunain, Antony'],
-  ['F7',  'Adjustable game-speed setting with auto-speed option', 'Must', 'completed', 'Sunain'],
-  ['F8',  'Simple, visually clear main menu with quick navigation', 'Must', 'completed', 'Mariha, Zhouzhou'],
-  ['F9',  'Hands-only mode toggle for accessibility', 'Must', 'completed', 'Sunain'],
-  ['F10', 'Simulated 5v5 full-match mode vs. AI', 'Should', 'completed', 'Sunain, Antony'],
-  ['F11', 'Token-based reward system (1 coin per point scored)', 'Should', 'completed', 'Mariha'],
-  ['F12', 'In-game shop with cosmetic items (avatars, footballs, stadiums)', 'Should', 'completed', 'Mariha, Zhouzhou'],
-  ['F13', 'Clear, frequent, positive visual and audio feedback', 'Should', 'completed', 'Mariha, Sunain'],
-  ['F14', 'Persistent classroom profile (tokens, items, settings)', 'Should', 'completed', 'Sunain'],
-  ['F15', 'Full-match pauses at key moments for player actions', 'Should', 'completed', 'Sunain'],
-  ['F16', 'Configurable match duration (score-based or action-based)', 'Could', 'partial', 'Sunain'],
-  ['F17', 'High-score tracking per minigame', 'Could', 'partial', 'Mariha'],
-  ['F18', 'Real-time free-flowing full-match gameplay', 'Won\u2019t', 'not planned', '\u2014'],
-  ['F19', 'Online or offline multiplayer modes', 'Won\u2019t', 'not planned', '\u2014'],
+  ['F1',  'Penalty Shootout minigame with power bar and directional shooting', 'Must', 'completed', 'Antony', ''],
+  ['F2',  'Free Kick minigame with trajectory selection and spin mechanic', 'Must', 'completed', 'Sunain', ''],
+  ['F3',  'Goalkeeping minigame with hand gesture diving', 'Must', 'completed', 'William', ''],
+  ['F4',  'Obstacle Course with diverse football skill challenges', 'Must', 'completed', 'Mariha', ''],
+  ['F5',  'MotionInput Engine integration for full-body gesture recognition', 'Must', 'completed', 'Mariha', ''],
+  ['F6',  'Configurable difficulty levels (Normal / Hard) per minigame', 'Must', 'completed', 'Mariha, Sunain, William, Antony', ''],
+  ['F7',  'Adjustable game-speed setting with auto-speed option', 'Must', 'completed', 'Mariha, Sunain, William, Antony', ''],
+  ['F8',  'Simple, visually clear main menu with quick navigation', 'Must', 'completed', 'Mariha', ''],
+  ['F9',  'Hands-only mode toggle for accessibility', 'Must', 'completed', 'Mariha', ''],
+  ['F10', 'Simulated 5v5 full-match mode vs. AI', 'Should', 'partial', 'William', 'Started development on a turn-based match minigame however ran out of time.'],
+  ['F11', 'Token-based reward system (1 coin per point scored)', 'Should', 'partial', 'Mariha, Sunain, William, Antony', 'Score systems have been implemented in each minigame but not coins.'],
+  ['F12', 'In-game shop with cosmetic items (avatars, footballs, stadiums)', 'Should', 'Not completed', '\u2014', ''],
+  ['F13', 'Clear, frequent, positive visual and audio feedback', 'Should', 'completed', 'Mariha, Sunain', ''],
+  ['F14', 'Persistent classroom profile (tokens, items, settings)', 'Should', 'partial', 'Mariha', 'Game settings that persist between sessions have been implemented, however items/coins have not.'],
+  ['F15', 'Full-match pauses at key moments for player actions', 'Should', 'partial', 'William', 'Started development on a turn-based match minigame however ran out of time.'],
+  ['F16', 'Configurable match duration (score-based or action-based)', 'Could', 'completed', 'Mariha, Sunain, William, Antony', ''],
+  ['F17', 'High-score tracking per minigame', 'Could', 'partial', 'Mariha, Sunain, William, Antony', 'We found out that high score tracking counts as storing data about the children and so we were advised not to implement this. Instead, we implemented "best streak" that only displays for that session.'],
+  ['F18', 'Real-time free-flowing full-match gameplay', 'Won\u2019t', 'not planned', '\u2014', ''],
+  ['F19', 'Online or offline multiplayer modes', 'Won\u2019t', 'not planned', '\u2014', ''],
 ]
 
 const nonFunctionalReqs = [
-  ['NF1',  'Performance',   '\u226530 FPS on standard classroom PCs', 'Must', 'completed', 'Sunain'],
-  ['NF2',  'Performance',   'Gesture recognition latency \u2264100ms', 'Must', 'completed', 'Sunain, William'],
+  ['NF1',  'Performance',   '\u226530 FPS on standard classroom PCs', 'Must', 'completed', 'All'],
+  ['NF2',  'Performance',   'Gesture recognition latency \u2264100ms', 'Must', 'completed', 'All'],
   ['NF3',  'Usability',     'Sensory-friendly UI design principles', 'Must', 'completed', 'Mariha, Zhouzhou'],
   ['NF4',  'Usability',     'New user can start playing within 2 minutes', 'Must', 'completed', 'Mariha'],
   ['NF5',  'Accessibility', 'WCAG 2.2 compliance where applicable', 'Must', 'completed', 'All'],
   ['NF6',  'Accessibility', 'Customisable visual and audio feedback', 'Must', 'completed', 'Sunain, Mariha'],
   ['NF7',  'Security',      'No personal data collection or transmission', 'Must', 'completed', 'All'],
-  ['NF8',  'Reliability',   'Graceful handling of MotionInput failures', 'Must', 'completed', 'Sunain'],
+  ['NF8',  'Reliability',   'Graceful handling of MotionInput failures', 'Must', 'completed', 'Mariha'],
   ['NF9',  'Maintainability','Modular architecture with composition roots', 'Should', 'completed', 'Sunain'],
-  ['NF10', 'Maintainability','Automated unit and integration tests', 'Should', 'completed', 'William, Sunain'],
-  ['NF11', 'Extensibility', 'Add new minigames without modifying core', 'Should', 'completed', 'Sunain'],
+  ['NF10', 'Maintainability','Automated unit and integration tests', 'Should', 'completed', 'William'],
+  ['NF11', 'Extensibility', 'Add new minigames without modifying core', 'Should', 'completed', 'All'],
   ['NF12', 'Portability',   'Runs on standard Windows PCs with camera', 'Must', 'completed', 'All'],
-  ['NF13', 'Sustainability','Local processing only, energy-efficient rendering', 'Should', 'completed', 'Sunain'],
-  ['NF14', 'Open Source',   'Public source code and documentation', 'Could', 'partial', 'All'],
+  ['NF13', 'Sustainability','Local processing only, energy-efficient rendering', 'Should', 'completed', 'All'],
+  ['NF14', 'Legal & Compliance',   'Closed source code and documentation', 'Must', 'completed', 'All'],
+]
+
+// bug list
+const bugs = [
+  ['B1', 'High',   'Description of bug here', 'Affected area', 'Open'],
+  ['B2', 'Medium', 'Description of bug here', 'Affected area', 'Resolved'],
+  ['B3', 'Low',    'Description of bug here', 'Affected area', 'Open'],
 ]
 
 /* ── Critical evaluation data ── */
@@ -336,24 +343,28 @@ export default function EvaluationPage() {
           <h3>Functional Requirements — Achievement Summary</h3>
           <table>
             <thead>
-              <tr>
-                <th style={{ width: 40 }}>ID</th>
-                <th>Requirement</th>
-                <th style={{ width: 80 }}>MoSCoW</th>
-                <th style={{ width: 100 }}>Status</th>
-                <th style={{ width: 140 }}>Contributors</th>
-              </tr>
+            <tr>
+              <th style={{width: 40}}>ID</th>
+              <th>Requirement</th>
+              <th style={{width: 80}}>MoSCoW</th>
+              <th style={{width: 100}}>Status</th>
+              <th style={{width: 140}}>Contributors</th>
+              <th style={{width: 160}}>Notes</th>
+            </tr>
             </thead>
             <tbody>
-              {functionalReqs.map(([id, req, moscow, status, contributors], i) => (
+            {functionalReqs.map(([id, req, moscow, status, contributors, notes], i) => (
                 <tr key={id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                   <td><strong>{id}</strong></td>
                   <td>{req}</td>
                   <td style={{ textAlign: 'center' }}><MoscowBadge priority={moscow} /></td>
                   <td style={{ textAlign: 'center' }}><StatusBadge status={status} /></td>
                   <td style={{ fontSize: '0.82rem' }}>{contributors}</td>
+                  <td style={{ fontSize: '0.82rem', color: notes ? 'var(--slate-700)' : 'var(--slate-400)', fontStyle: notes ? 'normal' : 'italic' }}>
+                    {notes || '—'}
+                  </td>
                 </tr>
-              ))}
+            ))}
             </tbody>
           </table>
         </div>
@@ -408,11 +419,15 @@ export default function EvaluationPage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colSpan={5} style={{ textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic', padding: '1.5rem' }}>
-                  Bug details to be added — awaiting documentation from team.
-                </td>
-              </tr>
+              {bugs.map(([id, severity, description, area, status], i) => (
+                  <tr key={id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                    <td><strong>{id}</strong></td>
+                    <td>{severity}</td>
+                    <td>{description}</td>
+                    <td>{area}</td>
+                    <td>{status}</td>
+                  </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -422,56 +437,79 @@ export default function EvaluationPage() {
       <div style={{ maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0' }} />
 
       {/* ────────── Individual Contribution — System Development ────────── */}
-      <Reveal delay={100}>
+      <Reveal delay={100} className="table-reveal">
         <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
           <h3>Individual Contribution — System Development</h3>
           <table>
             <thead>
-              <tr>
-                <th>Team Member</th>
-                <th>Key Contributions</th>
-                <th style={{ width: 100 }}>Share (%)</th>
-              </tr>
+            <tr>
+              <th>Work Package</th>
+              <th>Mariha Subhan</th>
+              <th>Sunain Syed</th>
+              <th>William Xing</th>
+              <th>Zhouzhou Zhang</th>
+              <th>Antony Wiles</th>
+            </tr>
             </thead>
             <tbody>
-              {[
-                ['Mariha Subhan', 'Team lead, client liaison, menu UI, shop system, reward mechanics'],
-                ['Sunain Syed',  'Lead game developer, systems architect, all minigames, MotionInput integration, state machines'],
-                ['William Xing', 'QA & testing lead, gesture recognition testing, integration tests'],
-                ['Zhouzhou Zhang', 'Graphics & visual design, UI assets, stadium backgrounds'],
-                ['Antony Wiles', 'Game programmer, Free Kick mechanics, Obstacle Course tasks, difficulty system'],
-              ].map(([name, contribs], i) => (
-                <tr key={name} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{name}</strong></td>
-                  <td style={{ fontSize: '0.86rem' }}>{contribs}</td>
-                  <td style={{ textAlign: 'center', fontWeight: 600, color: 'var(--slate-400)' }}>&mdash;</td>
+            {[
+              'Research and Experiments',
+              'UI Design',
+              'Coding',
+              'Testing',
+              'Overall Contribution',
+            ].map((pkg, i) => (
+                <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                  <td><strong>{pkg}</strong></td>
+                  {[0,1,2,3,4].map(j => (
+                      <td key={j} style={{ textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic' }}>—</td>
+                  ))}
                 </tr>
-              ))}
+            ))}
             </tbody>
           </table>
         </div>
       </Reveal>
 
       {/* ────────── Individual Contribution — Report Website ────────── */}
-      <Reveal delay={100}>
+      <Reveal delay={100} className="table-reveal">
         <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
           <h3>Individual Contribution — Report Website</h3>
           <table>
             <thead>
-              <tr>
-                <th>Team Member</th>
-                <th>Key Contributions</th>
-                <th style={{ width: 100 }}>Share (%)</th>
-              </tr>
+            <tr>
+              <th>Work Package</th>
+              <th>Mariha Subhan</th>
+              <th>Sunain Syed</th>
+              <th>William Xing</th>
+              <th>Zhouzhou Zhang</th>
+              <th>Antony Wiles</th>
+            </tr>
             </thead>
             <tbody>
-              {['Mariha Subhan', 'Sunain Syed', 'William Xing', 'Zhouzhou Zhang', 'Antony Wiles'].map((name, i) => (
-                <tr key={name} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{name}</strong></td>
-                  <td style={{ fontSize: '0.86rem', color: 'var(--slate-400)', fontStyle: 'italic' }}>To be filled in</td>
-                  <td style={{ textAlign: 'center', fontWeight: 600, color: 'var(--slate-400)' }}>&mdash;</td>
+            {[
+              'Website template and setup',
+              'Home',
+              'Video',
+              'Requirements',
+              'Research',
+              'UI Design',
+              'System Design',
+              'Implementation',
+              'Testing',
+              'Evaluation and Future Work',
+              'User and Deployment Manuals',
+              'Legal Issues',
+              'Blog and Monthly Video',
+              'Overall Contribution',
+            ].map((pkg, i) => (
+                <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                  <td><strong>{pkg}</strong></td>
+                  {[0,1,2,3,4].map(j => (
+                      <td key={j} style={{ textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic' }}>—</td>
+                  ))}
                 </tr>
-              ))}
+            ))}
             </tbody>
           </table>
         </div>
