@@ -1,7 +1,9 @@
 import styles from '../App.module.css'
+import antonyPhoto from '../assets/team/antony.png'
+import marihaPhoto from '../assets/team/mariha.JPG'
+import sunainPhoto from '../assets/team/sunain.png'
 import williamPhoto from '../assets/team/William.jpg'
 import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
-import marihaPhoto from '../assets/team/mariha.JPG'
 import ImageWithCaption from "../components/ImageWithCaption.jsx";
 
 export default function HomePage() {
@@ -18,8 +20,9 @@ export default function HomePage() {
       name: 'Sunain Syed',
       email: 'sunain.syed.24@ucl.ac.uk',
       roles: 'Lead Game Developer, Systems Architect',
-      bio: 'Bio / background placeholder',
+      bio: 'Interested in architecture design, scalability and systems level programming',
       linkedin: 'https://www.linkedin.com/in/sunain-syed/',
+      photo: sunainPhoto,
     },
     {
       name: 'William Xing',
@@ -43,6 +46,7 @@ export default function HomePage() {
       roles: 'Game Programmer',
       bio: 'Bio / background placeholder',
       linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
+      photo: antonyPhoto,
     }
   ]
 
