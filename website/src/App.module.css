@@ -1,3 +1,6 @@
+.componentBreakdown a {
+  text-decoration: underline;
+}
 /* SystemDesignPage component breakdown styling */
 .componentBreakdown {
   margin: 2rem 0 0 0;

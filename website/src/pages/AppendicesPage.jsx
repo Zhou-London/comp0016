@@ -214,7 +214,48 @@ function Dependencies() {
   return (
     <div>
       <h2>Dependencies</h2>
-      <p>List of all major dependencies and libraries used in the project. (Add dependency list here.)</p>
+      <div className={styles.componentBreakdown}>
+        <h3>Unity Packages</h3>
+        <ul>
+          <li><b>Universal Render Pipeline (URP):</b> Modern rendering pipeline for high-quality graphics and performance.</li>
+          <li><b>Unity Toon Shader:</b> Cartoon-style shading for characters and assets.</li>
+          <li><b>Shader Graph:</b> Custom shader authoring.</li>
+          <li><b>Unity UI (UGUI):</b> Canvas and UI components.</li>
+          <li><b>TextMeshPro:</b> Advanced text rendering.</li>
+          <li><b>Input System:</b> Modern input handling for keyboard, mouse, and motion input events.</li>
+          <li><b>2D Sprite:</b> Sprite and UI image support.</li>
+          <li><b>Test Framework:</b> Unit and integration testing (EditMode/PlayMode).</li>
+          <li><b>AI Navigation:</b> Navigation mesh and pathfinding (used for future expansion).</li>
+          <li><b>Timeline:</b> Timeline-based animation and cutscene support.</li>
+          <li><b>Visual Scripting:</b> Node-based scripting for rapid prototyping.</li>
+          <li><b>Accessibility Module:</b> Accessibility features for UI and input.</li>
+        </ul>
+
+        <h3>External Dependencies</h3>
+        <ul>
+          <li><b>MotionInput Runtime:</b> External executable and config files for gesture-based controls (required for motion input features).</li>
+          <li><b>Imported Art/Audio Asset Packs:</b>
+            <ul>
+              <li><a href="https://assetstore.unity.com/packages/3d/environments/gamedev-starter-kit-football-mini-324490" target="_blank" rel="noopener noreferrer">GameDev Starter Kit: Football Mini</a> — 3D football field, goals, props, and environment assets.</li>
+              <li><a href="https://assetstore.unity.com/packages/3d/characters/hyper-casual-mega-football-197981" target="_blank" rel="noopener noreferrer">Hyper Casual Mega Football</a> — 3D football player and character models.</li>
+              <li><a href="https://pixabay.com/" target="_blank" rel="noopener noreferrer">Pixabay</a> — Free stock audio assets for background music and sound effects.</li>
+              <li><a href="https://www.freesfx.co.uk/Category/Football-(Soccer)/86" target="_blank" rel="noopener noreferrer">FreeSFX</a> — Free sound effects for football related audio.</li>
+            </ul>
+          </li>
+        </ul>
+
+        {/* <h3>Build & Platform Constraints</h3>
+        <ul>
+          <li><b>Platform:</b> Windows only (uses Win32 DLL imports for window management and process launching).</li>
+          <li><b>Unity Version:</b> 6000.2.12f1 or compatible.</li>
+        </ul>
+
+        <h3>Inspector & Configuration</h3>
+        <ul>
+          <li>All major gameplay tuning values are set via Unity Inspector and <code>PlayerPrefs</code> (audio, input, game speed, etc.).</li>
+          <li>MotionInput configuration is managed via <code>StreamingAssets/MotionInput/data/config.json</code> and per-mode files.</li>
+        </ul> */}
+      </div>
     </div>
   );
 }
