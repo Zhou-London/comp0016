@@ -209,19 +209,6 @@ const tabs = [
       </section>
     ),
   },
-  // {
-  //   label: 'Packages & APIs',
-  //   content: (
-  //     <section>
-  //       <h2>Packages and APIs</h2>
-  //       <p>
-  //         Assembly dependencies and shared APIs are defined via asmdef boundaries and shared interfaces. This keeps
-  //         minigame code independent while reusing shared systems.
-  //       </p>
-  //       <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.png" alt="Assembly dependency and API map" />
-  //     </section>
-  //   ),
-  // },
   {
     label: 'Design Patterns',
     content: (
@@ -402,7 +389,7 @@ const tabs = [
 export default function SystemDesignPage() {
   return (
     <section className={styles.sectionAlt}>
-      <SectionHeader title="System Design" subtitle="Architecture, diagrams, data storage model, packages, and APIs." />
+      <SectionHeader title="System Design" subtitle="Architecture, sequence and class diagrams, data storage model, and design patterns." />
       <Tabs tabs={tabs} defaultTab={0} />
     </section>
   );
