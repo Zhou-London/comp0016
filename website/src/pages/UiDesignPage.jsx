@@ -197,7 +197,7 @@ export default function UiDesignPage() {
                             This video presents an interactive UI demo.
                         </p>
                         <video controls style={{ width: '80%', borderRadius: '10px', marginTop: '0.8rem' }}>
-                            <source src="/final game UI/UI demo.mp4" type="video/mp4" />
+                            <source src={`${import.meta.env.BASE_URL}final game UI/UI demo.mp4`} type="video/mp4" />
                         </video>
                     </div>
                 </Reveal>
