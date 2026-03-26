@@ -1,6 +1,10 @@
 import styles from '../App.module.css'
+import antonyPhoto from '../assets/team/antony.png'
+import marihaPhoto from '../assets/team/mariha.JPG'
+import sunainPhoto from '../assets/team/sunain.png'
 import williamPhoto from '../assets/team/William.jpg'
 import zhouzhouPhoto from '../assets/team/zhouzhou.jpg'
+import ImageWithCaption from "../components/ImageWithCaption.jsx";
 
 export default function HomePage() {
   const teamMembers = [
@@ -8,15 +12,17 @@ export default function HomePage() {
       name: 'Mariha Subhan',
       email: 'mariha.subhan.24@ucl.ac.uk',
       roles: 'Team Lead, Client Liaison, Game Programmer',
-      bio: 'Bio / background placeholder',
+      bio: 'Passionate about accessible technology, robotics, and UI/UX design.',
       linkedin: 'https://www.linkedin.com/in/mariha-subhan-ba0672324/',
+      photo: marihaPhoto,
     },
     {
       name: 'Sunain Syed',
       email: 'sunain.syed.24@ucl.ac.uk',
       roles: 'Lead Game Developer, Systems Architect',
-      bio: 'Bio / background placeholder',
+      bio: 'Interested in architecture design, scalability and systems level programming',
       linkedin: 'https://www.linkedin.com/in/sunain-syed/',
+      photo: sunainPhoto,
     },
     {
       name: 'William Xing',
@@ -40,6 +46,7 @@ export default function HomePage() {
       roles: 'Game Programmer',
       bio: 'Bio / background placeholder',
       linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
+      photo: antonyPhoto,
     }
   ]
 
@@ -51,6 +58,13 @@ export default function HomePage() {
         <p className={styles.heroSub}>
           Camera-based football training minigames designed to support accessible and engaging movement practice.
         </p>
+
+        <div className={styles.abstractPanel}>
+          <h3>Introduction Video (2-4 minutes)</h3>
+          <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 2 minutes, clear narration,
+            high resolution).
+          </div>
+        </div>
 
         <div className={styles.abstractPanel}>
           <h2>Abstract</h2>
@@ -79,58 +93,76 @@ export default function HomePage() {
             children, and it provides an exciting and meaningful way to participate in football.</p>
         </div>
 
-        <div className={styles.mediaGrid}>
-          <div className={styles.mediaCard}>
-            <h3>Introduction Video (8 minutes)</h3>
-            <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 8 minutes, clear narration, high resolution).</div>
+        <div className={styles.abstractPanel}>
+          <h3>Technical Video (8 minutes)</h3>
+          <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 8 minutes, clear narration,
+            high resolution).
           </div>
-          <div className={styles.mediaCard}>
-            <h3>Project Management Gantt Chart</h3>
-            <div className={styles.placeholderBox}>Add readable chart image for Oct 20 2025 - Mar 27 2026.</div>
-          </div>
+        </div>
+
+        <div className={styles.abstractPanel} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <h3>Project Timeline</h3>
+          <p style={{marginTop: '1rem', color: 'var(--slate-700)'}}>
+            Breakdown of project phases over the 24 weeks.
+          </p>
+          <p style={{marginTop: '1rem', color: 'var(--slate-700)', textAlign: 'center'}}>
+            This is a condensed version of our GANTT chart. Here is a{' '}
+            <a href="https://liveuclac-my.sharepoint.com/:f:/g/personal/zcabsub_ucl_ac_uk/IgD_KmXZsjvDRIJ6ZzeEt_XSAbN2WabdC0uR119GdSg2Rcg?e=6xENEr" target="_blank" rel="noreferrer"
+               style={{color: 'var(--green-700)', textDecoration: 'underline'}}>
+              link to our OneDrive folder
+            </a>
+            , with a more detailed version in a few different formats. You can view our chart in PDF or image form, or
+            for the best view, download either the .gantt or .csv file and upload to{' '}
+            <a href="https://www.onlinegantt.com/#/gantt" target="_blank" rel="noreferrer"
+               style={{color: 'var(--green-700)', textDecoration: 'underline'}}>
+              onlinegantt.com
+            </a>
+            .
+          </p>
+          <div style={{width: '80%', borderRadius: '10px', marginTop: '1rem'}}><ImageWithCaption
+              src="/project timeline/project timeline.png" caption="Main menu screen layout"/></div>
         </div>
 
         <div className={styles.teamBlock}>
           <h2>The Development Team</h2>
           <div className={styles.teamGrid}>
             {teamMembers.map((member) => (
-              <article key={member.name} className={styles.teamCard}>
-                {member.photo ? (
-                  <img
-                    src={member.photo}
-                    alt={member.name}
-                    style={{
-                      width: '100%',
-                      aspectRatio: '4 / 3',
-                      objectFit: 'cover',
-                      ...(member.name === 'William Xing' ? { objectPosition: 'center 30%' } : {}),
-                      borderRadius: 10,
-                      marginBottom: '0.6rem',
-                    }}
-                  />
-                ) : (
-                  <div className={styles.avatarPlaceholder}>Photo</div>
-                )}
-                <h3>{member.name}</h3>
-                <p>Email: {member.email}</p>
-                <p>Role(s): {member.roles}</p>
-                <p>{member.bio}</p>
-                {member.linkedin ? (
-                  <p>
-                    LinkedIn:{' '}
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: 'var(--green-600)', textDecoration: 'underline' }}
-                    >
-                      {member.name}
-                    </a>
-                  </p>
-                ) : (
-                  <p>LinkedIn: add profile link</p>
-                )}
-              </article>
+                <article key={member.name} className={styles.teamCard}>
+                  {member.photo ? (
+                      <img
+                          src={member.photo}
+                          alt={member.name}
+                          style={{
+                            width: '100%',
+                            aspectRatio: '4 / 3',
+                            objectFit: 'cover',
+                            borderRadius: 10,
+                            marginBottom: '0.6rem',
+                          }}
+                      />
+                  ) : (
+                      <div className={styles.avatarPlaceholder}>Photo</div>
+                  )}
+                  <h3>{member.name}</h3>
+                  <p>Email: {member.email}</p>
+                  <p>Role(s): {member.roles}</p>
+                  <p>{member.bio}</p>
+                  {member.linkedin ? (
+                      <p>
+                        LinkedIn:{' '}
+                        <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{color: 'var(--green-600)', textDecoration: 'underline'}}
+                        >
+                          {member.name}
+                        </a>
+                      </p>
+                  ) : (
+                      <p>LinkedIn: add profile link</p>
+                  )}
+                </article>
             ))}
           </div>
         </div>
