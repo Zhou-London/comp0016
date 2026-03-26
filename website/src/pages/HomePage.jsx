@@ -12,7 +12,7 @@ export default function HomePage() {
       name: 'Mariha Subhan',
       email: 'mariha.subhan.24@ucl.ac.uk',
       roles: 'Team Lead, Client Liaison, Game Programmer',
-      bio: 'Bio / background placeholder',
+      bio: 'Passionate about accessible technology, robotics, and UI/UX design.',
       linkedin: 'https://www.linkedin.com/in/mariha-subhan-ba0672324/',
       photo: marihaPhoto,
     },
