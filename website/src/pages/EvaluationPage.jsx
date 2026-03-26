@@ -76,6 +76,20 @@ function StatusBadge({ status }) {
   )
 }
 
+/* ── Evaluation score bar ── */
+function ScoreBar({ score, max = 10, color = '#488328' }) {
+  const pct = (score / max) * 100
+  return (
+      <div style={{ marginBottom: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4, fontSize: '0.82rem', fontWeight: 700, color: 'var(--green-900)' }}>
+          <span>{score}/{max}</span>
+        </div>
+        <div style={{ height: 8, borderRadius: 4, background: '#e2e8f0', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${pct}%`, borderRadius: 4, background: `linear-gradient(90deg, ${color}, ${color}cc)`, transition: 'width 1s ease' }} />
+        </div>
+      </div>
+  )
+}
 
 /* ── Achievement table data ── */
 const functionalReqs = [
@@ -169,6 +183,108 @@ const nonFunctionalEvals = [
   { id: 'NF14', evaluation: 'Met. The source code and documentation are maintained as closed source. The repository is private, with access limited to the project team and authorised partners.' },
 ]
 
+/* ── Critical evaluation data ── */
+const evaluationAreas = [
+  {
+    title: 'User Interface / User Experience',
+    icon: '\uD83C\uDFA8',
+    score: 8.5,
+    strengths: [
+      'Clean, sensory-friendly design with calming colour palette and consistent layout',
+      'Simple navigation structure lets new users start playing within 2 minutes',
+      'Clear visual feedback with celebration effects and score updates after each action',
+    ],
+    improvements: [
+      'Menu transitions could benefit from smoother animations',
+      'The UI and menus could also be navigated with Motion Input, maybe with mouse-like finger tracking, or alternatively, voice controls',
+    ],
+  },
+  {
+    title: 'Functionality',
+    icon: '\u2699\uFE0F',
+    score: 7.5,
+    strengths: [
+      'All four core minigames fully implemented with both difficulty modes',
+      'Accessibility features implemented through the game settings',
+      'Current and best streak were successfully implemented as an alternative to high score',
+    ],
+    improvements: [
+      'Whole match minigame partially completed, still needs more testing and refining',
+      'Coin based shop not implemented yet, this would give more incentive to play',
+    ],
+  },
+  {
+    title: 'Stability',
+    icon: '\uD83D\uDEE1\uFE0F',
+    score: 8,
+    strengths: [
+      'Graceful fallback when MotionInput Engine encounters errors',
+      'No critical crashes observed during extended playtesting sessions',
+      'State machine architecture prevents invalid game states',
+    ],
+    improvements: [
+      'Occasional frame drops during complex Obstacle Course segments',
+      'Edge cases in gesture recognition can cause momentary unresponsiveness',
+    ],
+  },
+  {
+    title: 'Efficiency',
+    icon: '\u26A1',
+    score: 8,
+    strengths: [
+      'Consistent 30+ FPS maintained on target hardware',
+      'Gesture recognition latency within 100ms target threshold',
+      'Unity URP rendering optimisations reduce GPU workload',
+    ],
+    improvements: [
+      'Memory usage could be further optimised for lower-spec classroom machines',
+      'Initial loading time could be reduced with asset streaming',
+    ],
+  },
+  {
+    title: 'Compatibility',
+    icon: '\uD83D\uDD0C',
+    score: 7,
+    strengths: [
+      'Runs on standard Windows classroom PCs without specialised hardware',
+      'Works with multiple webcam models tested across different environments',
+      'No cloud dependencies \u2014 fully offline operation',
+    ],
+    improvements: [
+      'macOS and Linux support not currently available',
+      'Limited testing on very low-end hardware configurations',
+    ],
+  },
+  {
+    title: 'Maintainability',
+    icon: '\uD83D\uDD27',
+    score: 9,
+    strengths: [
+      'Modular architecture with composition roots and adapter patterns',
+      'Automated test suite covers core game logic and state machines',
+      'Clear separation between minigame modules and shared systems',
+    ],
+    improvements: [
+      'Some minigame-specific scripts could benefit from further refactoring',
+      'Documentation for the MotionInput integration layer could be expanded',
+    ],
+  },
+  {
+    title: 'Project Management',
+    icon: '\uD83D\uDCCB',
+    score: 8,
+    strengths: [
+      'Consistent weekly meetings with all partners and the UCL supervisor',
+      'Iterative development cycle aligned with partner feedback',
+      'Clear task allocation and regular progress tracking via Gantt chart',
+    ],
+    improvements: [
+      'Earlier integration testing with NAS classroom environments would have been beneficial',
+      'More formal sprint retrospectives could have been conducted',
+    ],
+  },
+]
+
 /* ── Future work items ── */
 const futureWork = [
   {
@@ -238,118 +354,123 @@ export default function EvaluationPage() {
   const total = allReqs.length
 
   return (
-    <section className={styles.section}>
-      <SectionHeader title="Evaluation" subtitle="Achievement summary, critical assessment, and future work." />
+      <section className={styles.section}>
+        <SectionHeader title="Evaluation" subtitle="Achievement summary, critical assessment, and future work."/>
 
-      {/* ────────── Summary Stats ────────── */}
-      <Reveal>
-        <div style={{
-          maxWidth: 1100, margin: '0 auto 1rem', display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.8rem',
-        }}>
-          {[
-            { label: 'Total Requirements', value: total, color: '#1e3a5f', bg: '#eef5ff', icon: '\uD83D\uDCCB' },
-            { label: 'Completed', value: completed, color: '#166534', bg: '#dcfce7', icon: '\u2705' },
-            { label: 'Partially Done', value: partial, color: '#854d0e', bg: '#fef9c3', icon: '\uD83D\uDD36' },
-            { label: 'Not Planned', value: notPlanned, color: '#6b7280', bg: '#f3f4f6', icon: '\u2014' },
-          ].map((stat) => (
-            <div key={stat.label} style={{
-              textAlign: 'center', padding: '1.2rem 1rem', borderRadius: 12,
-              background: stat.bg, border: `1px solid ${stat.color}20`,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-            }}>
-              <div style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{stat.icon}</div>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: stat.color }}>{stat.value}</div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: stat.color, opacity: 0.8 }}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </Reveal>
-
-      {/* ────────── MoSCoW Achievement Table — Functional ────────── */}
-      <Reveal delay={100}>
-        <div className={styles.tableWrap}>
-          <h3>Functional Requirements — Achievement Summary</h3>
-          <table>
-            <thead>
-            <tr>
-              <th style={{width: 40}}>ID</th>
-              <th>Requirement</th>
-              <th style={{width: 80}}>MoSCoW</th>
-              <th style={{width: 100}}>Status</th>
-              <th style={{width: 140}}>Contributors</th>
-              <th style={{width: 160}}>Notes</th>
-            </tr>
-            </thead>
-            <tbody>
-            {functionalReqs.map(([id, req, moscow, status, contributors, notes], i) => (
-                <tr key={id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{id}</strong></td>
-                  <td>{req}</td>
-                  <td style={{ textAlign: 'center' }}><MoscowBadge priority={moscow} /></td>
-                  <td style={{ textAlign: 'center' }}><StatusBadge status={status} /></td>
-                  <td style={{ fontSize: '0.82rem' }}>{contributors}</td>
-                  <td style={{ fontSize: '0.82rem', color: notes ? 'var(--slate-700)' : 'var(--slate-400)', fontStyle: notes ? 'normal' : 'italic' }}>
-                    {notes || '—'}
-                  </td>
-                </tr>
+        {/* ────────── Summary Stats ────────── */}
+        <Reveal>
+          <div style={{
+            maxWidth: 1100, margin: '0 auto 1rem', display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.8rem',
+          }}>
+            {[
+              {label: 'Total Requirements', value: total, color: '#1e3a5f', bg: '#eef5ff', icon: '\uD83D\uDCCB'},
+              {label: 'Completed', value: completed, color: '#166534', bg: '#dcfce7', icon: '\u2705'},
+              {label: 'Partially Done', value: partial, color: '#854d0e', bg: '#fef9c3', icon: '\uD83D\uDD36'},
+              {label: 'Not Planned', value: notPlanned, color: '#6b7280', bg: '#f3f4f6', icon: '\u2014'},
+            ].map((stat) => (
+                <div key={stat.label} style={{
+                  textAlign: 'center', padding: '1.2rem 1rem', borderRadius: 12,
+                  background: stat.bg, border: `1px solid ${stat.color}20`,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                }}>
+                  <div style={{fontSize: '1.2rem', marginBottom: '0.2rem'}}>{stat.icon}</div>
+                  <div style={{fontSize: '2rem', fontWeight: 800, color: stat.color}}>{stat.value}</div>
+                  <div
+                      style={{fontSize: '0.82rem', fontWeight: 600, color: stat.color, opacity: 0.8}}>{stat.label}</div>
+                </div>
             ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
+          </div>
+        </Reveal>
 
-      {/* ────────── MoSCoW Achievement Table — Non-Functional ────────── */}
-      <Reveal delay={100}>
-        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
-          <h3>Non-Functional Requirements — Achievement Summary</h3>
-          <table>
-            <thead>
+        {/* ────────── MoSCoW Achievement Table — Functional ────────── */}
+        <Reveal delay={100}>
+          <div className={styles.tableWrap}>
+            <h3>Functional Requirements — Achievement Summary</h3>
+            <table>
+              <thead>
               <tr>
-                <th style={{ width: 40 }}>ID</th>
-                <th style={{ width: 110 }}>Category</th>
+                <th style={{width: 40}}>ID</th>
                 <th>Requirement</th>
-                <th style={{ width: 80 }}>MoSCoW</th>
-                <th style={{ width: 100 }}>Status</th>
-                <th style={{ width: 110 }}>Contributors</th>
+                <th style={{width: 80}}>MoSCoW</th>
+                <th style={{width: 100}}>Status</th>
+                <th style={{width: 140}}>Contributors</th>
+                <th style={{width: 160}}>Notes</th>
               </tr>
-            </thead>
-            <tbody>
-              {nonFunctionalReqs.map(([id, category, req, moscow, status, contributors], i) => (
-                <tr key={id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{id}</strong></td>
-                  <td><span style={{ fontWeight: 600, fontSize: '0.84rem' }}>{category}</span></td>
-                  <td>{req}</td>
-                  <td style={{ textAlign: 'center' }}><MoscowBadge priority={moscow} /></td>
-                  <td style={{ textAlign: 'center' }}><StatusBadge status={status} /></td>
-                  <td style={{ fontSize: '0.82rem' }}>{contributors}</td>
-                </tr>
+              </thead>
+              <tbody>
+              {functionalReqs.map(([id, req, moscow, status, contributors, notes], i) => (
+                  <tr key={id} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                    <td><strong>{id}</strong></td>
+                    <td>{req}</td>
+                    <td style={{textAlign: 'center'}}><MoscowBadge priority={moscow}/></td>
+                    <td style={{textAlign: 'center'}}><StatusBadge status={status}/></td>
+                    <td style={{fontSize: '0.82rem'}}>{contributors}</td>
+                    <td style={{
+                      fontSize: '0.82rem',
+                      color: notes ? 'var(--slate-700)' : 'var(--slate-400)',
+                      fontStyle: notes ? 'normal' : 'italic'
+                    }}>
+                      {notes || '—'}
+                    </td>
+                  </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
 
-      {/* ────────── Known Bugs ────────── */}
-      <Reveal delay={100}>
-        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
-          <h3>Known Bugs</h3>
-          <p style={{ fontSize: '0.88rem', color: 'var(--slate-500)', marginBottom: '0.5rem' }}>
-            The following known issues have been identified and documented for future resolution.
-          </p>
-          <table>
-            <thead>
+        {/* ────────── MoSCoW Achievement Table — Non-Functional ────────── */}
+        <Reveal delay={100}>
+          <div className={styles.tableWrap} style={{marginTop: '1rem'}}>
+            <h3>Non-Functional Requirements — Achievement Summary</h3>
+            <table>
+              <thead>
               <tr>
-                <th style={{ width: 40 }}>ID</th>
-                <th style={{ width: 90 }}>Severity</th>
-                <th>Description</th>
-                <th style={{ width: 130 }}>Affected Area</th>
-                <th style={{ width: 110 }}>Status</th>
+                <th style={{width: 40}}>ID</th>
+                <th style={{width: 110}}>Category</th>
+                <th>Requirement</th>
+                <th style={{width: 80}}>MoSCoW</th>
+                <th style={{width: 100}}>Status</th>
+                <th style={{width: 110}}>Contributors</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
+              {nonFunctionalReqs.map(([id, category, req, moscow, status, contributors], i) => (
+                  <tr key={id} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                    <td><strong>{id}</strong></td>
+                    <td><span style={{fontWeight: 600, fontSize: '0.84rem'}}>{category}</span></td>
+                    <td>{req}</td>
+                    <td style={{textAlign: 'center'}}><MoscowBadge priority={moscow}/></td>
+                    <td style={{textAlign: 'center'}}><StatusBadge status={status}/></td>
+                    <td style={{fontSize: '0.82rem'}}>{contributors}</td>
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+
+        {/* ────────── Known Bugs ────────── */}
+        <Reveal delay={100}>
+          <div className={styles.tableWrap} style={{marginTop: '1rem'}}>
+            <h3>Known Bugs</h3>
+            <p style={{fontSize: '0.88rem', color: 'var(--slate-500)', marginBottom: '0.5rem'}}>
+              The following known issues have been identified and documented for future resolution.
+            </p>
+            <table>
+              <thead>
+              <tr>
+                <th style={{width: 40}}>ID</th>
+                <th style={{width: 90}}>Severity</th>
+                <th>Description</th>
+                <th style={{width: 130}}>Affected Area</th>
+                <th style={{width: 110}}>Status</th>
+              </tr>
+              </thead>
+              <tbody>
               {bugs.map(([id, severity, description, area, status], i) => (
-                  <tr key={id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                  <tr key={id} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
                     <td><strong>{id}</strong></td>
                     <td>{severity}</td>
                     <td>{description}</td>
@@ -357,191 +478,263 @@ export default function EvaluationPage() {
                     <td>{status}</td>
                   </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
 
-      {/* ── section divider ── */}
-      <div style={{ maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0' }} />
+        {/* ── section divider ── */}
+        <div style={{maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0'}}/>
 
-      {/* ────────── Individual Contribution — System Development ────────── */}
-      <Reveal delay={100} className="table-reveal">
-        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
-          <h3>Individual Contribution — System Development</h3>
-          <table>
-            <thead>
-            <tr>
-              <th>Work Package</th>
-              <th>Mariha Subhan</th>
-              <th>Sunain Syed</th>
-              <th>William Xing</th>
-              <th>Zhouzhou Zhang</th>
-              <th>Antony Wiles</th>
-            </tr>
-            </thead>
-            <tbody>
-            {[
-              'Research and Experiments',
-              'UI Design',
-              'Coding',
-              'Testing',
-              'Overall Contribution',
-            ].map((pkg, i) => (
-                <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{pkg}</strong></td>
-                  {[0,1,2,3,4].map(j => (
-                      <td key={j} style={{ textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic' }}>—</td>
-                  ))}
-                </tr>
-            ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
-
-      {/* ────────── Individual Contribution — Report Website ────────── */}
-      <Reveal delay={100} className="table-reveal">
-        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
-          <h3>Individual Contribution — Report Website</h3>
-          <table>
-            <thead>
-            <tr>
-              <th>Work Package</th>
-              <th>Mariha Subhan</th>
-              <th>Sunain Syed</th>
-              <th>William Xing</th>
-              <th>Zhouzhou Zhang</th>
-              <th>Antony Wiles</th>
-            </tr>
-            </thead>
-            <tbody>
-            {[
-              'Website template and setup',
-              'Home',
-              'Video',
-              'Requirements',
-              'Research',
-              'UI Design',
-              'System Design',
-              'Implementation',
-              'Testing',
-              'Evaluation and Future Work',
-              'User and Deployment Manuals',
-              'Legal Issues',
-              'Blog and Monthly Video',
-              'Overall Contribution',
-            ].map((pkg, i) => (
-                <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                  <td><strong>{pkg}</strong></td>
-                  {[0,1,2,3,4].map(j => (
-                      <td key={j} style={{ textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic' }}>—</td>
-                  ))}
-                </tr>
-            ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
-
-      {/* ── section divider ── */}
-      <div style={{ maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0' }} />
-
-      {/* ────────── Critical Evaluation ────────── */}
-      <Reveal>
-        <div className={styles.contentGrid} style={{ marginTop: '1.5rem' }}>
-          <article className={styles.card} style={{ gridColumn: 'span 3' }}>
-            <h3>Critical Evaluation of the Project</h3>
-            <p style={{ color: 'var(--slate-600)' }}>
-              Each requirement from the Requirements page is evaluated against its implementation in the final system.
-            </p>
-          </article>
-        </div>
-      </Reveal>
-
-      <Reveal delay={100}>
-        <div className={styles.tableWrap}>
-          <h3>Functional Requirements — Critical Evaluation</h3>
-          <table>
-            <thead>
+        {/* ────────── Individual Contribution — System Development ────────── */}
+        <Reveal delay={100} className="table-reveal">
+          <div className={styles.tableWrap} style={{marginTop: '1rem'}}>
+            <h3>Individual Contribution — System Development</h3>
+            <table>
+              <thead>
               <tr>
-                <th style={{ width: 40 }}>ID</th>
-                <th style={{ width: 80 }}>MoSCoW</th>
-                <th style={{ width: 100 }}>Status</th>
+                <th>Work Package</th>
+                <th>Mariha Subhan</th>
+                <th>Sunain Syed</th>
+                <th>William Xing</th>
+                <th>Zhouzhou Zhang</th>
+                <th>Antony Wiles</th>
+              </tr>
+              </thead>
+              <tbody>
+              {[
+                'Research and Experiments',
+                'UI Design',
+                'Coding',
+                'Testing',
+                'Overall Contribution',
+              ].map((pkg, i) => (
+                  <tr key={pkg} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                    <td><strong>{pkg}</strong></td>
+                    {[0, 1, 2, 3, 4].map(j => (
+                        <td key={j} style={{textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic'}}>—</td>
+                    ))}
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+
+        {/* ────────── Individual Contribution — Report Website ────────── */}
+        <Reveal delay={100} className="table-reveal">
+          <div className={styles.tableWrap} style={{marginTop: '1rem'}}>
+            <h3>Individual Contribution — Report Website</h3>
+            <table>
+              <thead>
+              <tr>
+                <th>Work Package</th>
+                <th>Mariha Subhan</th>
+                <th>Sunain Syed</th>
+                <th>William Xing</th>
+                <th>Zhouzhou Zhang</th>
+                <th>Antony Wiles</th>
+              </tr>
+              </thead>
+              <tbody>
+              {[
+                'Website template and setup',
+                'Home',
+                'Video',
+                'Requirements',
+                'Research',
+                'UI Design',
+                'System Design',
+                'Implementation',
+                'Testing',
+                'Evaluation and Future Work',
+                'User and Deployment Manuals',
+                'Legal Issues',
+                'Blog and Monthly Video',
+                'Overall Contribution',
+              ].map((pkg, i) => (
+                  <tr key={pkg} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                    <td><strong>{pkg}</strong></td>
+                    {[0, 1, 2, 3, 4].map(j => (
+                        <td key={j} style={{textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic'}}>—</td>
+                    ))}
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+
+        {/* ── section divider ── */}
+        <div style={{maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0'}}/>
+
+        {/* ────────── Critical Evaluation ────────── */}
+        <Reveal>
+          <div className={styles.contentGrid} style={{marginTop: '1.5rem'}}>
+            <article className={styles.card} style={{gridColumn: 'span 3'}}>
+              <h3>Critical Evaluation: Requirements</h3>
+              <p style={{color: 'var(--slate-600)'}}>
+                Each requirement from the Requirements page is evaluated against its implementation in the final system.
+              </p>
+            </article>
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className={styles.tableWrap}>
+            <h3>Functional Requirements — Critical Evaluation</h3>
+            <table>
+              <thead>
+              <tr>
+                <th style={{width: 40}}>ID</th>
+                <th style={{width: 80}}>MoSCoW</th>
+                <th style={{width: 100}}>Status</th>
                 <th>Evaluation</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               {functionalEvals.map((item, i) => {
                 const req = functionalReqs.find(r => r[0] === item.id)
                 return (
-                  <tr key={item.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                    <td><strong>{item.id}</strong></td>
-                    <td style={{ textAlign: 'center' }}><MoscowBadge priority={req?.[2] || ''} /></td>
-                    <td style={{ textAlign: 'center' }}><StatusBadge status={req?.[3] || ''} /></td>
-                    <td style={{ fontSize: '0.85rem', lineHeight: 1.55, color: 'var(--slate-700)' }}>{item.evaluation}</td>
-                  </tr>
+                    <tr key={item.id} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                      <td><strong>{item.id}</strong></td>
+                      <td style={{textAlign: 'center'}}><MoscowBadge priority={req?.[2] || ''}/></td>
+                      <td style={{textAlign: 'center'}}><StatusBadge status={req?.[3] || ''}/></td>
+                      <td style={{
+                        fontSize: '0.85rem',
+                        lineHeight: 1.55,
+                        color: 'var(--slate-700)'
+                      }}>{item.evaluation}</td>
+                    </tr>
                 )
               })}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
 
-      <Reveal delay={100}>
-        <div className={styles.tableWrap} style={{ marginTop: '1rem' }}>
-          <h3>Non-Functional Requirements — Critical Evaluation</h3>
-          <table>
-            <thead>
+        <Reveal delay={100}>
+          <div className={styles.tableWrap} style={{marginTop: '1rem'}}>
+            <h3>Non-Functional Requirements — Critical Evaluation</h3>
+            <table>
+              <thead>
               <tr>
-                <th style={{ width: 40 }}>ID</th>
-                <th style={{ width: 110 }}>Category</th>
-                <th style={{ width: 80 }}>MoSCoW</th>
-                <th style={{ width: 100 }}>Status</th>
+                <th style={{width: 40}}>ID</th>
+                <th style={{width: 110}}>Category</th>
+                <th style={{width: 80}}>MoSCoW</th>
+                <th style={{width: 100}}>Status</th>
                 <th>Evaluation</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               {nonFunctionalEvals.map((item, i) => {
                 const req = nonFunctionalReqs.find(r => r[0] === item.id)
                 return (
-                  <tr key={item.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                    <td><strong>{item.id}</strong></td>
-                    <td><span style={{ fontWeight: 600, fontSize: '0.84rem' }}>{req?.[1] || ''}</span></td>
-                    <td style={{ textAlign: 'center' }}><MoscowBadge priority={req?.[3] || ''} /></td>
-                    <td style={{ textAlign: 'center' }}><StatusBadge status={req?.[4] || ''} /></td>
-                    <td style={{ fontSize: '0.85rem', lineHeight: 1.55, color: 'var(--slate-700)' }}>{item.evaluation}</td>
-                  </tr>
+                    <tr key={item.id} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                      <td><strong>{item.id}</strong></td>
+                      <td><span style={{fontWeight: 600, fontSize: '0.84rem'}}>{req?.[1] || ''}</span></td>
+                      <td style={{textAlign: 'center'}}><MoscowBadge priority={req?.[3] || ''}/></td>
+                      <td style={{textAlign: 'center'}}><StatusBadge status={req?.[4] || ''}/></td>
+                      <td style={{
+                        fontSize: '0.85rem',
+                        lineHeight: 1.55,
+                        color: 'var(--slate-700)'
+                      }}>{item.evaluation}</td>
+                    </tr>
                 )
               })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className={styles.contentGrid} style={{marginTop: '1.5rem'}}>
+            <article className={styles.card} style={{gridColumn: 'span 3'}}>
+              <h3>Critical Evaluation: Qualities</h3>
+              <p style={{color: 'var(--slate-600)'}}>
+                Each area is assessed on a 1–10 scale based on team self-evaluation, partner feedback, and testing results.
+              </p>
+            </article>
+          </div>
+        </Reveal>
+
+        <div style={{
+          maxWidth: 1100,
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '0.8rem'
+        }}>
+          {evaluationAreas.map((area, idx) => {
+            const isLastOdd = idx === evaluationAreas.length - 1 && evaluationAreas.length % 2 !== 0
+            return (
+                <Reveal key={area.title} delay={idx * 80} style={isLastOdd ? {gridColumn: '1 / -1'} : {}}>
+                  <div style={{
+                    background: '#fff', borderRadius: 12, padding: '1.1rem 1.2rem',
+                    border: '1px solid var(--color-border)',
+                  }}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem'}}>
+                      <span style={{fontSize: '1.3rem'}}>{area.icon}</span>
+                      <h4 style={{margin: 0, color: 'var(--green-900)', fontSize: '1rem'}}>{area.title}</h4>
+                    </div>
+                    <ScoreBar score={area.score}/>
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', marginTop: '0.5rem'}}>
+                      <div>
+                        <p style={{
+                          fontSize: '0.78rem',
+                          fontWeight: 700,
+                          color: '#166534',
+                          marginBottom: '0.3rem'
+                        }}>{'\u2713'} Strengths</p>
+                        <ul style={{paddingLeft: '1rem', margin: 0, fontSize: '0.82rem', color: 'var(--slate-700)'}}>
+                          {area.strengths.map((s, i) => <li key={i}
+                                                            style={{marginBottom: 3, lineHeight: 1.4}}>{s}</li>)}
+                        </ul>
+                      </div>
+                      <div>
+                        <p style={{
+                          fontSize: '0.78rem',
+                          fontWeight: 700,
+                          color: '#854d0e',
+                          marginBottom: '0.3rem'
+                        }}>{'\u25B3'} Areas for Improvement</p>
+                        <ul style={{paddingLeft: '1rem', margin: 0, fontSize: '0.82rem', color: 'var(--slate-700)'}}>
+                          {area.improvements.map((s, i) => <li key={i}
+                                                               style={{marginBottom: 3, lineHeight: 1.4}}>{s}</li>)}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+            )
+          })}
         </div>
-      </Reveal>
 
-      {/* ── section divider ── */}
-      <div style={{ maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0' }} />
+        {/* ── section divider ── */}
+        <div style={{maxWidth: 1100, margin: '1.5rem auto 0.5rem', borderTop: '2px solid #e2e8f0'}}/>
 
-      {/* ────────── Future Work ────────── */}
-      <Reveal>
-        <div className={styles.contentGrid} style={{ marginTop: '1.5rem' }}>
-          <article className={styles.card} style={{ gridColumn: 'span 3' }}>
-            <h3>Future Work</h3>
-            <p style={{ color: 'var(--slate-600)' }}>
-              The following extensions are prioritised based on partner feedback, technical feasibility, and potential impact on the target audience.
-            </p>
-          </article>
-        </div>
-      </Reveal>
+        {/* ────────── Future Work ────────── */}
+        <Reveal>
+          <div className={styles.contentGrid} style={{marginTop: '1.5rem'}}>
+            <article className={styles.card} style={{gridColumn: 'span 3'}}>
+              <h3>Future Work</h3>
+              <p style={{color: 'var(--slate-600)'}}>
+                The following extensions are prioritised based on partner feedback, technical feasibility, and potential
+                impact on the target audience.
+              </p>
+            </article>
+          </div>
+        </Reveal>
 
-      <div style={{ maxWidth: 1100, margin: '0.5rem auto 0', display: 'grid', gap: '0.7rem' }}>
-        {futureWork.map((item, idx) => (
-          <Reveal key={item.title} delay={idx * 80}>
-            <div style={{
-              background: '#fff', borderRadius: 12, padding: '1rem 1.2rem',
-              border: '1px solid var(--color-border)',
-              display: 'flex', gap: '1rem', alignItems: 'flex-start',
-            }}>
+        <div style={{maxWidth: 1100, margin: '0.5rem auto 0', display: 'grid', gap: '0.7rem'}}>
+          {futureWork.map((item, idx) => (
+              <Reveal key={item.title} delay={idx * 80}>
+                <div style={{
+                  background: '#fff', borderRadius: 12, padding: '1rem 1.2rem',
+                  border: '1px solid var(--color-border)',
+                  display: 'flex', gap: '1rem', alignItems: 'flex-start',
+                }}>
               <span style={{
                 flexShrink: 0, width: 44, height: 44, borderRadius: 10,
                 background: 'linear-gradient(135deg, #eef5ff, #f0fdf4)',
@@ -550,19 +743,30 @@ export default function EvaluationPage() {
               }}>
                 {item.icon}
               </span>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
-                  <h4 style={{ margin: 0, color: 'var(--green-900)', fontSize: '0.95rem', whiteSpace: 'nowrap' }}>{item.title}</h4>
-                  <PriorityBadge priority={item.priority} />
+                  <div style={{flex: 1}}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      marginBottom: '0.3rem',
+                      flexWrap: 'wrap'
+                    }}>
+                      <h4 style={{
+                        margin: 0,
+                        color: 'var(--green-900)',
+                        fontSize: '0.95rem',
+                        whiteSpace: 'nowrap'
+                      }}>{item.title}</h4>
+                      <PriorityBadge priority={item.priority}/>
+                    </div>
+                    <p style={{margin: 0, fontSize: '0.87rem', color: 'var(--slate-700)', lineHeight: 1.55}}>
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <p style={{ margin: 0, fontSize: '0.87rem', color: 'var(--slate-700)', lineHeight: 1.55 }}>
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
+              </Reveal>
+          ))}
+        </div>
+      </section>
   )
 }
