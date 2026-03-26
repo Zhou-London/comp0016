@@ -214,6 +214,9 @@ const tabs = [
     content: (
       <section>
         <h2>Design Patterns</h2>
+        <p>
+            The project employs a variety of design patterns to ensure a modular, maintainable, extensible and testable codebase. These patterns are applied across the architecture, with specific examples in the MotionInput integration, shared core systems, and minigame implementations. The table below categorizes the main design patterns used, provides examples of where they are applied in the codebase, and explains their purpose in the context of this project.
+        </p><br/>
         <table className={styles.patternTable}>
           <thead>
             <tr>
