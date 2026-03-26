@@ -265,7 +265,7 @@ function VideoCarousel({ videos }) {
                             preload="auto"
                             style={{
                                 width: '100%', display: 'block', borderRadius: '9px',
-                                position: i === 0 ? 'relative' : 'absolute',
+                                position: i === idx ? 'relative' : 'absolute',
                                 top: 0, left: 0,
                                 opacity: i === idx ? 1 : 0,
                                 pointerEvents: i === idx ? 'auto' : 'none',
@@ -708,6 +708,13 @@ export default function ImplementationPage() {
                     <p style={{marginTop: '1rem'}}>
                         <i>This feature is currently in early development and has not yet been included in the released version of the game.</i>
                     </p>
+
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+                        <video controls style={{width: '55%', borderRadius: '10px', border: '1px solid #dde7f3'}}>
+                            <source src="/implementation/whole-match.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+
                     <p style={{marginTop: '1rem'}}>
                         The Football Match mode is a full 90-minute football simulation where the player participates
                         in a complete match against an opponent team. Unlike the isolated minigames, this mode chains
@@ -755,12 +762,23 @@ export default function ImplementationPage() {
                         animations for visual presence.
                     </p>
 
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
+                        <ImageWithCaption src="/implementation/AI Team Formations (1).png" caption="AI team formation — attacking phase" />
+                        <ImageWithCaption src="/implementation/AI Team Formations (2).png" caption="AI team formation — defending phase" />
+                    </div>
+
                     <h3 style={{marginTop: '2rem'}}>Dynamic Camera</h3>
                     <p style={{marginTop: '1rem'}}>
                         <code>MatchCameraController</code> provides phase-specific camera offsets with smooth damped transitions
                         (1.2s smoothTime). The camera starts high and overhead for dribbling, lowers for shooting accuracy,
                         and drops very close during goalkeeping with forward look-ahead to track the incoming ball.
                     </p>
+
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+                        <div style={{width: '50%'}}>
+                            <ImageWithCaption src="/implementation/whole-matchcameracontroller.png" caption="Match Camera Controller" />
+                        </div>
+                    </div>
 
                     <h3 style={{marginTop: '2rem'}}>Visual Feedback</h3>
                     <p style={{marginTop: '1rem'}}>
@@ -789,6 +807,10 @@ export default function ImplementationPage() {
                     </div>
 
                     <h3 style={{marginTop: '2rem'}}>Core Scripts</h3>
+                    <MediaCarousel width="50%" height="340px" items={[
+                        { type: 'image', src: '/implementation/whole-matchmanager.png', label: 'MatchManager in Unity Editor' },
+                        { type: 'image', src: '/implementation/whole-matchscriptstructure.png', label: 'Match Script Structure' },
+                    ]} />
                     <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
                         <table>
                             <thead>
@@ -1101,13 +1123,6 @@ export default function ImplementationPage() {
                         </table>
                     </div>
 
-                    <h3 style={{marginTop: '2rem'}}>Environment Requirements</h3>
-                    <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', color: 'var(--slate-700)', lineHeight: 1.8}}>
-                        <li><b>Platform:</b> Windows only — MotionInput uses <code>DllImport("user32.dll")</code> for window management</li>
-                        <li><b>Engine:</b> Unity 6 with Universal Render Pipeline, verified on Windows 10 and Windows 11</li>
-                        <li><b>MotionInput files:</b> must be present in <code>StreamingAssets/MotionInput/</code> at build time (not included in repository)</li>
-                        <li><b>Singleton load order:</b> GameSettings and MotionInputManager require starting from MainMenuScene; direct scene entry in the editor falls back to defaults</li>
-                    </ul>
                 </RevealSection>
 
             </div>
