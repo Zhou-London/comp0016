@@ -879,6 +879,170 @@ export default function ImplementationPage() {
                     </p>
                 </RevealSection>
 
+                {/* Crowd Generation */}
+                <RevealSection className={styles.abstractPanel}>
+                    <h2>Crowd Generation</h2>
+                    <p style={{marginTop: '1rem'}}>
+                        The stadium crowd is procedurally generated at runtime by <code>CrowdSpawner</code>, which
+                        populates
+                        every stand in the scene with crowd member instances when the scene loads. A key design
+                        constraint
+                        was performance — the game targets standard classroom laptops with modest GPUs, so the crowd
+                        needed
+                        to be visually convincing without contributing significant polygon cost.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>2D Billboard Sprites</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        Rather than using 3D character models for crowd members (which would each carry hundreds or
+                        thousands of polygons), the crowd is made up of <b>2D billboard sprites</b>. Each sprite is a
+                        flat quad — only two triangles — making the per-member polygon cost negligible regardless of
+                        crowd size. To maintain the illusion of depth, each crowd member uses <code>CrowdMember</code>,
+                        which runs every frame to rotate the sprite to face the camera on the Y axis only, ignoring
+                        pitch. This billboard effect ensures crowd members always face the player without ever revealing
+                        that they are flat. This effect can be found in many games, for example, Paper Mario and Don't
+                        Starve. In our Goalkeeping and Penalty Shootout minigames, this is less relevant as the player
+                        and camera are in a fixed position. However, in Free Kick, there are 3 different angles to shoot
+                        from, and in Obstacle Course, the player will move around the entire pitch, so this billboard
+                        effect is essential.
+                    </p>
+
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        marginTop: '1.5rem',
+                        gap: '0.5rem'
+                    }}>
+                        <p style={{color: 'var(--slate-600)', fontSize: '0.92rem'}}>Close up on the crowd in Obstacle
+                            Course - crowd rotates to follow the player as they move around the pitch.</p>
+                        <video controls style={{width: '70%', borderRadius: '10px'}}>
+                            <source src="/implementation/crowd movement.mp4" type="video/mp4"/>
+                        </video>
+                    </div>
+
+                    <p style={{marginTop: '2rem'}}>
+                        All crowd member sprites were digitally hand-drawn, featuring a diverse range of characters
+                        across different genders and skin tones to reflect an inclusive stadium atmosphere that mirrors
+                        the game's broader accessibility values. The designs of these sprites were inspired by Miis and
+                        the Animal Crossing series – sharing the same base but having different variations in the eyes,
+                        nose, mouth, hair, colour, etc. While we only had time to create 6 sprites, many more can be
+                        made in this simplistic style easily, and the more sprites that are added the less repetitive
+                        the crowd will appear to be.
+
+                    </p>
+
+                    <div style={{marginTop: '1.5rem', width: '30%', margin: '1.5rem auto 0'}}>
+                        <ImageWithCaption src="/implementation/2D_crowd.jpg"
+                                          caption="All 6 crowd member sprites"/>
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Stadium Layout & Stand Types</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        The stadium prefab is composed of several distinct stand sections, each tagged accordingly so
+                        <code> CrowdSpawner</code> can locate and populate them independently at runtime. The spawner
+                        supports
+                        four stand configurations:
+                    </p>
+                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Tag</th>
+                                <th>Layout</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><code>CrowdStand5x5</code></td>
+                                <td>5 columns × 5 rows</td>
+                                <td>Main straight stands along the sides of the pitch</td>
+                            </tr>
+                            <tr>
+                                <td><code>CrowdStand1x5</code></td>
+                                <td>1 column × 5 rows</td>
+                                <td>Narrow side stands or end-section fillers</td>
+                            </tr>
+                            <tr>
+                                <td><code>CrowdCornerBottom</code></td>
+                                <td>5 rows, 9 seats, arc layout</td>
+                                <td>Corner stands using a curved arc arrangement at a tighter radius</td>
+                            </tr>
+                            <tr>
+                                <td><code>CrowdCornerTop</code></td>
+                                <td>5 rows, 15 seats, arc layout</td>
+                                <td>Corner stands at a wider radius with more seats per row</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '1rem',
+                        margin: '1.5rem auto 0',
+                        width: '70%'
+                    }}>
+                        <ImageWithCaption src="/implementation/stadium boxes.png"
+                                          caption="Overhead view of the stadium showing the box stands"/>
+                        <ImageWithCaption src="/implementation/stadium corners.png"
+                                          caption="Overhead view of the stadium showing the corner stands"/>
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Spawn Algorithm</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        Straight stands use a grid-based layout: positions are calculated by iterating over rows and
+                        columns,
+                        with each seat offset by configurable step height and step depth to follow the tiered geometry
+                        of the
+                        stand. Corner stands use a <b>quadratic arc</b> layout — seat positions are computed by
+                        interpolating
+                        an angle across the arc span, converting to Cartesian coordinates, and applying a pivot rotation
+                        to
+                        align the arc with the corner geometry. All positions are then transformed from local stand
+                        space into
+                        world space using <code>TransformPoint</code>.
+                    </p>
+                    <p style={{marginTop: '1rem'}}>
+                        A configurable <code>seatFillChance</code> (0–1) randomly skips seats, producing a natural,
+                        uneven
+                        crowd distribution rather than a perfectly uniform fill. Small random X/Z offsets
+                        (<code>randomSpread</code>)
+                        and scale variation (<code>scaleMin</code>/<code>scaleMax</code>) are also applied per member to
+                        break
+                        visual repetition.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>Crowd Animation</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        When the player scores a point, the crowd reacts by
+                        jumping. <code>JumpAnimScript</code> implements
+                        a smooth parabolic jump using the formula <b>y = jumpHeight × 4t(1−t)</b>, where <em>t</em> is
+                        normalised elapsed time over the jump duration. This produces a natural arc — fast rise, gradual
+                        fall — entirely through transform manipulation with no physics involvement.
+                    </p>
+                    <p style={{marginTop: '1rem'}}>
+                        The jump is triggered by calling <code>Jump()</code> on all
+                        active <code>JumpAnimScript</code> instances,
+                        located via <code>FindObjectsByType</code> at the point of each score event. This approach is
+                        simple and
+                        effective, but carries a known performance consideration: <code>FindObjectsByType</code> scans
+                        all active
+                        objects in the scene on every call. In scenes with large crowds this introduces a non-trivial
+                        cost each
+                        time a point is scored, and caching the results at scene load would be a straightforward
+                        optimisation
+                        for future iterations.
+                    </p>
+
+                    <div style={{margin: '1.5rem auto 0', width: '80%'}}>
+                        <ImageWithCaption src="/blog pics/added crowd.png"
+                                          caption="Generated crowd populating the stadium stands at runtime"/>
+                    </div>
+                </RevealSection>
+
                 {/* Audio */}
                 <RevealSection className={styles.abstractPanel}>
                     <h2>Audio System</h2>
