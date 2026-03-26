@@ -319,7 +319,7 @@ function Credits() {
       <h2>Credits</h2>
       <div className={styles.componentBreakdown}>
         <h3>Project Team</h3>
-        <ul style={{listStyle: 'none', paddingLeft: 0}}>
+        <ul>
           <li>
             Mariha Subhan
             <a href="https://www.linkedin.com/in/mariha-subhan-ba0672324/" target="_blank" rel="noopener noreferrer" style={{marginLeft: '0.5em', marginRight: '0.3em', verticalAlign: 'middle'}} title="LinkedIn">
@@ -389,7 +389,7 @@ export default function AppendicesPage() {
 
   return (
     <section className={styles.sectionAlt}>
-      <SectionHeader title="Appendices" subtitle="Manuals, legal topics, dependencies, contributions, and credits." />
+      <SectionHeader title="Appendices" subtitle="Manuals, legal topics, dependencies, and credits." />
       <Tabs tabs={tabs} storageKey="appendicesActiveTab" />
     </section>
   );
