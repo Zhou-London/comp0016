@@ -265,7 +265,7 @@ function VideoCarousel({ videos }) {
                             preload="auto"
                             style={{
                                 width: '100%', display: 'block', borderRadius: '9px',
-                                position: i === 0 ? 'relative' : 'absolute',
+                                position: i === idx ? 'relative' : 'absolute',
                                 top: 0, left: 0,
                                 opacity: i === idx ? 1 : 0,
                                 pointerEvents: i === idx ? 'auto' : 'none',
@@ -700,6 +700,137 @@ export default function ImplementationPage() {
                         Sessions can run as a single round, multiple rounds (1–10), or endless mode. On round completion,
                         the player returns to region 1 for a new shuffled sequence.
                     </p>
+                </RevealSection>
+
+                {/* Football Match */}
+                <RevealSection className={styles.abstractPanel}>
+                    <h3>Football Match Mode (Beta)</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        <i>This feature is currently in early development and has not yet been included in the released version of the game.</i>
+                    </p>
+
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+                        <video controls style={{width: '55%', borderRadius: '10px', border: '1px solid #dde7f3'}}>
+                            <source src="/implementation/whole-match.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+
+                    <p style={{marginTop: '1rem'}}>
+                        The Football Match mode is a full 90-minute football simulation where the player participates
+                        in a complete match against an opponent team. Unlike the isolated minigames, this mode chains
+                        together multiple football phases — dribbling, passing, shooting, defending, and goalkeeping — into
+                        a continuous match experience with alternating possession, AI team formations, and dynamic camera transitions.
+                        The full 90-minute in-game match is compressed into approximately 3 minutes of real time (180 seconds),
+                        with each half representing 45 in-game minutes in roughly 90 real-time seconds.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>Match Phases</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        The match is driven by a 12-state state machine managed by <code>MatchManager</code>. The player
+                        progresses through phases depending on possession, with each phase requiring directional input
+                        (left/centre/right) within a time limit that varies by difficulty.
+                    </p>
+                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Phase</th>
+                                    <th>Description</th>
+                                    <th>Player Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>Kickoff</b></td><td>Start of play with 1.5s delay before possession begins</td><td>—</td></tr>
+                                <tr><td><b>Dribbling</b></td><td>Player moves the ball forward through 3 lanes; opponents block 2 of 3</td><td>Choose lane (A/W/D)</td></tr>
+                                <tr><td><b>Passing</b></td><td>Player passes to open teammates; one teammate is highlighted as the target</td><td>Select pass direction</td></tr>
+                                <tr><td><b>Shooting</b></td><td>Player shoots at goal with 3 target zones at different heights</td><td>Aim at goal zone</td></tr>
+                                <tr><td><b>Free Kick</b></td><td>Special shooting situation from a set-piece position</td><td>Aim at goal zone</td></tr>
+                                <tr><td><b>Defending</b></td><td>Player blocks incoming attacks by choosing a tackle lane</td><td>Select tackle lane</td></tr>
+                                <tr><td><b>Goalkeeping</b></td><td>Player saves shots by diving to a target corner</td><td>Choose dive direction</td></tr>
+                                <tr><td><b>Half Time</b></td><td>45-minute interval with 3s display</td><td>—</td></tr>
+                                <tr><td><b>Full Time</b></td><td>Match end with result screen (Win/Lose/Draw)</td><td>Play Again or Quit</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>AI Team Formations</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        <code>MatchFormation</code> manages the positioning of 2 AI teammates, 3 opponents, and 2 persistent
+                        goalkeepers. Formations adapt dynamically to each phase — teammates flank the player when attacking,
+                        spread for rebounds when shooting, and form a defensive line when defending. Opponents use lane-blocking
+                        logic during dribbling and simulate attacks during defending phases. All characters have idle sway
+                        animations for visual presence.
+                    </p>
+
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1.5rem'}}>
+                        <ImageWithCaption src="/implementation/AI Team Formations (1).png" caption="AI team formation — attacking phase" />
+                        <ImageWithCaption src="/implementation/AI Team Formations (2).png" caption="AI team formation — defending phase" />
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Dynamic Camera</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        <code>MatchCameraController</code> provides phase-specific camera offsets with smooth damped transitions
+                        (1.2s smoothTime). The camera starts high and overhead for dribbling, lowers for shooting accuracy,
+                        and drops very close during goalkeeping with forward look-ahead to track the incoming ball.
+                    </p>
+
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+                        <div style={{width: '50%'}}>
+                            <ImageWithCaption src="/implementation/whole-matchcameracontroller.png" caption="Match Camera Controller" />
+                        </div>
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Visual Feedback</h3>
+                    <p style={{marginTop: '1rem'}}>
+                        <code>MatchVisuals</code> provides real-time visual guidance for each phase: highlighted dribble lanes
+                        with blocked-lane indicators, shooting target zones at goal, tackle lane markers during defending,
+                        dive zones during goalkeeping, and chevron indicators for passing targets. A colour-coded decision
+                        timer bar (green → yellow → red) counts down the time available for each input.
+                    </p>
+
+                    <h3 style={{marginTop: '2rem'}}>Difficulty Settings</h3>
+                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Easy</th>
+                                    <th>Hard</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Decision time limit</td><td>5 seconds</td><td>2 seconds</td></tr>
+                                <tr><td>Opponent move speed</td><td>2 m/s</td><td>4.5 m/s</td></tr>
+                                <tr><td>Shot force</td><td>14 units</td><td>18 units</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style={{marginTop: '2rem'}}>Core Scripts</h3>
+                    <MediaCarousel width="50%" height="340px" items={[
+                        { type: 'image', src: '/implementation/whole-matchmanager.png', label: 'MatchManager in Unity Editor' },
+                        { type: 'image', src: '/implementation/whole-matchscriptstructure.png', label: 'Match Script Structure' },
+                    ]} />
+                    <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Script</th>
+                                    <th>Responsibility</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>MatchManager</code></td><td>Primary orchestrator — state machine, scoring, timer, phase transitions, possession switching</td></tr>
+                                <tr><td><code>MatchInputHandler</code></td><td>Routes A/W/D input to the active phase handler</td></tr>
+                                <tr><td><code>MatchBall</code></td><td>Ball physics, trajectory arcs, goal detection via trigger colliders</td></tr>
+                                <tr><td><code>MatchFormation</code></td><td>AI teammate/opponent positioning, keeper management, adaptive formations</td></tr>
+                                <tr><td><code>MatchCameraController</code></td><td>Phase-specific camera offsets with smooth damped transitions</td></tr>
+                                <tr><td><code>MatchUI</code></td><td>Runtime HUD (score, timer, phase text, decision timer bar), menu, and end screen</td></tr>
+                                <tr><td><code>MatchVisuals</code></td><td>Action zone indicators, lane highlights, target markers, pulse/lean effects</td></tr>
+                                <tr><td><code>MatchSceneSetup</code></td><td>Optional auto-setup for pitch, goals, positions, and ball at runtime</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </RevealSection>
 
                 {/* Game Controllers */}
@@ -1156,13 +1287,6 @@ export default function ImplementationPage() {
                         </table>
                     </div>
 
-                    <h3 style={{marginTop: '2rem'}}>Environment Requirements</h3>
-                    <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', color: 'var(--slate-700)', lineHeight: 1.8}}>
-                        <li><b>Platform:</b> Windows only — MotionInput uses <code>DllImport("user32.dll")</code> for window management</li>
-                        <li><b>Engine:</b> Unity 6 with Universal Render Pipeline, verified on Windows 10 and Windows 11</li>
-                        <li><b>MotionInput files:</b> must be present in <code>StreamingAssets/MotionInput/</code> at build time (not included in repository)</li>
-                        <li><b>Singleton load order:</b> GameSettings and MotionInputManager require starting from MainMenuScene; direct scene entry in the editor falls back to defaults</li>
-                    </ul>
                 </RevealSection>
 
             </div>
