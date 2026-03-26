@@ -1,3 +1,4 @@
+
 import styles from '../App.module.css';
 import SectionHeader from '../components/SectionHeader';
 import Tabs from '../components/Tabs';
@@ -12,7 +13,7 @@ function UserManual() {
           This manual provides a step-by-step guide for installing, launching, and playing the football practice game. The game features four minigames, motion input controls, and a range of accessibility options.
         </p><br/>
         <p>
-          <b>Children with SEND must play under the guidance of a guardian, who navigates the game on their behalf.</b>
+          <b>Children with SEND should play under the guidance of a guardian, who navigates the game on their behalf.</b>
         </p><br/>
 
         <h3>2. System Requirements</h3>
@@ -296,18 +297,46 @@ function Dependencies() {
             </ul>
           </li>
         </ul>
+      </div>
+    </div>
+  );
+}
 
-        {/* <h3>Build & Platform Constraints</h3>
+function WhereToFindCode() {
+  return (
+    <div>
+      <h2>Where to Find the Code & Builds</h2>
+      <div className={styles.componentBreakdown}>
+        <h3>Source Code Repository</h3>
         <ul>
-          <li><b>Platform:</b> Windows only (uses Win32 DLL imports for window management and process launching).</li>
-          <li><b>Unity Version:</b> 6000.2.12f1 or compatible.</li>
+          <li>
+            <b>GitHub Repository:</b> <a href="https://github.com/mariha-s/COMP0016_2025_Team7_FootballPractice" target="_blank" rel="noopener noreferrer">https://github.com/mariha-s/COMP0016_2025_Team7_FootballPractice</a>
+          </li>
         </ul>
-
-        <h3>Inspector & Configuration</h3>
+        <h3>Game Builds</h3>
         <ul>
-          <li>All major gameplay tuning values are set via Unity Inspector and <code>PlayerPrefs</code> (audio, input, game speed, etc.).</li>
-          <li>MotionInput configuration is managed via <code>StreamingAssets/MotionInput/data/config.json</code> and per-mode files.</li>
-        </ul> */}
+          <li>
+            <b>Windows Build:</b> <a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAklyvTM-vRS5oTwmk2LmMnAQdt1Vu1hG2LnUVu9OmGWdQ?e=ue78Lr" target="_blank" rel="noopener noreferrer">Download (Windows)</a>
+          </li>
+          <li>
+            <b>macOS Build:</b> <a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQB70I_2RX8gToEW9BQqx9QsAehNRTjECu-wcZBukDrwW1A?e=R87gQ4" target="_blank" rel="noopener noreferrer">Download (macOS)</a>
+          </li>
+        </ul>
+        <h3>MotionInput Build (Windows only)</h3>
+        <ul>
+          <li>
+            <b>MotionInput Build Files:</b> <a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer">Download MotionInput</a>
+          </li>
+          <li>
+            Place <code>motioninput.exe</code>, <code>data/</code> folder, and <code>modes/</code> folder in <code>Assets/StreamingAssets/MotionInput/</code> in your game directory.
+          </li>
+        </ul>
+        <h3>Documentation</h3>
+        <ul>
+          <li>
+            <b>Project Documentation:</b> See the <code>README.md</code> and <code>docs/</code> folder in the GitHub repository for architecture, build, and technical details.
+          </li>
+        </ul>
       </div>
     </div>
   );
@@ -384,6 +413,7 @@ export default function AppendicesPage() {
     { label: 'Deployment Manual', content: <DeploymentManual /> },
     { label: 'GDPR & Privacy', content: <GDPR /> },
     { label: 'Dependencies', content: <Dependencies /> },
+    { label: 'Where to Find Code', content: <WhereToFindCode /> },
     { label: 'Credits', content: <Credits /> },
   ];
 
