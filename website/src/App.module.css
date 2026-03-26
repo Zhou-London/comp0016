@@ -1,3 +1,17 @@
+.appendicesImage {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 1.5rem auto;
+  border-radius: 10px;
+  border: 1px solid #e2eaf5;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(17, 45, 93, 0.06);
+  object-fit: contain;
+}
+.componentBreakdown a {
+  text-decoration: underline;
+}
 /* SystemDesignPage component breakdown styling */
 .componentBreakdown {
   margin: 2rem 0 0 0;
@@ -15,7 +29,8 @@
   font-size: 1.25rem;
   color: #234;
 }
-.componentBreakdown ul {
+.componentBreakdown ul,
+.componentBreakdown ol {
   list-style: disc inside;
   padding-left: 1.2em;
   margin: 0;
@@ -25,6 +40,9 @@
   line-height: 1.7;
   font-size: 1.05rem;
   color: #2a2a2a;
+}
+.componentBreakdown ol {
+  list-style: decimal inside;
 }
 .diagramImageWide {
   display: block;
