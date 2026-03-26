@@ -100,7 +100,7 @@ function UserManual() {
           <li><b>MotionInput not detected:</b> Ensure all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
           <li><b>Camera not found:</b> Check webcam connection and ensure the camera is on. Make sure only 1 MotionInput window is open, close any duplicates or restart the application.</li>
           <li><b>Game falls back to keyboard:</b> Check webcam connection and MotionInput status.</li>
-          <li><b>Use of external webcam:</b> Ensure the external webcam is properly connected and recognized by the system.</li>
+          <li><b>Use of external webcam:</b> Ensure the external webcam is properly connected and recognised by the system.</li>
         </ul>
       </div>
     </div>

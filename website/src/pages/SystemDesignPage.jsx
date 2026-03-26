@@ -209,24 +209,14 @@ const tabs = [
       </section>
     ),
   },
-  // {
-  //   label: 'Packages & APIs',
-  //   content: (
-  //     <section>
-  //       <h2>Packages and APIs</h2>
-  //       <p>
-  //         Assembly dependencies and shared APIs are defined via asmdef boundaries and shared interfaces. This keeps
-  //         minigame code independent while reusing shared systems.
-  //       </p>
-  //       <img className={styles.diagramImageWide} src="/diagrams/system-design/package-api-map.png" alt="Assembly dependency and API map" />
-  //     </section>
-  //   ),
-  // },
   {
     label: 'Design Patterns',
     content: (
       <section>
         <h2>Design Patterns</h2>
+        <p>
+            The project employs a variety of design patterns to ensure a modular, maintainable, extensible and testable codebase. These patterns are applied across the architecture, with specific examples in the MotionInput integration, shared core systems, and minigame implementations. The table below categorizes the main design patterns used, provides examples of where they are applied in the codebase, and explains their purpose in the context of this project.
+        </p><br/>
         <table className={styles.patternTable}>
           <thead>
             <tr>
@@ -402,7 +392,7 @@ const tabs = [
 export default function SystemDesignPage() {
   return (
     <section className={styles.sectionAlt}>
-      <SectionHeader title="System Design" subtitle="Architecture, diagrams, data storage model, packages, and APIs." />
+      <SectionHeader title="System Design" subtitle="Architecture, sequence and class diagrams, data storage model, and design patterns." />
       <Tabs tabs={tabs} defaultTab={0} />
     </section>
   );
