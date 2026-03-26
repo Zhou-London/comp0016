@@ -59,10 +59,18 @@ export default function HomePage() {
           Camera-based football training minigames designed to support accessible and engaging movement practice.
         </p>
 
-        <div className={styles.abstractPanel}>
-          <h3>Introduction Video (2-4 minutes)</h3>
-          <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 2 minutes, clear narration,
-            high resolution).
+        <div
+            className={styles.abstractPanel}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+          <h3>Introduction Video</h3>
+          <div style={{marginTop: '0.8rem', width: '100%', display: 'flex', justifyContent: 'center'}}>
+            <video controls style={{width: '80%', borderRadius: '10px'}}>
+              <source src={`${import.meta.env.BASE_URL}home page videos/demo video.mp4`} type="video/mp4"/>
+            </video>
           </div>
         </div>
 
@@ -119,7 +127,7 @@ export default function HomePage() {
             </a>
             .
           </p>
-          <div style={{width: '80%', borderRadius: '10px', marginTop: '1rem'}}><ImageWithCaption
+          <div style={{width: '100%', borderRadius: '10px', marginTop: '1rem'}}><ImageWithCaption
               src="/project timeline/project timeline.png" caption="Main menu screen layout"/></div>
         </div>
 

@@ -538,20 +538,20 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Website template and setup', '—', '60%', '—', '40%', '—'],
+                ['Website template and setup', '—', '60%', '10%', '30%', '—'],
                 ['Home', '100%', '—', '—', '—', '—'],
-                ['Video', '—', '—', '—', '—',   '—'  ],
-                ['Requirements',               '28%',  '18%', '18%', '18%',   '18%'],
-                ['Research',                   '—',    '20%',   '—',   '80%',   '—'  ],
-                ['UI Design',                  '100%', '—',   '—',   '25%',   '75%'  ],
+                ['Video', '28%',  '18%', '18%', '18%',   '18%'  ],
+                ['Requirements',               '—',  '20%', '—', '80%',   '—'],
+                ['Research',                   '—',    '—',   '—',   '25%',   '75%'  ],
+                ['UI Design',                  '100%', '—',   '—',   '—',   '—'  ],
                 ['System Design',              '—',    '100%',   '—',   '—',   '—'  ],
-                ['Implementation',             '22%',    '23%',   '45%',   '5%',   '5%'  ],
+                ['Implementation',             '19%',    '19%',   '54%',   '4%',   '4%'  ],
                 ['Testing',                    '—',    '—',   '100%',   '—',   '—'  ],
                 ['Evaluation and Future Work', '30%',    '—',   '—',   '70%',   '—'  ],
                 ['User and Deployment Manuals','—',    '100%',   '—',   '—',   '—'  ],
                 ['Legal Issues',               '—',    '100%',   '—',   '—',   '—'  ],
                 ['Blog and Monthly Video',     '100%',    '—',   '—',   '—',   '—'  ],
-                ['Overall Contribution',       '29.23%',    '32.38%',   '12.54%',   '18.31%',   '7.54%'  ],
+                ['Overall Contribution',       '29%',    '32.08%',   '14%',   '17.46%',   '7.46%'  ],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
