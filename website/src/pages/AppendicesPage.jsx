@@ -2,6 +2,7 @@
 import styles from '../App.module.css';
 import SectionHeader from '../components/SectionHeader';
 import Tabs from '../components/Tabs';
+import AppendixImage from '../components/AppendixImage';
 
 function UserManual() {
   return (
@@ -39,20 +40,20 @@ function UserManual() {
           </ul>
           <li>Double-click the game executable to launch.</li>
         </ol>
-          <img
+          <AppendixImage
             src="/appendices/run-executable.png"
             alt="Double-click the executable to run the game"
-            className={styles.appendicesImage}
+            caption="Double-click the executable to run the game"
           />
 
         <h3>4. Main Menu & Navigation</h3>
         <ul>
           <li><b>Main Menu:</b> Start the game, access minigames, settings, credits, or quit.</li>
-          <img src="/appendices/main-menu.png" alt="Main Menu" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/main-menu.png" alt="Main Menu" caption="Main Menu" />
           <li><b>Minigames Menu:</b> Select from Freekick, Goalkeeping, Penalty Shootout, Obstacle Course to play, or view tutorials</li>
-          <img src="/appendices/minigame-menu.png" alt="Minigame Menu" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/minigame-menu.png" alt="Minigame Menu" caption="Minigame Menu" />
           <li><b>Main Settings:</b> Adjust audio, motion input, and game speed for accessibility.</li>
-          <img src="/appendices/settings-menu.png" alt="Settings Menu" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/settings-menu.png" alt="Settings Menu" caption="Settings Menu" />
         </ul>
 
         <h3>5. Motion Input Controls</h3>
@@ -61,25 +62,25 @@ function UserManual() {
         </p>
         <ul>
           <li><b>Kicking Mode:</b> Used for Freekick, Penalty Shootout, and Obstacle Course (full-body kicking).</li>
-          <img src="/appendices/kicking-mode.png" alt="Kicking Mode" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/kicking-mode.png" alt="Kicking Mode" caption="Kicking Mode" />
           <li><b>Hands Mode:</b> Used for Goalkeeping (hands only) and optionally for all minigames if Hands Only Mode is enabled.</li>
-          <img src="/appendices/hands-mode.png" alt="Hands Mode" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/hands-mode.png" alt="Hands Mode" caption="Hands Mode" />
         </ul>
         <p>
           If MotionInput is not detected, the game will fall back to keyboard controls (A/W/D). See the full tutorial screen for more information on how to play each minigame.
         </p>
-        <img src="/appendices/tutorial-page.png" alt="Tutorial Screen" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/tutorial-page.png" alt="Tutorial Screen" caption="Tutorial Screen" />
 
         <h3>6. Minigames Overview</h3>
         <ul>
           <li><b>Freekick:</b> Select a shot lane and kick to score goals. Avoid the wall and goalkeeper. Supports easy/hard modes and endless/target score sessions.</li>
-          <img src="/appendices/freekick.png" alt="Freekick Minigame" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/freekick.png" alt="Freekick Minigame" caption="Freekick Minigame" />
           <li><b>Goalkeeping:</b> Move gloves to block shots using hand gestures. Supports easy/hard modes and endless/target saves sessions.</li>
-          <img src="/appendices/goalkeeping.png" alt="Goalkeeping Minigame" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/goalkeeping.png" alt="Goalkeeping Minigame" caption="Goalkeeping Minigame" />
           <li><b>Penalty Shootout:</b> Take penalties against a goalkeeper. In hard mode, use a power meter for shot force. Supports endless/target score sessions.</li>
-          <img src="/appendices/penalty-shootout.png" alt="Penalty Shootout Minigame" className={styles.appendicesImage} />          
+          <AppendixImage src="/appendices/penalty-shootout.png" alt="Penalty Shootout Minigame" caption="Penalty Shootout Minigame" />
           <li><b>Obstacle Course:</b> Complete eight sequential football challenges (kicking, dribbling, hitting targets, avoiding defenders, etc.). Supports easy/hard modes and multiple session types.</li>
-          <img src="/appendices/obstacle-course.png" alt="Obstacle Course Minigame" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/obstacle-course.png" alt="Obstacle Course Minigame" caption="Obstacle Course Minigame" />
         </ul>
         
 
@@ -91,8 +92,8 @@ function UserManual() {
           <li>All settings are applied across the game and are saved using Unity PlayerPrefs and stay between sessions.</li>
         </ul>
         <p>Settings can also be accesed from the pause menu in each minigame. To take effect the minigame may need to be restarted.</p>
-        <img src="/appendices/pause-menu.png" alt="Pause Menu" className={styles.appendicesImage} />
-        <img src="/appendices/in-game-settings.png" alt="In-Game Settings" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/pause-menu.png" alt="Pause Menu" caption="Pause Menu" />
+        <AppendixImage src="/appendices/in-game-settings.png" alt="In-Game Settings" caption="In-Game Settings" />
 
         <h3>8. Troubleshooting & FAQ</h3>
         <ul>
@@ -143,7 +144,7 @@ function DeploymentManual() {
           </ul>
           <li>Open Unity Hub, click <b>Add</b>, and select the project root folder.</li>
         </ol>
-        <img src="/appendices/unity-hub.png" alt="Add project in Unity Hub" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/unity-hub.png" alt="Add project in Unity Hub" caption="Add project in Unity Hub" />
 
         <h3>5. MotionInput Setup</h3>
         <ol>
@@ -154,14 +155,14 @@ function DeploymentManual() {
           <li>Extract the zip file to <code>Assets/StreamingAssets/</code></li>
           <li>Ensure that <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder are in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
         </ol>
-        <img src="/appendices/motioninput-folder.png" alt="MotionInput Folder" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/motioninput-folder.png" alt="MotionInput Folder" caption="MotionInput Folder" />
 
         <h3>6. Opening the Project</h3>
         <ol>
           <li>Open the project in Unity Hub and launch it with the correct Unity version.</li>
           <li>Wait for Unity to import assets and dependencies (first load may take time).</li>
         </ol>
-        <img src="/appendices/unity-editor.png" alt="Unity Editor" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/unity-editor.png" alt="Unity Editor" caption="Unity Editor" />
 
         <h3>7. Installing Dependencies</h3>
         <ol>
@@ -183,18 +184,18 @@ function DeploymentManual() {
             </ul>
           </li>
         </ol>
-        <img src="/appendices/package-manager.png" alt="Unity Package Manager" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/package-manager.png" alt="Unity Package Manager" caption="Unity Package Manager" />
 
         <h3>8. Build Configuration</h3>
         <ol>
           <li>Go to <b>File → Build Profiles</b> and ensure all scenes are included in the correct order:</li>
           <li>Set the build target to <b>Windows (Standalone)</b> for MotionInput integration.</li>
-          <img src="/appendices/win-build-profile.png" alt="Build Settings" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/win-build-profile.png" alt="Build Settings" caption="Build Settings (Windows)" />
           Or set the build target to <b>macOS</b> for keyboard input only builds for macOS
-          <img src="/appendices/macos-build-profile.png" alt="Build Settings" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/macos-build-profile.png" alt="Build Settings" caption="Build Settings (macOS)" />
           <li>Go to <b>Player Settings</b> to configure application settings.</li>
           Default resolution settings are shown below.
-          <img src="/appendices/player-settings.png" alt="Player Settings" className={styles.appendicesImage} />
+          <AppendixImage src="/appendices/player-settings.png" alt="Player Settings" caption="Player Settings" />
           <li>Click <b>Build and Run</b> to generate the executable in the chosen output directory.</li>
         </ol>
 
@@ -203,8 +204,8 @@ function DeploymentManual() {
           <li>After building, locate the executable in the output directory and double-click to run.</li>
           <li>Ensure the MotionInput window launches and overlays the game UI as expected.</li>
         </ol>
-        <img src="/appendices/run-executable.png" alt="Run Executable" className={styles.appendicesImage} />
-        <img src="/appendices/main-menu.png" alt="Main Menu" className={styles.appendicesImage} />
+        <AppendixImage src="/appendices/run-executable.png" alt="Run Executable" caption="Run Executable" />
+        <AppendixImage src="/appendices/main-menu.png" alt="Main Menu" caption="Main Menu" />
 
         <h3>10. Troubleshooting</h3>
         <ul>
