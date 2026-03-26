@@ -28,13 +28,13 @@ function UserManual() {
         <ol>
           <li>Download the zip file and unzip the game build.</li>
           <ul>
-            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAklyvTM-vRS5oTwmk2LmMnAQdt1Vu1hG2LnUVu9OmGWdQ?e=ue78Lr" target="_blank" rel="noopener noreferrer">Windows build</a></li>
-            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQB70I_2RX8gToEW9BQqx9QsAehNRTjECu-wcZBukDrwW1A?e=R87gQ4" target="_blank" rel="noopener noreferrer">macOS build</a></li>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAklyvTM-vRS5oTwmk2LmMnAQdt1Vu1hG2LnUVu9OmGWdQ?e=ue78Lr" target="_blank" rel="noopener noreferrer"><b>Windows build</b></a></li>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQB70I_2RX8gToEW9BQqx9QsAehNRTjECu-wcZBukDrwW1A?e=R87gQ4" target="_blank" rel="noopener noreferrer"><b>macOS build</b></a></li>
           </ul>
           <li><b>(Windows)</b>Ensure the MotionInput build files are in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
           <ul>
             <li>Required files: <code>motioninput.exe</code>, <code>data/</code> folder, <code>modes/</code> folder.</li>
-            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer">MotionInput build files</a></li>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer"><b>MotionInput build files</b></a></li>
           </ul>
           <li>Double-click the game executable to launch.</li>
         </ol>
@@ -98,7 +98,6 @@ function UserManual() {
           <li><b>MotionInput not detected:</b> Ensure all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
           <li><b>Camera not found:</b> Check webcam connection and ensure the camera is on. Make sure only 1 MotionInput window is open, close any duplicates or restart the application.</li>
           <li><b>Game falls back to keyboard:</b> Check webcam connection and MotionInput status.</li>
-          <li><b>Settings not saving:</b> Verify write permissions for PlayerPrefs.</li>
           <li><b>Use of external webcam:</b> Ensure the external webcam is properly connected and recognized by the system.</li>
         </ul>
       </div>
@@ -114,86 +113,118 @@ function DeploymentManual() {
         <h3>1. Introduction</h3>
         <p>
           This manual provides a step-by-step guide for setting up the development environment, opening the project in Unity, configuring MotionInput, and building the football practice game for distribution.
-        </p>
+        </p><br/>
 
         <h3>2. System Requirements</h3>
         <ul>
-          <li><b>Operating System:</b> Windows (required for MotionInput integration)</li>
+          <li><b>Target Operating System:</b> Windows 10/11 or later (required for MotionInput integration)</li>
+          <li><b>Additional Operating System:</b> macOS Big Sur 11 or later (no MotionInput support)</li>
+          <li><b>Processor:</b> Intel Core i5 or equivalent</li>
+          <li><b>Memory</b> 8 GB RAM or higher</li>
+          <li><b>Storage:</b> At least 10 GB of free disk space</li>
+          <li><b>Hardware:</b> Standard PC/laptop with webcam for motion input</li>
           <li><b>Unity Version:</b> 6000.2.12f1 or compatible</li>
-          <li><b>Hardware:</b> Standard PC with webcam for motion input</li>
+          <li><b>Code Editor:</b> Visual Studio or other IDEs with C# support</li>
         </ul>
 
         <h3>3. Environment Preparation</h3>
         <ol>
-          <li>Install <b>Unity Hub</b> and add the required Unity version.</li>
-          <li>Ensure you have <b>Git</b> (for source code) and a suitable IDE (e.g., Visual Studio) for code editing.</li>
+          <li>Install <a href="https://docs.unity.com/en-us/hub/install-hub"><b>Unity Hub</b></a> and add the required Unity version.</li>
+          <li>Ensure you have <a href="https://git-scm.com/install/"><b>Git</b></a> (for source code and version control) and a suitable IDE (e.g. Visual Studio) for C# code editing.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add Unity Hub screenshot here]</div>
 
         <h3>4. Getting the Source Code</h3>
         <ol>
           <li>Clone the repository or download the source code as a .zip file.</li>
+          <ul>
+            <li><a href="https://github.com/mariha-s/COMP0016_2025_Team7_FootballPractice" target="_blank" rel="noopener noreferrer"><b>https://github.com/mariha-s/COMP0016_2025_Team7_FootballPractice</b></a></li>
+            <li><code>git clone https://github.com/mariha-s/COMP0016_2025_Team7_FootballPractice.git</code></li>
+          </ul>
           <li>Open Unity Hub, click <b>Add</b>, and select the project root folder.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add project folder screenshot here]</div>
+        <img src="/appendices/unity-hub.png" alt="Add project in Unity Hub" className={styles.appendicesImage} />
 
         <h3>5. MotionInput Setup</h3>
         <ol>
-          <li>Obtain the MotionInput build files (not included in the repository).</li>
-          <li>Copy <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder into <code>Assets/StreamingAssets/MotionInput/</code>.</li>
+          <li>Obtain the MotionInput build files (not included in the repository due to GitHub file size limits).</li>
+          <ul>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer"><b>MotionInput build files</b></a></li>
+          </ul>
+          <li>Extract the zip file to <code>Assets/StreamingAssets/</code></li>
+          <li>Ensure that <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder are in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add MotionInput folder screenshot here]</div>
+        <img src="/appendices/motioninput-folder.png" alt="MotionInput Folder" className={styles.appendicesImage} />
 
         <h3>6. Opening the Project</h3>
         <ol>
           <li>Open the project in Unity Hub and launch it with the correct Unity version.</li>
           <li>Wait for Unity to import assets and dependencies (first load may take time).</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add Unity Editor screenshot here]</div>
+        <img src="/appendices/unity-editor.png" alt="Unity Editor" className={styles.appendicesImage} />
 
         <h3>7. Installing Dependencies</h3>
         <ol>
-          <li>Open <b>Window → Package Manager</b> in Unity.</li>
+          <li>Open <b>Window → Package Management → Package Manager </b> in Unity.</li>
           <li>Ensure the following packages are installed:
             <ul>
-              <li>Universal Render Pipeline</li>
+              <li>Universal Render Pipeline (URP)</li>
               <li>Unity Toon Shader</li>
               <li>Shader Graph</li>
-              <li>Unity UI</li>
+              <li>Unity UI (UGUI)</li>
               <li>TextMeshPro</li>
               <li>Input System</li>
+              <li>2D Sprite</li>
+              <li>Test Framework</li>
+              <li>AI Navigation</li>
+              <li>Timeline</li>
+              <li>Visual Scripting</li>
+              <li>Accessibility Module</li>
             </ul>
           </li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add Package Manager screenshot here]</div>
+        <img src="/appendices/package-manager.png" alt="Unity Package Manager" className={styles.appendicesImage} />
 
         <h3>8. Build Configuration</h3>
         <ol>
-          <li>Go to <b>File → Build Settings</b> and ensure all scenes are included in the correct order:</li>
-          <li>Set the build target to <b>Windows (Standalone)</b>.</li>
-          <li>Click <b>Build and Run</b> to generate the executable.</li>
+          <li>Go to <b>File → Build Profiles</b> and ensure all scenes are included in the correct order:</li>
+          <li>Set the build target to <b>Windows (Standalone)</b> for MotionInput integration.</li>
+          <img src="/appendices/win-build-profile.png" alt="Build Settings" className={styles.appendicesImage} />
+          Or set the build target to <b>macOS</b> for keyboard input only builds for macOS
+          <img src="/appendices/macos-build-profile.png" alt="Build Settings" className={styles.appendicesImage} />
+          <li>Go to <b>Player Settings</b> to configure application settings.</li>
+          Default resolution settings are shown below.
+          <img src="/appendices/player-settings.png" alt="Player Settings" className={styles.appendicesImage} />
+          <li>Click <b>Build and Run</b> to generate the executable in the chosen output directory.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add Build Settings screenshot here]</div>
 
         <h3>9. Running the Game</h3>
         <ol>
           <li>After building, locate the executable in the output directory and double-click to run.</li>
           <li>Ensure the MotionInput window launches and overlays the game UI as expected.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add running game screenshot here]</div>
+        <img src="/appendices/run-executable.png" alt="Run Executable" className={styles.appendicesImage} />
+        <img src="/appendices/main-menu.png" alt="Main Menu" className={styles.appendicesImage} />
 
         <h3>10. Troubleshooting</h3>
         <ul>
-          <li><b>MotionInput not launching:</b> Check that all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
+          <li><b>MotionInput not detected:</b> Ensure all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
+          <li><b>Camera not found:</b> Check webcam connection and ensure the camera is on. Make sure only 1 MotionInput window is open, close any duplicates or restart the application.</li>
           <li><b>Build errors:</b> Ensure all dependencies are installed and the correct Unity version is used.</li>
           <li><b>Game crashes or malfunctions:</b> Check log files in the output directory and verify input settings.</li>
+          <li><b>UI elements not displaying correctly:</b> Ensure the correct URP material is applied to UI elements.</li>
+          <li><b>Settings not saving:</b> Verify write permissions for PlayerPrefs.</li>
         </ul>
-        <div className={styles.imagePlaceholder}>[Add troubleshooting screenshot here]</div>
 
         <h3>11. Additional Notes</h3>
         <ul>
-          <li>MotionInput build files are not included in the repository due to size and licensing. Obtain them from the project maintainers.</li>
-          <li>All scenes must be present and correctly ordered in Build Settings for a successful build.</li>
+          <li><b>Version Control:</b> Use Git for all code and asset changes. Commit frequently and use descriptive commit messages. Large binary files (e.g., builds, MotionInput files) should be excluded via .gitignore.</li>
+          <li><b>Asset Management:</b> When adding new assets (audio, textures, models), ensure they are properly imported and referenced in Unity. Use Unity's asset reimport if assets appear missing or broken.</li>
+          <li><b>URP/Shader Issues:</b> If graphics or UI elements appear pink or broken, check that all materials use URP-compatible shaders and that the Render Pipeline Asset is assigned in Project Settings.</li>
+          <li><b>Editor/Platform Differences:</b> Some features (e.g., MotionInput) are Windows-only. Test cross-platform builds for macOS to ensure fallback to keyboard controls works as expected.</li>
+          <li><b>PlayerPrefs & Data:</b> PlayerPrefs are used for settings persistence. If settings do not save, check for permission issues or PlayerPrefs corruption. Use Unity's PlayerPrefs editor for debugging.</li>
+          <li><b>Testing:</b> Use Unity's Test Runner for EditMode and PlayMode tests. Add new tests for any new features or bug fixes to maintain code quality.</li>
+          <li><b>Documentation:</b> Update the READMEs, markdown files under <code>docs/</code>, and in-code comments when making significant changes to features, dependencies, or build steps.</li>
+          <li><b>Build Output:</b> Always test the built executable (not just Play mode in the Editor) before release. Some issues only appear in builds.</li>
         </ul>
       </div>
     </div>
