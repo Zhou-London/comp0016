@@ -204,7 +204,7 @@ export default function BlogPage() {
                             </p>
                             <div style={{ marginTop: '0.5rem' }}>
                                 <video controls style={{ width: '60%', borderRadius: '10px' }}>
-                                    <source src="/blog pics/jan demo vid.mp4" type="video/mp4" />
+                                    <source src={`${import.meta.env.BASE_URL}blog pics/jan demo vid.mp4`} type="video/mp4" />
                                 </video>
                             </div>
                         </>}
@@ -224,7 +224,7 @@ export default function BlogPage() {
                             <p style={{ marginTop: '0.8rem', color: 'var(--slate-600)', fontSize: '0.92rem' }}>New assets!</p>
                             <div style={{ marginTop: '0.5rem' }}>
                                 <video controls style={{ width: '60%', borderRadius: '10px' }}>
-                                    <source src="/blog pics/new assets.mp4" type="video/mp4" />
+                                    <source src={`${import.meta.env.BASE_URL}blog pics/new assets.mp4`} type="video/mp4" />
                                 </video>
                             </div>
                         </>}
@@ -291,7 +291,7 @@ export default function BlogPage() {
                             </p>
                             <div style={{ marginTop: '0.5rem' }}>
                                 <video controls style={{ width: '50%', borderRadius: '10px' }}>
-                                    <source src="/blog pics/crowd jump.mp4" type="video/mp4" />
+                                    <source src={`${import.meta.env.BASE_URL}blog pics/crowd jump.mp4`} type="video/mp4" />
                                 </video>
                             </div>
                         </>}

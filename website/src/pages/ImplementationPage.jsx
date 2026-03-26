@@ -1051,7 +1051,7 @@ export default function ImplementationPage() {
                         <p style={{color: 'var(--slate-600)', fontSize: '0.92rem'}}>Close up on the crowd in Obstacle
                             Course - crowd rotates to follow the player as they move around the pitch.</p>
                         <video controls style={{width: '70%', borderRadius: '10px'}}>
-                            <source src="/implementation/crowd movement.mp4" type="video/mp4"/>
+                            <source src={`${import.meta.env.BASE_URL}implementation/crowd movement.mp4`} type="video/mp4"/>
                         </video>
                     </div>
 
