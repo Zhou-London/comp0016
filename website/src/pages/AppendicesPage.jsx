@@ -9,31 +9,50 @@ function UserManual() {
       <div className={styles.componentBreakdown}>
         <h3>1. Introduction</h3>
         <p>
-          This manual provides a step-by-step guide for installing, launching, and playing the football practice game. The game features four minigames, motion input controls, and a range of accessibility options. Images will be added to illustrate each step.
-        </p>
+          This manual provides a step-by-step guide for installing, launching, and playing the football practice game. The game features four minigames, motion input controls, and a range of accessibility options.
+        </p><br/>
+        <p>
+          <b>Children with SEND must play under the guidance of a guardian, who navigates the game on their behalf.</b>
+        </p><br/>
 
         <h3>2. System Requirements</h3>
         <ul>
-          <li><b>Operating System:</b> Windows (required for MotionInput integration)</li>
-          <li><b>Unity Version:</b> 6000.2.12f1 or compatible</li>
-          <li><b>Hardware:</b> Standard PC with webcam for motion input</li>
+          <li><b>Target Operating System:</b> Windows 10/11 or later (required for MotionInput integration)</li>
+          <li><b>Additional Operating System:</b> macOS Big Sur 11 or later (no MotionInput support)</li>
+          <li><b>Processor:</b> Intel Core i5 or equivalent</li>
+          <li><b>Memory</b> 8 GB RAM or higher</li>
+          <li><b>Hardware:</b> Standard PC/laptop with webcam for motion input</li>
         </ul>
 
         <h3>3. Installation & Setup</h3>
         <ol>
-          <li>Download and unzip the game build.</li>
-          <li>Copy the MotionInput build files (not included) into <code>Assets/StreamingAssets/MotionInput/</code>.<br/>Required files: <code>motioninput.exe</code>, <code>data/</code> folder, <code>modes/</code> folder.</li>
+          <li>Download the zip file and unzip the game build.</li>
+          <ul>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAklyvTM-vRS5oTwmk2LmMnAQdt1Vu1hG2LnUVu9OmGWdQ?e=ue78Lr" target="_blank" rel="noopener noreferrer">Windows build</a></li>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQB70I_2RX8gToEW9BQqx9QsAehNRTjECu-wcZBukDrwW1A?e=R87gQ4" target="_blank" rel="noopener noreferrer">macOS build</a></li>
+          </ul>
+          <li><b>(Windows)</b>Ensure the MotionInput build files are in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
+          <ul>
+            <li>Required files: <code>motioninput.exe</code>, <code>data/</code> folder, <code>modes/</code> folder.</li>
+            <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer">MotionInput build files</a></li>
+          </ul>
           <li>Double-click the game executable to launch.</li>
         </ol>
-        <div className={styles.imagePlaceholder}>[Add installation screenshot here]</div>
+          <img
+            src="/appendices/run-executable.png"
+            alt="Double-click the executable to run the game"
+            className={styles.appendicesImage}
+          />
 
         <h3>4. Main Menu & Navigation</h3>
         <ul>
           <li><b>Main Menu:</b> Start the game, access minigames, settings, credits, or quit.</li>
-          <li><b>Minigames Menu:</b> Select from Freekick, Goalkeeping, Penalty Shootout, or Obstacle Course.</li>
-          <li><b>Settings:</b> Adjust audio, motion input, and accessibility options.</li>
+          <img src="/appendices/main-menu.png" alt="Main Menu" className={styles.appendicesImage} />
+          <li><b>Minigames Menu:</b> Select from Freekick, Goalkeeping, Penalty Shootout, Obstacle Course to play, or view tutorials</li>
+          <img src="/appendices/minigame-menu.png" alt="Minigame Menu" className={styles.appendicesImage} />
+          <li><b>Main Settings:</b> Adjust audio, motion input, and game speed for accessibility.</li>
+          <img src="/appendices/settings-menu.png" alt="Settings Menu" className={styles.appendicesImage} />
         </ul>
-        <div className={styles.imagePlaceholder}>[Add main menu screenshot here]</div>
 
         <h3>5. Motion Input Controls</h3>
         <p>
@@ -41,44 +60,47 @@ function UserManual() {
         </p>
         <ul>
           <li><b>Kicking Mode:</b> Used for Freekick, Penalty Shootout, and Obstacle Course (full-body kicking).</li>
-          <li><b>Goalkeeping Mode:</b> Used for Goalkeeping (hands only) and optionally for all minigames if Hands Only Mode is enabled.</li>
+          <img src="/appendices/kicking-mode.png" alt="Kicking Mode" className={styles.appendicesImage} />
+          <li><b>Hands Mode:</b> Used for Goalkeeping (hands only) and optionally for all minigames if Hands Only Mode is enabled.</li>
+          <img src="/appendices/hands-mode.png" alt="Hands Mode" className={styles.appendicesImage} />
         </ul>
         <p>
-          If MotionInput is not detected, the game will fall back to keyboard controls (A/W/D or arrow keys).
+          If MotionInput is not detected, the game will fall back to keyboard controls (A/W/D). See the full tutorial screen for more information on how to play each minigame.
         </p>
-        <div className={styles.imagePlaceholder}>[Add motion input demo image here]</div>
+        <img src="/appendices/tutorial-page.png" alt="Tutorial Screen" className={styles.appendicesImage} />
 
         <h3>6. Minigames Overview</h3>
         <ul>
           <li><b>Freekick:</b> Select a shot lane and kick to score goals. Avoid the wall and goalkeeper. Supports easy/hard modes and endless/target score sessions.</li>
+          <img src="/appendices/freekick.png" alt="Freekick Minigame" className={styles.appendicesImage} />
           <li><b>Goalkeeping:</b> Move gloves to block shots using hand gestures. Supports easy/hard modes and endless/target saves sessions.</li>
+          <img src="/appendices/goalkeeping.png" alt="Goalkeeping Minigame" className={styles.appendicesImage} />
           <li><b>Penalty Shootout:</b> Take penalties against a goalkeeper. In hard mode, use a power meter for shot force. Supports endless/target score sessions.</li>
+          <img src="/appendices/penalty-shootout.png" alt="Penalty Shootout Minigame" className={styles.appendicesImage} />          
           <li><b>Obstacle Course:</b> Complete eight sequential football challenges (kicking, dribbling, hitting targets, avoiding defenders, etc.). Supports easy/hard modes and multiple session types.</li>
+          <img src="/appendices/obstacle-course.png" alt="Obstacle Course Minigame" className={styles.appendicesImage} />
         </ul>
-        <div className={styles.imagePlaceholder}>[Add minigame selection screenshot here]</div>
+        
 
         <h3>7. Settings & Accessibility</h3>
         <ul>
           <li>Adjust audio volumes and toggle SFX, crowd, and music.</li>
           <li>Enable or disable MotionInput and Hands Only Mode.</li>
-          <li>All settings are saved using Unity PlayerPrefs and persist between sessions.</li>
+          <li>Adjust game speed for accessibility, between 0.5x and 1.5x standard speed</li>
+          <li>All settings are applied across the game and are saved using Unity PlayerPrefs and stay between sessions.</li>
         </ul>
-        <div className={styles.imagePlaceholder}>[Add settings screenshot here]</div>
+        <p>Settings can also be accesed from the pause menu in each minigame. To take effect the minigame may need to be restarted.</p>
+        <img src="/appendices/pause-menu.png" alt="Pause Menu" className={styles.appendicesImage} />
+        <img src="/appendices/in-game-settings.png" alt="In-Game Settings" className={styles.appendicesImage} />
 
         <h3>8. Troubleshooting & FAQ</h3>
         <ul>
           <li><b>MotionInput not detected:</b> Ensure all required files are present in <code>StreamingAssets/MotionInput/</code>.</li>
+          <li><b>Camera not found:</b> Check webcam connection and ensure the camera is on. Make sure only 1 MotionInput window is open, close any duplicates or restart the application.</li>
           <li><b>Game falls back to keyboard:</b> Check webcam connection and MotionInput status.</li>
           <li><b>Settings not saving:</b> Verify write permissions for PlayerPrefs.</li>
-          <li><b>For more help:</b> See the README or contact support.</li>
+          <li><b>Use of external webcam:</b> Ensure the external webcam is properly connected and recognized by the system.</li>
         </ul>
-
-        <h3>9. Testing & Support</h3>
-        <ul>
-          <li>Automated tests can be run from Unity's Test Runner (Window → General → Test Runner).</li>
-          <li>EditMode tests cover logic and state machines; PlayMode tests cover integration and UI flows.</li>
-        </ul>
-        <div className={styles.imagePlaceholder}>[Add test runner screenshot here]</div>
       </div>
     </div>
   );
@@ -91,7 +113,7 @@ function DeploymentManual() {
       <div className={styles.componentBreakdown}>
         <h3>1. Introduction</h3>
         <p>
-          This manual provides a step-by-step guide for setting up the development environment, opening the project in Unity, configuring MotionInput, and building the football practice game for distribution. Images will be added to illustrate each step.
+          This manual provides a step-by-step guide for setting up the development environment, opening the project in Unity, configuring MotionInput, and building the football practice game for distribution.
         </p>
 
         <h3>2. System Requirements</h3>
