@@ -494,25 +494,25 @@ export default function EvaluationPage() {
               <thead>
               <tr>
                 <th>Work Package</th>
-                <th>Mariha Subhan</th>
-                <th>Sunain Syed</th>
-                <th>William Xing</th>
-                <th>Zhouzhou Zhang</th>
-                <th>Antony Wiles</th>
+                <th style={{textAlign: 'center'}}>Mariha Subhan</th>
+                <th style={{textAlign: 'center'}}>Sunain Syed</th>
+                <th style={{textAlign: 'center'}}>William Xing</th>
+                <th style={{textAlign: 'center'}}>Zhouzhou Zhang</th>
+                <th style={{textAlign: 'center'}}>Antony Wiles</th>
               </tr>
               </thead>
               <tbody>
               {[
-                'Research and Experiments',
-                'UI Design',
-                'Coding',
-                'Testing',
-                'Overall Contribution',
-              ].map((pkg, i) => (
-                  <tr key={pkg} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                ['Research and Experiments 10%', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
+                ['UI Design 20%', '60%', '25%', '5%', '5%', '5%'],
+                ['Coding 40%', '31%', '34%', '16%', '8%', '11%'],
+                ['Testing 30%',                  '15%', '20%', '50%', '5%', '10%'],
+                ['Overall Contribution',     '30.775%', '26.475%', '24.275%', '8.2%', '10.275%'],
+              ].map(([pkg, ...values], i) => (
+                  <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
-                    {[0, 1, 2, 3, 4].map(j => (
-                        <td key={j} style={{textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic'}}>—</td>
+                    {values.map((val, j) => (
+                        <td key={j} style={{ textAlign: 'center' }}>{val}</td>
                     ))}
                   </tr>
               ))}
@@ -529,34 +529,34 @@ export default function EvaluationPage() {
               <thead>
               <tr>
                 <th>Work Package</th>
-                <th>Mariha Subhan</th>
-                <th>Sunain Syed</th>
-                <th>William Xing</th>
-                <th>Zhouzhou Zhang</th>
-                <th>Antony Wiles</th>
+                <th style={{textAlign: 'center'}}>Mariha Subhan</th>
+                <th style={{textAlign: 'center'}}>Sunain Syed</th>
+                <th style={{textAlign: 'center'}}>William Xing</th>
+                <th style={{textAlign: 'center'}}>Zhouzhou Zhang</th>
+                <th style={{textAlign: 'center'}}>Antony Wiles</th>
               </tr>
               </thead>
               <tbody>
               {[
-                'Website template and setup',
-                'Home',
-                'Video',
-                'Requirements',
-                'Research',
-                'UI Design',
-                'System Design',
-                'Implementation',
-                'Testing',
-                'Evaluation and Future Work',
-                'User and Deployment Manuals',
-                'Legal Issues',
-                'Blog and Monthly Video',
-                'Overall Contribution',
-              ].map((pkg, i) => (
-                  <tr key={pkg} style={{background: i % 2 === 0 ? '#fff' : '#f8fafc'}}>
+                ['Website template and setup', '—', '60%', '—', '40%', '—'],
+                ['Home', '100%', '—', '—', '—', '—'],
+                ['Video', '—', '—', '—', '—',   '—'  ],
+                ['Requirements',               '28%',  '18%', '18%', '18%',   '18%'],
+                ['Research',                   '—',    '20%',   '—',   '80%',   '—'  ],
+                ['UI Design',                  '100%', '—',   '—',   '25%',   '75%'  ],
+                ['System Design',              '—',    '100%',   '—',   '—',   '—'  ],
+                ['Implementation',             '22%',    '23%',   '45%',   '5%',   '5%'  ],
+                ['Testing',                    '—',    '—',   '100%',   '—',   '—'  ],
+                ['Evaluation and Future Work', '30%',    '—',   '—',   '70%',   '—'  ],
+                ['User and Deployment Manuals','—',    '100%',   '—',   '—',   '—'  ],
+                ['Legal Issues',               '—',    '100%',   '—',   '—',   '—'  ],
+                ['Blog and Monthly Video',     '100%',    '—',   '—',   '—',   '—'  ],
+                ['Overall Contribution',       '29.23%',    '32.38%',   '12.54%',   '18.31%',   '7.54%'  ],
+              ].map(([pkg, ...values], i) => (
+                  <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
-                    {[0, 1, 2, 3, 4].map(j => (
-                        <td key={j} style={{textAlign: 'center', color: 'var(--slate-400)', fontStyle: 'italic'}}>—</td>
+                    {values.map((val, j) => (
+                        <td key={j} style={{ textAlign: 'center' }}>{val}</td>
                     ))}
                   </tr>
               ))}
