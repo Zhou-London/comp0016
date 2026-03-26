@@ -274,35 +274,34 @@ export default function TestingPage() {
                             {
                                 question: 'Did you find the game easy to play after your first try?',
                                 data: [
-                                    {label: 'Strongly Agree', value: 43, color: '#00804c'},
-                                    {label: 'Agree', value: 43, color: '#74c365'},
-                                    {label: 'Disagree', value: 14, color: '#e8a838'},
+                                    {label: 'Strongly Agree', value: 40, color: '#00804c'},       // 6/15
+                                    {label: 'Agree', value: 46.7, color: '#74c365'},               // 7/15
+                                    {label: 'Disagree', value: 13.3, color: '#e8a838'},             // 2/15
                                 ]
                             },
                             {
                                 question: 'Would you recommend this game to others?',
                                 data: [
-                                    {label: 'Strongly Agree', value: 57, color: '#00804c'},
-                                    {label: 'Agree', value: 36, color: '#74c365'},
-                                    {label: 'Disagree', value: 7, color: '#e8a838'},
+                                    {label: 'Strongly Agree', value: 53.3, color: '#00804c'},      // 8/15
+                                    {label: 'Agree', value: 40, color: '#74c365'},                  // 6/15
+                                    {label: 'Disagree', value: 6.7, color: '#e8a838'},              // 1/15
                                 ]
                             },
                             {
                                 question: 'Were the controls intuitive and responsive?',
                                 data: [
-                                    {label: 'Strongly Agree', value: 33, color: '#00804c'},
-                                    {label: 'Agree', value: 40, color: '#74c365'},
-                                    {label: 'Disagree', value: 20, color: '#e8a838'},
-                                    {label: 'Strongly Disagree', value: 7, color: '#d94f4f'},
+                                    {label: 'Strongly Agree', value: 33.3, color: '#00804c'},      // 5/15
+                                    {label: 'Agree', value: 40, color: '#74c365'},                  // 6/15
+                                    {label: 'Disagree', value: 20, color: '#e8a838'},               // 3/15
+                                    {label: 'Strongly Disagree', value: 6.7, color: '#d94f4f'},     // 1/15
                                 ]
                             },
                             {
                                 question: 'Did you find the UI clear and easy to navigate?',
                                 data: [
-                                    {label: 'Strongly Agree', value: 47, color: '#00804c'},
-                                    {label: 'Agree', value: 40, color: '#74c365'},
-                                    {label: 'Disagree', value: 13, color: '#e8a838'},
-                                    {label: 'Strongly Disagree', value: 0, color: '#d94f4f'},
+                                    {label: 'Strongly Agree', value: 46.7, color: '#00804c'},      // 7/15
+                                    {label: 'Agree', value: 40, color: '#74c365'},                  // 6/15
+                                    {label: 'Disagree', value: 13.3, color: '#e8a838'},             // 2/15
                                 ]
                             },
                         ].map(({question, data}) => {
@@ -341,7 +340,7 @@ export default function TestingPage() {
                                         {data.map(d => (
                                             <div key={d.label} style={{display: 'flex', alignItems: 'center', gap: '0.25rem'}}>
                                                 <div style={{width: '12px', height: '12px', borderRadius: '2px', background: d.color}} />
-                                                <span style={{fontSize: '0.75rem', color: 'var(--slate-600)'}}>{d.label} ({d.value}%)</span>
+                                                <span style={{fontSize: '0.75rem', color: 'var(--slate-600)'}}>{d.label} ({Math.round(d.value * 10) / 10}%)</span>
                                             </div>
                                         ))}
                                     </div>
@@ -352,10 +351,10 @@ export default function TestingPage() {
 
                     <h3 style={{marginTop: '2rem'}}>Key Takeaways</h3>
                     <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', color: 'var(--slate-700)', lineHeight: 1.8}}>
-                        <li><b>80%</b> of participants found the game easy to play after their first try, indicating strong initial learnability.</li>
-                        <li><b>86%</b> would recommend the game to others, reflecting positive overall engagement.</li>
-                        <li><b>Controls</b> scored slightly lower, with 27% reporting difficulty — primarily related to unfamiliarity with MotionInput gesture tracking rather than game design issues.</li>
-                        <li><b>UI clarity</b> scored highest, with 87% rating the interface as clear and easy to navigate, validating our design principles.</li>
+                        <li><b>86.7%</b> (13/15) of participants found the game easy to play after their first try, indicating strong initial learnability.</li>
+                        <li><b>93.3%</b> (14/15) would recommend the game to others, reflecting positive overall engagement.</li>
+                        <li><b>Controls</b> scored slightly lower, with 26.7% (4/15) reporting difficulty — primarily related to unfamiliarity with MotionInput gesture tracking rather than game design issues.</li>
+                        <li><b>UI clarity</b> scored highest, with 86.7% (13/15) rating the interface as clear and easy to navigate, validating our design principles.</li>
                     </ul>
 
                     <h3 style={{marginTop: '2rem'}}>Written Feedback Highlights</h3>
