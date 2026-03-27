@@ -1,5 +1,6 @@
 import styles from '../App.module.css'
 import ImageWithCaption from '../components/ImageWithCaption'
+import { Reveal } from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 
 export default function TestingPage() {
@@ -10,7 +11,7 @@ export default function TestingPage() {
             <div
                 style={{maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Approach</h3>
                     <p style={{marginTop: '1rem'}}>
                         Our football practice game combines MotionInput hand and body tracking with four distinct minigame
@@ -30,8 +31,9 @@ export default function TestingPage() {
                         experience at the centre of development.
                     </p>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Unit Testing</h3>
                     <p style={{marginTop: '1rem'}}>
                         We used the <b>Unity Test Framework</b> to write automated unit tests across all four minigames
@@ -142,8 +144,9 @@ export default function TestingPage() {
                         avoid hard coupling between the test assembly and every minigame assembly.
                     </p>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Integration Testing</h3>
                     <p style={{marginTop: '1rem'}}>
                         Beyond isolated unit tests, we wrote dedicated integration tests that exercise multi-component
@@ -167,8 +170,9 @@ export default function TestingPage() {
                         completing a target score triggers the right audio fade and completion panel sequence.
                     </p>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>User Acceptance Testing</h3>
 
                     <h3 style={{marginTop: '2rem'}}>Showcase Playtesting</h3>
@@ -251,8 +255,9 @@ export default function TestingPage() {
                         <ImageWithCaption src="/testing/aftershowcase (3).png" caption="Game speed setting added to settings menu" />
                     </div>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Anonymous User Testing</h3>
                     <p style={{marginTop: '1rem'}}>
                         In addition to the showcase playtesting with our partnered clients, we conducted anonymous user
@@ -377,8 +382,9 @@ export default function TestingPage() {
                         </table>
                     </div>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Compatibility Testing</h3>
                     <p style={{marginTop: '1rem'}}>
                         The game was tested across multiple machines with different display resolutions and Windows
@@ -390,8 +396,9 @@ export default function TestingPage() {
                         <li>The game runs on Unity 6 with Universal Render Pipeline and has been verified on Windows 10 and Windows 11.</li>
                     </ul>
                 </div>
+                </Reveal>
 
-                <div className={styles.abstractPanel}>
+                <Reveal><div className={styles.abstractPanel}>
                     <h3>Summary</h3>
                     <p style={{marginTop: '1rem'}}>
                         Our testing strategy combines <b>379 automated tests</b> covering game logic, trajectory math,
@@ -402,6 +409,7 @@ export default function TestingPage() {
                         and accessibility features across all four minigames.
                     </p>
                 </div>
+                </Reveal>
 
             </div>
         </section>
