@@ -248,7 +248,7 @@ export default function RequirementsPage() {
             This project is a collaboration between UCL Computer Science and four external partners.
             The <strong>National Autistic Society (NAS)</strong> advises on the needs of autistic children, accessibility, and sensory design.
             <strong> MotionInput Games Ltd</strong> supplies the MotionInput Engine for full-body gesture recognition.
-            <strong> Intel</strong> contributes hardware expertise with MPU technology, and <strong>Coca-Cola</strong> supports the project in the context of the upcoming 2026 FIFA World Cup.
+            <strong> Intel</strong> contributes hardware expertise with MPU technology, and <strong>Coca-Cola</strong> is interested in the project in the context of the upcoming 2026 FIFA World Cup.
           </p>
           </Reveal>
           <Reveal delay={200}>

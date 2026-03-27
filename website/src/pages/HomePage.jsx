@@ -101,10 +101,18 @@ export default function HomePage() {
             children, and it provides an exciting and meaningful way to participate in football.</p>
         </div>
 
-        <div className={styles.abstractPanel}>
-          <h3>Technical Video (8 minutes)</h3>
-          <div className={styles.placeholderBox}>Embed YouTube/Vimeo video here (minimum 8 minutes, clear narration,
-            high resolution).
+        <div
+            className={styles.abstractPanel}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+          <h3>Technical Video</h3>
+          <div style={{marginTop: '0.8rem', width: '100%', display: 'flex', justifyContent: 'center'}}>
+            <video controls style={{width: '80%', borderRadius: '10px'}}>
+              <source src={`${import.meta.env.BASE_URL}home page videos/technical video.mp4`} type="video/mp4"/>
+            </video>
           </div>
         </div>
 

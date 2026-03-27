@@ -506,8 +506,8 @@ export default function EvaluationPage() {
                 ['Research and Experiments 10%', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
                 ['UI Design 20%', '60%', '25%', '5%', '5%', '5%'],
                 ['Coding 40%', '31%', '34%', '16%', '8%', '11%'],
-                ['Testing 30%',                  '15%', '20%', '50%', '5%', '10%'],
-                ['Overall Contribution',     '30.775%', '26.475%', '24.275%', '8.2%', '10.275%'],
+                ['Testing 30%',                  '12%', '20%', '55%', '5%', '9%'],
+                ['Overall Contribution',     '29.875%', '26.475%', '25.775%', '8.2%', '9.975%'],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
@@ -538,20 +538,20 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Website template and setup', '—', '60%', '10%', '30%', '—'],
-                ['Home', '100%', '—', '—', '—', '—'],
-                ['Video', '28%',  '18%', '18%', '18%',   '18%'  ],
-                ['Requirements',               '—',  '20%', '—', '80%',   '—'],
-                ['Research',                   '—',    '—',   '—',   '25%',   '75%'  ],
-                ['UI Design',                  '100%', '—',   '—',   '—',   '—'  ],
-                ['System Design',              '—',    '100%',   '—',   '—',   '—'  ],
-                ['Implementation',             '19%',    '19%',   '54%',   '4%',   '4%'  ],
-                ['Testing',                    '—',    '—',   '100%',   '—',   '—'  ],
-                ['Evaluation and Future Work', '30%',    '—',   '—',   '70%',   '—'  ],
-                ['User and Deployment Manuals','—',    '100%',   '—',   '—',   '—'  ],
-                ['Legal Issues',               '—',    '100%',   '—',   '—',   '—'  ],
-                ['Blog and Monthly Video',     '100%',    '—',   '—',   '—',   '—'  ],
-                ['Overall Contribution',       '29%',    '32.08%',   '14%',   '17.46%',   '7.46%'  ],
+                ['Website template and setup 7%',   '—', '70%', '10%', '20%', '—'],
+                ['Home 6.5%',                       '100%', '—', '—', '—', '—'],
+                ['Video 8.5%',                      '30%',  '18%', '17%', '17%',  '18%'  ],
+                ['Requirements 8%',                 '—',  '20%', '—', '80%',   '—'],
+                ['Research 6.5%',                   '—',    '—',   '—',   '20%',   '80%'  ],
+                ['UI Design 8%',                  '100%', '—',   '—',   '—',   '—'  ],
+                ['System Design 8.5%',              '—',    '100%',   '—',   '—',   '—'  ],
+                ['Implementation 9%',              '12%',    '9%',   '75%',   '2%',   '2%'  ],
+                ['Testing 8.5%',                    '—',    '—',   '100%',   '—',   '—'  ],
+                ['Evaluation and Future Work 7.5%', '35%',    '—',   '—',   '65%',   '—'  ],
+                ['User and Deployment Manuals 8%', '—',    '100%',   '—',   '—',   '—'  ],
+                ['Legal Issues 6%',                  '—',    '100%',   '—',   '—',   '—'  ],
+                ['Blog and Monthly Video 8%',       '100%',    '—',   '—',   '—',   '—'  ],
+                ['Overall Contribution',       '28.755%',    '31.34%',   '17.395%',   '15.6%',   '6.91%'  ],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
