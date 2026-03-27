@@ -12,7 +12,7 @@ const tabs = [
       <section>
         <h2>System Architecture Diagram</h2>
         <p>
-           The architecture is built around a modular <strong>Unity</strong> scene-based shell, with each minigame implemented as a self-contained module. Shared runtime systems—such as <b>MotionInputManager</b>, <b>GameSettings</b>, and <b>GlobalGameAudio</b>—provide core services accessible across all scenes. An external <b>motioninput.exe</b> process handles motion tracking, with configuration and state exchanged via persistent JSON files and PlayerPrefs. The diagram below shows how the application shell, minigame modules, shared systems, and external processes interact, including the control flow between them.
+           The architecture is built around a modular <strong>Unity</strong> scene-based shell, with each minigame implemented as a self-contained module. Shared runtime systems, such as <code>MotionInputManager</code>, <code>GameSettings</code>, and <code>GlobalGameAudio</code>, provide core services accessible across all scenes. An external <code>motioninput.exe</code> process handles motion tracking, with configuration and state exchanged via persistent JSON files and <code>PlayerPrefs</code>. The diagram below shows how the application shell, minigame modules, shared systems, and external processes interact, including the control flow between them.
         </p>
         <SystemDesignImage src="/diagrams/system-design/architecture.png" alt="System architecture diagram" caption="System architecture diagram" />
         <div className={styles.componentBreakdown}>
@@ -20,9 +20,9 @@ const tabs = [
           <ul>
             <li><b>Application Shell</b>: Hosts the main menu, minigames menu, settings, credits, and tutorials scenes. It manages user navigation, scene transitions, and global UI state. The shell is responsible for routing the user to the correct minigame or settings area and for maintaining persistent UI elements across scenes.</li>
             <li><b>Minigame Modules</b>: Each minigame (Freekick, Goalkeeping, Penalty Shootout, Obstacle Course) is implemented as a separate scene and code module. These modules encapsulate their own gameplay logic, assets, and session flow, allowing for independent development and testing. They interact with shared systems for settings, audio, and motion input.</li>
-            <li><b>Shared Runtime Systems</b>: Core services such as <b>MotionInputManager</b>, <b>GameSettings</b>, <b>GlobalGameAudio</b>, <b>SessionFlow</b>, and <b>GameLogger</b> are implemented as singletons or service adapters. These provide cross-scene functionality, including input management, persistent settings, audio playback, session state management, and logging. They are accessible from any scene and ensure consistent behavior throughout the application.</li>
-            <li><b>External Runtime (MotionInput)</b>: The <b>motioninput.exe</b> process runs outside of Unity and handles all motion tracking and input processing. It is launched and managed by the <b>MotionInputManager</b>, and communicates with the Unity application via configuration files and window focus events. The <b>ModesFolder</b> and <b>StreamingConfig</b> provide mode definitions and default settings for the external process.</li>
-            <li><b>Data and Persistence</b>: User and runtime data is stored in <b>PlayerPrefs</b> (for settings like audio and input preferences), <b>PersistentConfig</b> (for motion input configuration), and <b>StreamingConfig</b> (for default config shipped with the app). These storage locations ensure that user preferences and system state persist across sessions and can be restored on startup.</li>
+            <li><b>Shared Runtime Systems</b>: Core services such as <code>MotionInputManager</code>, <code>GameSettings</code>, <code>GlobalGameAudio</code>, <code>SessionFlow</code>, and <code>GameLogger</code> are implemented as singletons or service adapters. These provide cross-scene functionality, including input management, persistent settings, audio playback, session state management, and logging. They are accessible from any scene and ensure consistent behavior throughout the application.</li>
+            <li><b>External Runtime (MotionInput)</b>: The <code>motioninput.exe</code> process runs outside of Unity and handles all motion tracking and input processing. It is launched and managed by the <code>MotionInputManager</code>, and communicates with the Unity application via configuration files and window focus events. The <code>ModesFolder</code> and <code>StreamingConfig</code> provide mode definitions and default settings for the external process.</li>
+            <li><b>Data and Persistence</b>: User and runtime data is stored in <code>PlayerPrefs</code> (for settings like audio and input preferences), <code>PersistentConfig</code> (for motion input configuration), and <code>StreamingConfig</code> (for default config shipped with the app). These storage locations ensure that user preferences and system state persist across sessions and can be restored on startup.</li>
           </ul>
         </div>
       </section>
@@ -36,7 +36,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
           <h3>Game Map (Scene Navigation)</h3>
         <p>
-           Navigation is managed through a clear scene flow: the user launches into <b>MainMenuScene</b>, proceed to <b>MinigamesMenuScene</b>, settings or credits. From MinigamesMenuScene the user can branch into any of the four minigames or the tutorials. Each minigame scene is designed to support seamless return to the MinigamesMenu, ensuring a consistent user experience. The game map navigation diagram visualises all possible navigation paths, including back/quit/completion routes for each minigame and the connections between menu, settings, and credits scenes.
+           Navigation is managed through a clear scene flow: the user launches into <b>MainMenuScene</b>, proceed to <b>MinigamesMenuScene</b>, settings or credits. From <b>MinigamesMenuScene</b> the user can branch into any of the four minigames or the tutorials. Each minigame scene is designed to support seamless return to the <b>MinigamesMenu</b>, ensuring a consistent user experience. The game map navigation diagram visualises all possible navigation paths, including back/quit/completion routes for each minigame and the connections between menu, settings, and credits scenes.
         </p>
         </div>
         
@@ -52,7 +52,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
           <h3>Minigame Launch and Mode Switch</h3>
         <p>
-           When a player selects a minigame, the menu controller requests a mode switch from <b>MotionInputManager</b>. If MotionInput is not running, it is launched with the correct configuration; if already running, the mode is hot-reloaded by updating the config and sending a reload shortcut to the external process. The sequence diagram details this process, showing how the system handles both initialization and runtime mode switching, ensuring the correct input mode is always active for the selected minigame.
+           When a player selects a minigame, the menu controller requests a mode switch from <code>MotionInputManager</code>. If MotionInput is not running, it is launched with the correct configuration; if already running, the mode is hot-reloaded by updating the config and sending a reload shortcut to the external process. The sequence diagram details this process, showing how the system handles both initialization and runtime mode switching, ensuring the correct input mode is always active for the selected minigame.
         </p>
         </div>
         <SystemDesignImage
@@ -63,7 +63,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
         <h3>Session Lifecycle</h3>
         <p>
-           Each minigame implements a <b>SessionFlow</b> state machine, registering all possible session states (menu, countdown, playing, complete) and their associated callbacks. The controller transitions between these states based on gameplay events, with per-frame tick logic driving state-specific behavior. The session lifecycle diagram illustrates how user actions, UI events, and controller logic interact to manage the full flow from game start to completion and return to the menu.
+           Each minigame implements a <code>SessionFlow</code> state machine, registering all possible session states (menu, countdown, playing, complete) and their associated callbacks. The controller transitions between these states based on gameplay events, with per-frame tick logic driving state-specific behavior. The session lifecycle diagram illustrates how user actions, UI events, and controller logic interact to manage the full flow from game start to completion and return to the menu.
         </p>
         </div>
         <SystemDesignImage src="/diagrams/system-design/sequence-session-flow.svg" alt="Session lifecycle sequence diagram" caption="Session lifecycle sequence diagram" />
@@ -101,9 +101,9 @@ const tabs = [
           </p>
           <ul>
             <li><b>IAudioService</b> and <b>ISettingsService</b>: Interfaces that define the contract for audio and settings operations, allowing gameplay code to depend on abstractions, not concrete implementations.</li>
-            <li><b>GlobalAudioServiceAdapter</b> and <b>GameSettingsServiceAdapter</b>: Implement these interfaces, acting as adapters that delegate calls to the underlying Unity singletons (<b>GlobalGameAudio</b> and <b>GameSettings</b>). This makes it easy to swap implementations or mock services for testing.</li>
+            <li><b>GlobalAudioServiceAdapter</b> and <b>GameSettingsServiceAdapter</b>: Implement these interfaces, acting as adapters that delegate calls to the underlying Unity singletons (<code>GlobalGameAudio</code> and <code>GameSettings</code>). This makes it easy to swap implementations or mock services for testing.</li>
             <li><b>SessionFlow&lt;TState&gt;</b>: A generic state machine used by all minigame controllers to manage session lifecycle, with explicit registration of states and transitions. This enables consistent, maintainable flow control across all minigames.</li>
-            <li>The diagram also shows how adapters interact with singletons, and how <b>SessionFlow</b> is used by each minigame controller (Freekick, Goalkeeper, Penalty, Obstacle Course) for lifecycle orchestration.</li>
+            <li>The diagram also shows how adapters interact with singletons, and how <code>SessionFlow</code> is used by each minigame controller (Freekick, Goalkeeper, Penalty, Obstacle Course) for lifecycle orchestration.</li>
           </ul>
           <p>
             This approach ensures that core services are reusable, extensible, and easy to test, while keeping gameplay logic clean and focused on game-specific behavior.
@@ -130,14 +130,14 @@ const tabs = [
         <div className={styles.componentBreakdown}>
         <h3>Freekick Minigame Class Diagram</h3>
             <p>
-              The Freekick minigame uses a controller and service-oriented architecture. The <b>FreekickController</b> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <b>FreekickShotPlanningCoordinator</b>, <b>FreekickRoundManager</b>, and <b>FreekickSessionLifecycleService</b>. Scoring and round state are tracked by <b>FreekickScoreTracker</b> and <b>FreekickGoalTrigger</b>. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
+              The Freekick minigame uses a controller and service-oriented architecture. The <code>FreekickController</code> manages Unity lifecycle, scene references, and state, delegating domain-specific logic to service classes such as <code>FreekickShotPlanningCoordinator</code>, <code>FreekickRoundManager</code>, and <code>FreekickSessionLifecycleService</code>. Scoring and round state are tracked by <code>FreekickScoreTracker</code> and <code>FreekickGoalTrigger</code>. This structure keeps orchestration centralized and reduces coupling, making the minigame maintainable and extensible.
             </p>
             <SystemDesignImage src="/diagrams/system-design/freekick-class-overview.png" alt="Class diagram for Freekick minigame" caption="Class diagram for Freekick minigame"/>
         </div>
         <div className={styles.componentBreakdown}>
           <h3>Goalkeeping Minigame Class Diagram</h3>
           <p>
-            The Goalkeeping minigame is structured around a central <b>GoalkeeperGameManager</b> that manages the session state machine, scoring, UI, and audio. The <b>GoalkeeperCompositionRoot</b> wires up all dependencies and scene references. Ball spawning and targeting are handled by <b>GoalkeeperBallShooter</b>, which assigns Bezier curve trajectories to each ball using <b>GoalkeeperBallCurvePath</b>. The <b>GoalkeeperFPSController</b> manages hand position and input, while <b>GoalkeeperGloveSetup</b> instantiates and parents glove models for hand tracking. Save and goal outcomes are detected by <b>GoalkeeperSaveDetector</b> and <b>GoalkeeperGoalDetector</b>, which notify the manager of results. This architecture enables clear separation of concerns, robust hand/motion input integration, and maintainable gameplay logic.
+            The Goalkeeping minigame is structured around a central <code>GoalkeeperGameManager</code> that manages the session state machine, scoring, UI, and audio. The <code>GoalkeeperCompositionRoot</code> wires up all dependencies and scene references. Ball spawning and targeting are handled by <code>GoalkeeperBallShooter</code>, which assigns Bezier curve trajectories to each ball using <code>GoalkeeperBallCurvePath</code>. The <code>GoalkeeperFPSController</code> manages hand position and input, while <code>GoalkeeperGloveSetup</code> instantiates and parents glove models for hand tracking. Save and goal outcomes are detected by <code>GoalkeeperSaveDetector</code> and <code>GoalkeeperGoalDetector</code>, which notify the manager of results. This architecture enables clear separation of concerns, robust hand/motion input integration, and maintainable gameplay logic.
           </p>
           <SystemDesignImage src="/diagrams/system-design/goalkeeping-class-overview.png" alt="Class diagram for Goalkeeping minigame" caption="Class diagram for Goalkeeping minigame"
           />
@@ -145,7 +145,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
           <h3>Penalty Shootout Minigame Class Diagram</h3>
           <p>
-            The Penalty Shootout minigame is orchestrated by the <b>PenaltyController</b>, which manages session state, round flow, resets, and completion transitions. The <b>PenaltyCompositionRoot</b> wires up all scene dependencies. Player shot input, run-up, and kick execution are handled by <b>PenaltyPlayer</b>, with power selection in hard mode managed by <b>PenaltyPowerMeter</b>. The <b>PenaltyModeMenu</b> provides mode, difficulty, and target score selection. Scoring and streaks are tracked by <b>PenaltyScore</b>, while <b>PenaltyGoalTrigger</b> and <b>PenaltyMissTrigger</b> detect outcomes and notify the controller. Goalkeeper movement and save logic are managed by <b>PenaltyGoalkeeperMovement</b> and <b>PenaltyGoalkeeperSave</b>. This architecture enables modular gameplay logic, clear separation of concerns, and robust handling of both easy and hard difficulty flows.
+            The Penalty Shootout minigame is orchestrated by the <code>PenaltyController</code>, which manages session state, round flow, resets, and completion transitions. The <code>PenaltyCompositionRoot</code> wires up all scene dependencies. Player shot input, run-up, and kick execution are handled by the <code>PenaltyPlayer</code>, with power selection in hard mode managed by the <code>PenaltyPowerMeter</code>. The <code>PenaltyModeMenu</code> provides mode, difficulty, and target score selection. Scoring and streaks are tracked by the <code>PenaltyScore</code>, while the <code>PenaltyGoalTrigger</code> and <code>PenaltyMissTrigger</code> detect outcomes and notify the controller. Goalkeeper movement and save logic are managed by the <code>PenaltyGoalkeeperMovement</code> and <code>PenaltyGoalkeeperSave</code>. This architecture enables modular gameplay logic, clear separation of concerns, and robust handling of both easy and hard difficulty flows.
           </p>
           <SystemDesignImage
             src="/diagrams/system-design/penalty-class-overview.png"
@@ -156,7 +156,7 @@ const tabs = [
         <div className={styles.componentBreakdown}>
           <h3>Obstacle Course Minigame Class Diagram</h3>
           <p>
-            The Obstacle Course minigame is managed by the <b>ObstacleCourseGameManager</b>, which orchestrates session flow, player movement, and round progression. The <b>ObstacleCourseCompositionRoot</b> wires up all core dependencies. Task sequencing is handled by <b>ObstacleTaskCatalog</b>, while <b>ObstacleCourseObstacleManager</b> manages task spawning, completion detection, and scoring. The <b>ObstacleCoursePlayer</b> and <b>ObstacleCourseBallManager</b> handle player and ball behavior, respectively. UI is managed by <b>ObstacleCourseUIManager</b>, and <b>StartMenuUI</b> provides pre-game selection. This architecture enables modular task management, clear separation of concerns, and robust session control for a variety of challenge types and difficulty modes.
+            The Obstacle Course minigame is managed by the <code>ObstacleCourseGameManager</code>, which orchestrates session flow, player movement, and round progression. The <code>ObstacleCourseCompositionRoot</code> wires up all core dependencies. Task sequencing is handled by the <code>ObstacleTaskCatalog</code>, while the <code>ObstacleCourseObstacleManager</code> manages task spawning, completion detection, and scoring. The <code>ObstacleCoursePlayer</code> and <code>ObstacleCourseBallManager</code> handle player and ball behavior, respectively. UI is managed by the <code>ObstacleCourseUIManager</code>, and the <code>StartMenuUI</code> provides pre-game selection. This architecture enables modular task management, clear separation of concerns, and robust session control for a variety of challenge types and difficulty modes.
           </p>
           <SystemDesignImage
             src="/diagrams/system-design/obstacle-course-class-overview.png"
