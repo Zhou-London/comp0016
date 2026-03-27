@@ -15,6 +15,7 @@ export default function AppendixImage({ src, alt, caption, style }) {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
   const cap = caption || alt;
+  const resolvedSrc = src.startsWith('/') ? import.meta.env.BASE_URL + src.slice(1) : src;
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function AppendixImage({ src, alt, caption, style }) {
         role="button"
       >
         <img
-          src={src}
+          src={resolvedSrc}
           alt={alt}
           style={{ width: '100%', display: 'block', borderRadius: 'inherit', objectFit: 'contain' }}
         />
@@ -71,7 +72,7 @@ export default function AppendixImage({ src, alt, caption, style }) {
           }}
         >
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             style={{
               maxWidth: '90vw',

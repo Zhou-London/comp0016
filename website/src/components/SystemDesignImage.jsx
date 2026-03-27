@@ -5,6 +5,7 @@ import styles from '../App.module.css';
 export default function SystemDesignImage({ src, alt, caption }) {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const resolvedSrc = src.startsWith('/') ? import.meta.env.BASE_URL + src.slice(1) : src;
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function SystemDesignImage({ src, alt, caption }) {
         onFocus={() => setHovered(true)}
         onBlur={() => setHovered(false)}
       >
-        <img src={src} alt={alt || caption} style={{ width: '100%', display: 'block', borderRadius: '12px' }} />
+        <img src={resolvedSrc} alt={alt || caption} style={{ width: '100%', display: 'block', borderRadius: '12px' }} />
         {caption && (
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0,
@@ -51,7 +52,7 @@ export default function SystemDesignImage({ src, alt, caption }) {
           }}
         >
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt || caption}
             style={{ maxWidth: '95vw', maxHeight: '85vh', borderRadius: '14px', boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
           />
