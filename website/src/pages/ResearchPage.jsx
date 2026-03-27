@@ -61,6 +61,70 @@ export default function ResearchPage() {
           </div>
         </div>
 
+        {/* Project Review: Superhero Sportsday */}
+        <div className={styles.abstractPanel}>
+          <h3>Project Review: Superhero Sportsday — Water Sport Edition</h3>
+
+          <p style={{marginTop: '1rem'}}>
+            As part of our research, we reviewed <em>Superhero Sportsday: Water Sport Edition</em> [16], a previous
+            COMP0016 project that also uses MotionInput to create an accessible sports game. Studying how it
+            handles motion-based controls, game architecture, UI design, and accessibility features gave us valuable
+            insight into what works well and where there is room for improvement.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>System Architecture</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            The project adopts a modular architecture where MotionInput translates body movements into
+            keyboard events, which are then consumed by player controllers inside Unity. These controllers
+            communicate with dedicated manager components — each responsible for a specific concern such as
+            spawning, event handling, or entity state — that collectively drive the gameplay logic and state
+            transitions. A rendering layer manages visuals and animations, a sound layer handles audio cues,
+            and a completion tracker monitors player progress. Each of the four game modes shares this
+            overall structure while swapping in mode-specific components.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Design Principles for Accessibility</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            The project prioritises four accessibility-oriented design principles for its target audience of
+            autistic children:
+          </p>
+          <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', lineHeight: 1.8}}>
+            <li><strong>Clarity:</strong> Each mode offers concise instructions and a video walkthrough. Motion controls were shaped by feedback from paediatric therapists to match how children naturally move.</li>
+            <li><strong>Predictability:</strong> Interactions follow consistent patterns, and every mode centres on a single core mechanic (e.g. item collection or lap completion), reducing cognitive load.</li>
+            <li><strong>Sensory consideration:</strong> Colour palettes, brightness levels, and on-screen elements were reviewed with therapists to avoid overstimulation — for instance, no predatory creatures appear.</li>
+            <li><strong>Encouragement:</strong> Opening cinematics, victory screens, and visible progress indicators help sustain motivation and focus.</li>
+          </ul>
+
+          <h4 style={{marginTop: '1.5rem'}}>UI Design</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            The interface is built around three guiding ideas: a clear layout hierarchy that foregrounds
+            primary actions (e.g. starting a game, opening tutorials); instant visual and auditory responses
+            to every player action to reinforce understanding; and a stripped-back aesthetic that removes
+            clutter so players stay focused on gameplay. The team went through two rounds of sketches
+            followed by high-fidelity prototypes, refining usability and look-and-feel at each stage.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Motion Input Integration</h4>
+          <p style={{marginTop: '0.5rem'}}>
+            The game connects to the MotionInput API, which opens a camera overlay containing configurable
+            on-screen regions. When a tracked body part (such as a hand or the player's nose) enters or
+            exits one of these regions, a mapped keystroke is sent to Unity. Each mode stores its region
+            layout, key mappings, and sensitivity thresholds in a separate JSON file. In the swimming mode,
+            for example, withdrawing both hands from the centre region propels the character forward, while
+            head orientation steers the camera. The rowing mode instead watches for hands leaving corner
+            regions to differentiate between straight paddling and turning.
+          </p>
+
+          <h4 style={{marginTop: '1.5rem'}}>Key Takeaways for Our Project</h4>
+          <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', lineHeight: 1.8}}>
+            <li>Separating gameplay concerns into dedicated manager components scales well when a project contains multiple minigames — we adopted a similar pattern.</li>
+            <li>Externalising motion-control mappings to configuration files makes tuning and adding new modes straightforward — we followed the same approach for our MotionInput setup.</li>
+            <li>Designing with accessibility as a first-class requirement (clear instructions, predictable mechanics, sensory-appropriate visuals) directly shaped our own UI and gameplay choices.</li>
+            <li>Iterating on interface designs through low-fidelity sketches before moving to prototypes consistently produced better results — we replicated this workflow.</li>
+            <li>Providing immediate, multimodal feedback (visual cues paired with sound) proved critical for keeping younger players engaged.</li>
+          </ul>
+        </div>
+
         {/* Technology Review */}
         <div className={styles.abstractPanel}>
           <h3>Technology Review</h3>
@@ -194,6 +258,7 @@ export default function ResearchPage() {
           <p style={{marginTop: '0.5rem'}}>[13] Unity Technologies, "Unity Real-Time Development Platform," 2024. [Online]. Available: <a href="https://unity.com" target="_blank" rel="noopener noreferrer">https://unity.com</a></p>
           <p style={{marginTop: '0.5rem'}}>[14] Unity Technologies, "Unity Toon Shader," 2024. [Online]. Available: <a href="https://github.com/Unity-Technologies/com.unity.toonshader" target="_blank" rel="noopener noreferrer">https://github.com/Unity-Technologies/com.unity.toonshader</a></p>
           <p style={{marginTop: '0.5rem'}}>[15] AMD, "FidelityFX Super Resolution," 2024. [Online]. Available: <a href="https://gpuopen.com/fidelityfx-superresolution/" target="_blank" rel="noopener noreferrer">https://gpuopen.com/fidelityfx-superresolution/</a></p>
+          <p style={{marginTop: '0.5rem'}}>[16] COMP0016 2024 Group 4, "Superhero Sportsday: Water Sport Edition," 2024. [Online]. Available: <a href="https://students.cs.ucl.ac.uk/2024/group4/" target="_blank" rel="noopener noreferrer">https://students.cs.ucl.ac.uk/2024/group4/</a></p>
         </div>
 
       </div>
