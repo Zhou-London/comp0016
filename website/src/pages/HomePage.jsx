@@ -44,7 +44,7 @@ export default function HomePage() {
       name: 'Antony Wiles',
       email: 'antony.wiles.24@ucl.ac.uk',
       roles: 'Game Programmer',
-      bio: 'Bio / background placeholder',
+      bio: 'Interested in software engineering, game development and sports',
       linkedin: 'https://www.linkedin.com/in/antony-wiles-8432892b8/',
       photo: antonyPhoto,
     }
