@@ -9,15 +9,21 @@ function BlogEntry({ weeks, title, body, delay = 0, animClass = '' }) {
     return (
         <Reveal delay={delay} className={animClass}>
             <div style={{
-                display: 'flex', gap: '1.5rem', alignItems: 'flex-start',
+                display: 'flex', gap: '1.5rem', alignItems: 'baseline',
+                paddingTop: '1em',
                 paddingBottom: '2.5rem', borderBottom: '1px solid #e5e7eb',
             }}>
-                <div style={{ flexShrink: 0, textAlign: 'center' }}>
+                <div style={{ flexShrink: 0, textAlign: 'center', display: 'flex', alignItems: 'center', height: '100%' }}>
                     <div style={{
                         padding: '0.4rem 0.9rem', borderRadius: 20,
-                        background: 'linear-gradient(135deg, #488328, #5f9f28)',
-                        color: '#fff', fontSize: '0.78rem', fontWeight: 700,
+                        background: 'rgba(126, 190, 52, 0.28)',
+                        color: 'var(--green-900)', fontSize: '0.78rem', fontWeight: 700,
                         whiteSpace: 'nowrap',
+                        display: 'inline-block',
+                        position: 'relative',
+                        top: '0.18em',
+                        border: '1px solid var(--color-border)',
+                        boxShadow: '0 1px 4px rgba(17,45,93,0.07)'
                     }}>
                         {weeks}
                     </div>
@@ -95,7 +101,7 @@ export default function BlogPage() {
                             </p>
                         </>}
                     />
-
+                    
                     <BlogEntry
                         weeks="Weeks 3–4"
                         title="Understanding Our Users"

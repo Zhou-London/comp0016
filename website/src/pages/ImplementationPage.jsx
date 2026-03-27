@@ -343,12 +343,13 @@ export default function ImplementationPage() {
                         The project is a Unity football practice game with four minigames and a shared application shell.
                         The architecture uses a hybrid approach: Unity scene-driven behaviour for gameplay objects, shared
                         service layers for cross-cutting concerns, explicit composition roots per minigame for dependency
-                        wiring, and adapter interfaces around globally shared systems.
+                        wiring, and adapter interfaces around globally shared systems. Shared assemblies include <code>SharedGameSettings</code>
+                         (settings and PlayerPrefs persistence), <code>SharedLogging</code> (category-based logging with channel filtering), <code>GlobalAudioShared</code> (audio bootstrap and routing), <code>SharedCore</code> (contracts, adapters, session flow, completion UI), and <code>SharedAnimation</code> (animation utilities).
                     </p>
                     <p style={{marginTop: '1rem'}}>
                         Minigame assemblies are fully isolated — they never depend on each other directly. Each minigame
                         has its own assembly definition and communicates with shared systems through contracts and adapters
-                        in <code>SharedCore</code>. This ensures that adding or modifying one minigame cannot break another.
+                        in <code>SharedCore</code>. This ensures that adding or modifying one minigame cannot break another. Adapter and interface seams around shared systems and platform-specific integrations allow for testable, decoupled code.
                     </p>
 
                     <div className={styles.tableWrap} style={{margin: '1rem 0 0', border: 'none', padding: 0}}>
@@ -414,14 +415,15 @@ export default function ImplementationPage() {
                             </tbody>
                         </table>
                     </div>
+                    <p style={{marginTop: '1rem'}}>Singleton creation order is: frame rate lock, audio system, game settings, then other services as needed.</p>
 
                     <h3 style={{marginTop: '2rem'}}>Composition Roots & Dependency Wiring</h3>
                     <p style={{marginTop: '1rem'}}>
                         Each minigame provides a composition root that centralises all scene dependency wiring in <code>Awake()</code>.
                         This pattern replaces scattered <code>FindObjectOfType</code> calls with explicit injection, making
                         dependencies visible and testable. Key interface seams include <code>ISettingsService</code> (read-only
-                        game settings), <code>IAudioService</code> (audio playback), and <code>SessionFlow&lt;TState&gt;</code> (typed
-                        lifecycle state machine).
+                        game settings, via <code>GameSettingsServiceAdapter</code>), <code>IAudioService</code> (audio playback, via <code>GlobalAudioServiceAdapter</code>), and <code>SessionFlow&lt;TState&gt;</code> (typed
+                        lifecycle state machine for minigame progression). <code>SessionFlow</code> provides typesafe registration and transition logic for each minigame's session states, while <code>SharedCompletionScreenController</code> and <code>ModeMenuComponents</code> offer reusable UI builders for completion and pause menus.
                     </p>
                     <div className={styles.tableWrap} style={{margin: '0.5rem 0 0', border: 'none', padding: 0}}>
                         <table>
@@ -933,9 +935,9 @@ export default function ImplementationPage() {
                         <li><b>Window not found:</b> launches <code>motioninput.exe</code> on a background thread, polls for the window every 0.5s for up to 10s</li>
                     </ul>
                     <p style={{marginTop: '1rem'}}>
-                        Once detected, the window chrome is removed, the window is positioned over the scene's
-                        <code> MotionInput Preview</code> panel, and Unity is refocused. If detection fails after 10 seconds,
-                        the game falls back to keyboard controls automatically.
+                        Once detected, the window chrome is removed, the window is positioned over the 
+                        scene's <code>MotionInput Preview</code> panel, and Unity is refocused. 
+                        If detection fails after 10 seconds, the game falls back to keyboard controls automatically.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Configuration Model</h3>
@@ -1018,12 +1020,9 @@ export default function ImplementationPage() {
                     <h2>Crowd Generation</h2>
                     <p style={{marginTop: '1rem'}}>
                         The stadium crowd is procedurally generated at runtime by <code>CrowdSpawner</code>, which
-                        populates
-                        every stand in the scene with crowd member instances when the scene loads. A key design
-                        constraint
-                        was performance — the game targets standard classroom laptops with modest GPUs, so the crowd
-                        needed
-                        to be visually convincing without contributing significant polygon cost.
+                        populates every stand in the scene with crowd member instances when the scene loads. A key design
+                        constraint was performance — the game targets standard classroom laptops with modest GPUs, so the crowd
+                        needed to be visually convincing without contributing significant polygon cost. <code>SharedAnimation</code> provides the <code>JumpAnimScript</code> utility for animating crowd reactions, and is used across scenes for consistent, efficient jump effects.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>2D Billboard Sprites</h3>
@@ -1183,7 +1182,7 @@ export default function ImplementationPage() {
                     <p style={{marginTop: '1rem'}}>
                         Audio is centralised in <code>GlobalGameAudio</code>, a singleton that bootstraps automatically
                         before any scene loads and persists across all scenes. All minigames and menus consume this
-                        shared system rather than creating scene-local audio logic.
+                        shared system rather than creating scene-local audio logic. The system manages five dedicated audio channels (UI, SFX, CrowdOneShot, CrowdAmbient, MenuMusic), each implemented as a separate <code>AudioSource</code> for clear routing and volume control. All sources are 2D (spatialBlend = 0) and are created as children of a persistent root object, ensuring consistent playback and seamless transitions between scenes. Duplicate instances are prevented by self-destruction in <code>Awake</code>.
                     </p>
 
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '1.5rem'}}>
@@ -1212,9 +1211,7 @@ export default function ImplementationPage() {
                         </table>
                     </div>
                     <p style={{marginTop: '1rem'}}>
-                        All sources are 2D (spatialBlend = 0). Menu music pauses (not stops) when entering minigames,
-                        retaining playback position for seamless resume. <code>GlobalUIButtonSfxHook</code> automatically
-                        scans for button components and attaches click sound listeners without manual wiring.
+                        Menu music is designed to pause (not stop) when entering minigames, retaining playback position for seamless resume. <code>GlobalUIButtonSfxHook</code> automatically scans for button components and attaches click sound listeners without manual wiring, while hover sounds can be added by attaching <code>GlobalUIButtonHoverRelay</code> to UI elements. Crowd audio is split into ambient and one-shot channels, with global toggles and volume controls. Disabling crowd audio immediately stops all playback. All gameplay SFX (kick, whistle, block, goal, checkpoint) are routed through shared methods and reused across minigames for consistency.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Volume & Preference Model</h3>
@@ -1222,7 +1219,7 @@ export default function ImplementationPage() {
                         Volume and toggle preferences persist via <code>PlayerPrefs</code> with separate sliders for SFX,
                         crowd, and music. The SFX slider scales base volumes for all gameplay sounds; the crowd slider
                         scales one-shot reactions and ambient noise; the music slider controls menu music. Changes in
-                        <code> SettingsUI</code> take effect immediately and persist across sessions.
+                        <code> SettingsUI</code> take effect immediately and persist across sessions. The system uses keys like <code>GlobalAudio.SfxEnabled</code>, <code>GlobalAudio.CrowdEnabled</code>, <code>GlobalAudio.SfxVolume</code>, <code>GlobalAudio.CrowdVolume</code>, and <code>GlobalAudio.MusicVolume</code> to store user preferences, ensuring that audio settings are restored on every launch.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Clip Resolution</h3>
@@ -1230,7 +1227,11 @@ export default function ImplementationPage() {
                         <code>GlobalGameAudio.ResolveClip</code> follows a priority chain: existing serialised AudioClip field →
                         <code> Resources/EditedSound/&#123;ClipName&#125;</code> → <code>Resources/&#123;ClipName&#125;</code> → lowercase
                         variants → editor AssetDatabase fallback. Runtime clip names include UIClick, FootballKick, BallBlock,
-                        CrowdCheer, CrowdCelebrate, AmbientCrowd, MenuMusic, and Whistle.
+                        CrowdCheer, CrowdCelebrate, AmbientCrowd, MenuMusic, and Whistle. This approach ensures that audio assets are loaded efficiently and consistently, with fallback mechanisms for missing or misnamed clips.
+                    </p>
+
+                    <p style={{marginTop: '1rem'}}>
+                        <b>Note:</b> While all audio is currently routed through the <code>GlobalGameAudio</code> singleton, the project also implements an <code>IAudioService</code> interface and <code>GlobalAudioServiceAdapter</code>. These are not yet used in the main flow, but they are designed for future extension and maintainability—enabling dependency injection, improved testability, and easier decoupling of audio logic from the singleton pattern as the project evolves.
                     </p>
                 </RevealSection>
 
@@ -1240,7 +1241,7 @@ export default function ImplementationPage() {
                     <p style={{marginTop: '1rem'}}>
                         Configuration flows through four channels: <code>PlayerPrefs</code> for user-facing settings,
                         shared singletons for runtime state, inspector serialised fields for gameplay tuning, and
-                        <code> StreamingAssets</code> for MotionInput configuration.
+                        <code> StreamingAssets</code> for MotionInput configuration. <code>GameSettings</code> loads and saves settings such as <code>motionInputEnabled</code> and <code>handsOnlyMode</code> using PlayerPrefs, and exposes them via singleton and adapter interfaces. <code>MotionInputConfigRepository</code> manages external config files for the MotionInput runtime, copying bundled config to persistent storage and updating mode fields as needed.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Player-Facing Settings</h3>
