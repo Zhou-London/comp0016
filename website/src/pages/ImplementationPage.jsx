@@ -1180,7 +1180,7 @@ export default function ImplementationPage() {
                     <p style={{marginTop: '1rem'}}>
                         Audio is centralised in <code>GlobalGameAudio</code>, a singleton that bootstraps automatically
                         before any scene loads and persists across all scenes. All minigames and menus consume this
-                        shared system rather than creating scene-local audio logic.
+                        shared system rather than creating scene-local audio logic. The system manages five dedicated audio channels (UI, SFX, CrowdOneShot, CrowdAmbient, MenuMusic), each implemented as a separate <code>AudioSource</code> for clear routing and volume control. All sources are 2D (spatialBlend = 0) and are created as children of a persistent root object, ensuring consistent playback and seamless transitions between scenes. Duplicate instances are prevented by self-destruction in <code>Awake</code>.
                     </p>
 
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '1.5rem'}}>
@@ -1209,9 +1209,7 @@ export default function ImplementationPage() {
                         </table>
                     </div>
                     <p style={{marginTop: '1rem'}}>
-                        All sources are 2D (spatialBlend = 0). Menu music pauses (not stops) when entering minigames,
-                        retaining playback position for seamless resume. <code>GlobalUIButtonSfxHook</code> automatically
-                        scans for button components and attaches click sound listeners without manual wiring.
+                        Menu music is designed to pause (not stop) when entering minigames, retaining playback position for seamless resume. <code>GlobalUIButtonSfxHook</code> automatically scans for button components and attaches click sound listeners without manual wiring, while hover sounds can be added by attaching <code>GlobalUIButtonHoverRelay</code> to UI elements. Crowd audio is split into ambient and one-shot channels, with global toggles and volume controls. Disabling crowd audio immediately stops all playback. All gameplay SFX (kick, whistle, block, goal, checkpoint) are routed through shared methods and reused across minigames for consistency.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Volume & Preference Model</h3>
@@ -1219,7 +1217,7 @@ export default function ImplementationPage() {
                         Volume and toggle preferences persist via <code>PlayerPrefs</code> with separate sliders for SFX,
                         crowd, and music. The SFX slider scales base volumes for all gameplay sounds; the crowd slider
                         scales one-shot reactions and ambient noise; the music slider controls menu music. Changes in
-                        <code> SettingsUI</code> take effect immediately and persist across sessions.
+                        <code> SettingsUI</code> take effect immediately and persist across sessions. The system uses keys like <code>GlobalAudio.SfxEnabled</code>, <code>GlobalAudio.CrowdEnabled</code>, <code>GlobalAudio.SfxVolume</code>, <code>GlobalAudio.CrowdVolume</code>, and <code>GlobalAudio.MusicVolume</code> to store user preferences, ensuring that audio settings are restored on every launch.
                     </p>
 
                     <h3 style={{marginTop: '2rem'}}>Clip Resolution</h3>
@@ -1227,7 +1225,11 @@ export default function ImplementationPage() {
                         <code>GlobalGameAudio.ResolveClip</code> follows a priority chain: existing serialised AudioClip field →
                         <code> Resources/EditedSound/&#123;ClipName&#125;</code> → <code>Resources/&#123;ClipName&#125;</code> → lowercase
                         variants → editor AssetDatabase fallback. Runtime clip names include UIClick, FootballKick, BallBlock,
-                        CrowdCheer, CrowdCelebrate, AmbientCrowd, MenuMusic, and Whistle.
+                        CrowdCheer, CrowdCelebrate, AmbientCrowd, MenuMusic, and Whistle. This approach ensures that audio assets are loaded efficiently and consistently, with fallback mechanisms for missing or misnamed clips.
+                    </p>
+
+                    <p style={{marginTop: '1rem'}}>
+                        <b>Note:</b> While all audio is currently routed through the <code>GlobalGameAudio</code> singleton, the project also implements an <code>IAudioService</code> interface and <code>GlobalAudioServiceAdapter</code>. These are not yet used in the main flow, but they are designed for future extension and maintainability—enabling dependency injection, improved testability, and easier decoupling of audio logic from the singleton pattern as the project evolves.
                     </p>
                 </RevealSection>
 
