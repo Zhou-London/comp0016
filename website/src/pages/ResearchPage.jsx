@@ -1,4 +1,5 @@
 import styles from '../App.module.css'
+import { Reveal } from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 
 export default function ResearchPage() {
@@ -12,7 +13,7 @@ export default function ResearchPage() {
       <div style={{maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
 
         {/* Related Projects */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>Related Projects Review</h3>
 
           <p style={{marginTop: '1rem'}}>
@@ -60,13 +61,14 @@ export default function ResearchPage() {
             </ul>
           </div>
         </div>
+</Reveal>
 
         {/* Project Review: Superhero Sportsday */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>Project Review: Superhero Sportsday — Water Sport Edition</h3>
 
           <p style={{marginTop: '1rem'}}>
-            As part of our research, we reviewed <em>Superhero Sportsday: Water Sport Edition</em> [16], a previous
+            As part of our research, we reviewed <em>Superhero Sportsday: Water Sport Edition</em> [9], a previous
             COMP0016 project that also uses MotionInput to create an accessible sports game. Studying how it
             handles motion-based controls, game architecture, UI design, and accessibility features gave us valuable
             insight into what works well and where there is room for improvement.
@@ -124,9 +126,10 @@ export default function ResearchPage() {
             <li>Providing immediate, multimodal feedback (visual cues paired with sound) proved critical for keeping younger players engaged.</li>
           </ul>
         </div>
+</Reveal>
 
         {/* Technology Review */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>Technology Review</h3>
 
           <h4 style={{marginTop: '1rem'}}>Game Engine</h4>
@@ -146,7 +149,7 @@ export default function ResearchPage() {
           </p>
 
           <p style={{marginTop: '1rem'}}>
-            In addition to Microsoft Kinect and MotionInput, other motion capture solutions were reviewed for their relevance to sports and educational games. OpenPose is a widely used open-source library for real-time multi-person keypoint detection, offering high accuracy but requiring significant computational resources [9][10]. Azure Kinect DK provides advanced depth sensing and body tracking, but its need for dedicated hardware limits accessibility for classroom or home use [11][12]. These technologies highlight the trade-offs between accuracy, hardware requirements, and accessibility. For this project, camera-based solutions like MotionInput were prioritised to maximise reach and ease of deployment.
+            In addition to Microsoft Kinect and MotionInput, other motion capture solutions were reviewed for their relevance to sports and educational games. OpenPose is a widely used open-source library for real-time multi-person keypoint detection, offering high accuracy but requiring significant computational resources [10][11]. Azure Kinect DK provides advanced depth sensing and body tracking, but its need for dedicated hardware limits accessibility for classroom or home use [12][13]. These technologies highlight the trade-offs between accuracy, hardware requirements, and accessibility. For this project, camera-based solutions like MotionInput were prioritised to maximise reach and ease of deployment.
           </p>
 
           <p style={{marginTop: '1rem'}}>
@@ -160,18 +163,19 @@ export default function ResearchPage() {
             A modular, component-based architecture was chosen over tightly coupled scripts. Each 
             minigame operates independently with its own controller, while shared systems handle 
             audio, settings, and MotionInput integration. This improves maintainability and allows 
-            independent development and testing of each component [13].
+            independent development and testing of each component [14].
           </p>
         </div>
+</Reveal>
 
         {/* Graphics Research */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>Graphics Research &amp; Optimisation</h3>
 
           <p style={{marginTop: '1rem'}}>
             Beyond engine and motion-tracking choices, dedicated research was conducted into the
             game's graphics pipeline, shading, and asset management to achieve a consistent
-            visual style while maintaining performance on classroom hardware [13].
+            visual style while maintaining performance on classroom hardware [14].
           </p>
 
           <h4 style={{marginTop: '1.5rem'}}>Toon Shader &amp; PBR Materials</h4>
@@ -181,7 +185,7 @@ export default function ResearchPage() {
             post-processing effects such as outlines and bloom. This produces a brighter, cartoon-style
             rendering that consistently fits the overall game aesthetic. PBR grass materials with
             normal maps were also applied to the football pitch, giving the field complex surface
-            detail that the shader can respond to, compared to the flat 2D texture used previously [14].
+            detail that the shader can respond to, compared to the flat 2D texture used previously [15].
           </p>
 
           <h4 style={{marginTop: '1.5rem'}}>Deep-Learning Resolution Upscaling (AMD FSR)</h4>
@@ -191,7 +195,7 @@ export default function ResearchPage() {
             resolution and uses a spatial upscaling algorithm to reconstruct the output. In testing
             on an RTX 5090 system locked at 60 FPS, the FSR-enabled scene consumed approximately
             97 W compared to 118 W for the native-resolution scene — a roughly 18% reduction
-            in GPU power draw, indicating higher energy efficiency per frame [15].
+            in GPU power draw, indicating higher energy efficiency per frame [16].
           </p>
 
           <h4 style={{marginTop: '1.5rem'}}>Asset &amp; Material Deduplication</h4>
@@ -201,12 +205,13 @@ export default function ResearchPage() {
             bloat. By extracting embedded textures and consolidating duplicates so that multiple
             models reference a single shared material, the repository size was reduced from
             approximately 100 MB to 60 MB, and runtime VRAM usage decreased — an important
-            improvement for systems with integrated GPUs commonly found in classroom environments [13].
+            improvement for systems with integrated GPUs commonly found in classroom environments [14].
           </p>
         </div>
+</Reveal>
 
         {/* Technical Decisions */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>Technical Decision Summary</h3>
 
           <p style={{marginTop: '1rem'}}>
@@ -238,9 +243,10 @@ export default function ResearchPage() {
             These decisions allowed the system to remain feasible within a student project scope while delivering an engaging, accessible, and future-proof football training experience.
           </p>
         </div>
+</Reveal>
 
         {/* References */}
-        <div className={styles.abstractPanel}>
+        <Reveal><div className={styles.abstractPanel}>
           <h3>References (IEEE)</h3>
 
           <p style={{marginTop: '1rem'}}>[1] Z. Zhang, "Microsoft Kinect Sensor and Its Effect," IEEE Multimedia, 2012.</p>
@@ -251,15 +257,16 @@ export default function ResearchPage() {
           <p style={{marginTop: '0.5rem'}}>[6] J. Bonnechère et al., "The use of commercial video games in rehabilitation: a systematic review," International Journal of Rehabilitation Research, vol. 38, no. 4, 2015.</p>
           <p style={{marginTop: '0.5rem'}}>[7] Unity Asset Store, "Soccer Game Template," 2024. [Online]. Available: <a href="https://assetstore.unity.com/packages/templates/packs/in-fence-soccer-3d-game-template-299215" target="_blank" rel="noopener noreferrer">https://assetstore.unity.com/packages/templates/packs/in-fence-soccer-3d-game-template-299215</a></p>
           <p style={{marginTop: '0.5rem'}}>[8] MotionInput, "MotionInput," 2024. [Online]. Available: <a href="https://www.motioninputgames.com/" target="_blank" rel="noopener noreferrer">https://www.motioninputgames.com/</a></p>
-          <p style={{marginTop: '0.5rem'}}>[9] "The Complete Guide to OpenPose in 2025," viso.ai, [Online]. Available: <a href="https://viso.ai/deep-learning/openpose/" target="_blank" rel="noopener noreferrer">https://viso.ai/deep-learning/openpose/</a></p>
-          <p style={{marginTop: '0.5rem'}}>[10] Guillaume Demarcq, "Complete OpenPose guide [Updated Mar 2024]," 8 February 2023. [Online]. Available: <a href="https://www.ikomia.ai/blog/complete-openpose-guide" target="_blank" rel="noopener noreferrer">https://www.ikomia.ai/blog/complete-openpose-guide</a></p>
-          <p style={{marginTop: '0.5rem'}}>[11] "All you need to know on Azure Kinect," 25 February 2019. [Online]. Available: <a href="https://skarredghost.com/2019/02/25/all-need-know-azure-kinect/" target="_blank" rel="noopener noreferrer">https://skarredghost.com/2019/02/25/all-need-know-azure-kinect/</a></p>
-          <p style={{marginTop: '0.5rem'}}>[12] "Azure Kinect DK," [Online]. Available: <a href="https://azure.microsoft.com/en-us/products/kinect-dk" target="_blank" rel="noopener noreferrer">https://azure.microsoft.com/en-us/products/kinect-dk</a></p>
-          <p style={{marginTop: '0.5rem'}}>[13] Unity Technologies, "Unity Real-Time Development Platform," 2024. [Online]. Available: <a href="https://unity.com" target="_blank" rel="noopener noreferrer">https://unity.com</a></p>
-          <p style={{marginTop: '0.5rem'}}>[14] Unity Technologies, "Unity Toon Shader," 2024. [Online]. Available: <a href="https://github.com/Unity-Technologies/com.unity.toonshader" target="_blank" rel="noopener noreferrer">https://github.com/Unity-Technologies/com.unity.toonshader</a></p>
-          <p style={{marginTop: '0.5rem'}}>[15] AMD, "FidelityFX Super Resolution," 2024. [Online]. Available: <a href="https://gpuopen.com/fidelityfx-superresolution/" target="_blank" rel="noopener noreferrer">https://gpuopen.com/fidelityfx-superresolution/</a></p>
-          <p style={{marginTop: '0.5rem'}}>[16] COMP0016 2024 Group 4, "Superhero Sportsday: Water Sport Edition," 2024. [Online]. Available: <a href="https://students.cs.ucl.ac.uk/2024/group4/" target="_blank" rel="noopener noreferrer">https://students.cs.ucl.ac.uk/2024/group4/</a></p>
+          <p style={{marginTop: '0.5rem'}}>[9] COMP0016 2024 Group 4, "Superhero Sportsday: Water Sport Edition," 2024. [Online]. Available: <a href="https://students.cs.ucl.ac.uk/2024/group4/" target="_blank" rel="noopener noreferrer">https://students.cs.ucl.ac.uk/2024/group4/</a></p>
+          <p style={{marginTop: '0.5rem'}}>[10] "The Complete Guide to OpenPose in 2025," viso.ai, [Online]. Available: <a href="https://viso.ai/deep-learning/openpose/" target="_blank" rel="noopener noreferrer">https://viso.ai/deep-learning/openpose/</a></p>
+          <p style={{marginTop: '0.5rem'}}>[11] Guillaume Demarcq, "Complete OpenPose guide [Updated Mar 2024]," 8 February 2023. [Online]. Available: <a href="https://www.ikomia.ai/blog/complete-openpose-guide" target="_blank" rel="noopener noreferrer">https://www.ikomia.ai/blog/complete-openpose-guide</a></p>
+          <p style={{marginTop: '0.5rem'}}>[12] "All you need to know on Azure Kinect," 25 February 2019. [Online]. Available: <a href="https://skarredghost.com/2019/02/25/all-need-know-azure-kinect/" target="_blank" rel="noopener noreferrer">https://skarredghost.com/2019/02/25/all-need-know-azure-kinect/</a></p>
+          <p style={{marginTop: '0.5rem'}}>[13] "Azure Kinect DK," [Online]. Available: <a href="https://azure.microsoft.com/en-us/products/kinect-dk" target="_blank" rel="noopener noreferrer">https://azure.microsoft.com/en-us/products/kinect-dk</a></p>
+          <p style={{marginTop: '0.5rem'}}>[14] Unity Technologies, "Unity Real-Time Development Platform," 2024. [Online]. Available: <a href="https://unity.com" target="_blank" rel="noopener noreferrer">https://unity.com</a></p>
+          <p style={{marginTop: '0.5rem'}}>[15] Unity Technologies, "Unity Toon Shader," 2024. [Online]. Available: <a href="https://github.com/Unity-Technologies/com.unity.toonshader" target="_blank" rel="noopener noreferrer">https://github.com/Unity-Technologies/com.unity.toonshader</a></p>
+          <p style={{marginTop: '0.5rem'}}>[16] AMD, "FidelityFX Super Resolution," 2024. [Online]. Available: <a href="https://gpuopen.com/fidelityfx-superresolution/" target="_blank" rel="noopener noreferrer">https://gpuopen.com/fidelityfx-superresolution/</a></p>
         </div>
+</Reveal>
 
       </div>
     </section>
