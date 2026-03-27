@@ -152,8 +152,8 @@ function DeploymentManual() {
           <ul>
             <li><a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer"><b>MotionInput build files</b></a></li>
           </ul>
-          <li>Extract the zip file to <code>Assets/StreamingAssets/</code></li>
-          <li>Ensure that <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder are in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
+          <li>Extract the zip file and copy all contents into <code>Assets/StreamingAssets/MotionInput/</code></li>
+          <li>Ensure that <code>motioninput.exe</code>, the <code>data/</code> folder, and the <code>modes/</code> folder are all in <code>Assets/StreamingAssets/MotionInput/</code>.</li>
         </ol>
         <AppendixImage src="/appendices/motioninput-folder.png" alt="MotionInput Folder" caption="MotionInput Folder" />
 
@@ -329,7 +329,7 @@ function WhereToFindCode() {
             <b>MotionInput Build Files:</b> <a href="https://liveuclac-my.sharepoint.com/:u:/g/personal/zcabsub_ucl_ac_uk/IQAwedpsmkDAQp86gmjlfceQAR2m2-F9Sgb3hhU2uAVtlK8?e=w7vjZb" target="_blank" rel="noopener noreferrer">Download MotionInput</a>
           </li>
           <li>
-            Place <code>motioninput.exe</code>, <code>data/</code> folder, and <code>modes/</code> folder in <code>Assets/StreamingAssets/MotionInput/</code> in your game directory.
+            Ensure that <code>motioninput.exe</code>, <code>data/</code> folder, and <code>modes/</code> folder are all in <code>Assets/StreamingAssets/MotionInput/</code> in your game directory.
           </li>
         </ul>
         <h3>Documentation</h3>
