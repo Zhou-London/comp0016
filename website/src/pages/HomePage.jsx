@@ -53,10 +53,10 @@ export default function HomePage() {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
-        <p className={styles.heroBadge}>COMP0016 Report Website · Static Version</p>
+        <p className={styles.heroBadge}>COMP0016 Report Website</p>
         <h1 className={styles.heroTitle}>MotionInput Football Practice</h1>
         <p className={styles.heroSub}>
-          Camera-based football training minigames designed to support accessible and engaging movement practice.
+          Motion controlled football training minigames designed to support accessible and engaging exercise.
         </p>
 
         <div

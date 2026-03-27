@@ -125,7 +125,7 @@ const nonFunctionalReqs = [
   ['NF8',  'Reliability',   'Graceful handling of MotionInput failures', 'Must', 'completed', 'Mariha'],
   ['NF9',  'Maintainability','Modular architecture with composition roots', 'Should', 'completed', 'Sunain'],
   ['NF10', 'Maintainability','Automated unit and integration tests', 'Should', 'completed', 'William'],
-  ['NF11', 'Extensibility', 'Add new minigames without modifying core', 'Should', 'completed', 'All'],
+  ['NF11', 'Extensibility', 'Add new minigames without modifying core', 'Should', 'completed', 'Sunain'],
   ['NF12', 'Portability',   'Runs on standard Windows PCs with camera', 'Must', 'completed', 'All'],
   ['NF13', 'Sustainability','Local processing only, energy-efficient rendering', 'Should', 'completed', 'All'],
   ['NF14', 'Legal & Compliance',   'Closed source code and documentation', 'Must', 'completed', 'All'],
@@ -493,7 +493,7 @@ export default function EvaluationPage() {
             <table>
               <thead>
               <tr>
-                <th>Work Package</th>
+                <th>Work Package (weight)</th>
                 <th style={{textAlign: 'center'}}>Mariha Subhan</th>
                 <th style={{textAlign: 'center'}}>Sunain Syed</th>
                 <th style={{textAlign: 'center'}}>William Xing</th>
