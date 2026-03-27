@@ -538,11 +538,11 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Website template and setup (7%)',   '—', '70%', '10%', '20%', '—'],
+                ['Website template and setup (7%)',   '—', '70%', '12%', '18%', '—'],
                 ['Home (6.5%)',                       '100%', '—', '—', '—', '—'],
                 ['Video (8.5%)',                      '30%',  '18%', '17%', '17%',  '18%'  ],
                 ['Requirements (8%)',                 '—',  '20%', '—', '80%',   '—'],
-                ['Research (6.5%)',                   '—',    '—',   '—',   '20%',   '80%'  ],
+                ['Research (6.5%)',                   '—',    '—',   '20',   '20%',   '60%'  ],
                 ['UI Design (8%)',                  '100%', '—',   '—',   '—',   '—'  ],
                 ['System Design (8.5%)',              '—',    '100%',   '—',   '—',   '—'  ],
                 ['Implementation (9%)',              '12%',    '9%',   '75%',   '2%',   '2%'  ],
@@ -551,7 +551,7 @@ export default function EvaluationPage() {
                 ['User and Deployment Manuals (8%)', '—',    '100%',   '—',   '—',   '—'  ],
                 ['Legal Issues (6%)',                  '—',    '100%',   '—',   '—',   '—'  ],
                 ['Blog and Monthly Video (8%)',       '100%',    '—',   '—',   '—',   '—'  ],
-                ['Overall Contribution',       '28.755%',    '31.34%',   '17.395%',   '15.6%',   '6.91%'  ],
+                ['Overall Contribution',       '28.755%',    '31.34%',   '18.835%',   '15.46%',   '5.61%'  ],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
                     <td><strong>{pkg}</strong></td>
