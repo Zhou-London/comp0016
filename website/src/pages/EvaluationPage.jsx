@@ -503,10 +503,10 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Research and Experiments 10%', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
-                ['UI Design 20%', '60%', '25%', '5%', '5%', '5%'],
-                ['Coding 40%', '31%', '34%', '16%', '8%', '11%'],
-                ['Testing 30%',                  '12%', '20%', '55%', '5%', '9%'],
+                ['Research and Experiments (10%)', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
+                ['UI Design (20%)', '60%', '25%', '5%', '5%', '5%'],
+                ['Coding (40%)', '31%', '34%', '16%', '8%', '11%'],
+                ['Testing (30%)',                  '12%', '20%', '55%', '5%', '9%'],
                 ['Overall Contribution',     '29.875%', '26.475%', '25.775%', '8.2%', '9.975%'],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
@@ -528,7 +528,7 @@ export default function EvaluationPage() {
             <table>
               <thead>
               <tr>
-                <th>Work Package</th>
+                <th>Work Package (weight)</th>
                 <th style={{textAlign: 'center'}}>Mariha Subhan</th>
                 <th style={{textAlign: 'center'}}>Sunain Syed</th>
                 <th style={{textAlign: 'center'}}>William Xing</th>
@@ -538,19 +538,19 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Website template and setup 7%',   '—', '70%', '10%', '20%', '—'],
-                ['Home 6.5%',                       '100%', '—', '—', '—', '—'],
-                ['Video 8.5%',                      '30%',  '18%', '17%', '17%',  '18%'  ],
-                ['Requirements 8%',                 '—',  '20%', '—', '80%',   '—'],
-                ['Research 6.5%',                   '—',    '—',   '—',   '20%',   '80%'  ],
-                ['UI Design 8%',                  '100%', '—',   '—',   '—',   '—'  ],
-                ['System Design 8.5%',              '—',    '100%',   '—',   '—',   '—'  ],
-                ['Implementation 9%',              '12%',    '9%',   '75%',   '2%',   '2%'  ],
-                ['Testing 8.5%',                    '—',    '—',   '100%',   '—',   '—'  ],
-                ['Evaluation and Future Work 7.5%', '35%',    '—',   '—',   '65%',   '—'  ],
-                ['User and Deployment Manuals 8%', '—',    '100%',   '—',   '—',   '—'  ],
-                ['Legal Issues 6%',                  '—',    '100%',   '—',   '—',   '—'  ],
-                ['Blog and Monthly Video 8%',       '100%',    '—',   '—',   '—',   '—'  ],
+                ['Website template and setup (7%)',   '—', '70%', '10%', '20%', '—'],
+                ['Home (6.5%)',                       '100%', '—', '—', '—', '—'],
+                ['Video (8.5%)',                      '30%',  '18%', '17%', '17%',  '18%'  ],
+                ['Requirements (8%)',                 '—',  '20%', '—', '80%',   '—'],
+                ['Research (6.5%)',                   '—',    '—',   '—',   '20%',   '80%'  ],
+                ['UI Design (8%)',                  '100%', '—',   '—',   '—',   '—'  ],
+                ['System Design (8.5%)',              '—',    '100%',   '—',   '—',   '—'  ],
+                ['Implementation (9%)',              '12%',    '9%',   '75%',   '2%',   '2%'  ],
+                ['Testing (8.5%)',                    '—',    '—',   '100%',   '—',   '—'  ],
+                ['Evaluation and Future Work (7.5%)', '35%',    '—',   '—',   '65%',   '—'  ],
+                ['User and Deployment Manuals (8%)', '—',    '100%',   '—',   '—',   '—'  ],
+                ['Legal Issues (6%)',                  '—',    '100%',   '—',   '—',   '—'  ],
+                ['Blog and Monthly Video (8%)',       '100%',    '—',   '—',   '—',   '—'  ],
                 ['Overall Contribution',       '28.755%',    '31.34%',   '17.395%',   '15.6%',   '6.91%'  ],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>

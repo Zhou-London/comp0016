@@ -219,7 +219,7 @@ function MediaCarousel({ items, width = '60%', height = '340px' }) {
                     }}
                 >
                     <img
-                        src={lightbox.src}
+                        src={resolveAsset(lightbox.src)}
                         alt={lightbox.label}
                         style={{ maxWidth: '90vw', maxHeight: '80vh', borderRadius: '10px', boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
                     />
