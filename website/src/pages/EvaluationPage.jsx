@@ -493,7 +493,7 @@ export default function EvaluationPage() {
             <table>
               <thead>
               <tr>
-                <th>Work Package</th>
+                <th>Work Package (weight)</th>
                 <th style={{textAlign: 'center'}}>Mariha Subhan</th>
                 <th style={{textAlign: 'center'}}>Sunain Syed</th>
                 <th style={{textAlign: 'center'}}>William Xing</th>
@@ -503,10 +503,10 @@ export default function EvaluationPage() {
               </thead>
               <tbody>
               {[
-                ['Research and Experiments 10%', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
-                ['UI Design 20%', '60%', '25%', '5%', '5%', '5%'],
-                ['Coding 40%', '31%', '34%', '16%', '8%', '11%'],
-                ['Testing 30%',                  '15%', '20%', '50%', '5%', '10%'],
+                ['Research and Experiments (10%)', '18.75%', '18.75%', '18.75%', '25%', '18.75%'],
+                ['UI Design (20%)', '60%', '25%', '5%', '5%', '5%'],
+                ['Coding (40%)', '31%', '34%', '16%', '8%', '11%'],
+                ['Testing (30%)',                  '15%', '20%', '50%', '5%', '10%'],
                 ['Overall Contribution',     '30.775%', '26.475%', '24.275%', '8.2%', '10.275%'],
               ].map(([pkg, ...values], i) => (
                   <tr key={pkg} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
