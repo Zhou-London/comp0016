@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 export default function ImageWithCaption({ src, alt, caption, imgStyle }) {
     const [hovered, setHovered] = useState(false)
     const [open, setOpen] = useState(false)
+    const resolvedSrc = src.startsWith('/') ? import.meta.env.BASE_URL + src.slice(1) : src
 
     return (
         <>
@@ -13,7 +14,7 @@ export default function ImageWithCaption({ src, alt, caption, imgStyle }) {
                 onMouseLeave={() => setHovered(false)}
                 onClick={() => setOpen(true)}
             >
-                <img src={src} alt={alt || caption} style={{ width: '100%', display: 'block', ...imgStyle }} />
+                <img src={resolvedSrc} alt={alt || caption} style={{ width: '100%', display: 'block', ...imgStyle }} />
                 <div style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0,
                     padding: '0.6rem 0.8rem',
@@ -38,7 +39,7 @@ export default function ImageWithCaption({ src, alt, caption, imgStyle }) {
                     }}
                 >
                     <img
-                        src={src}
+                        src={resolvedSrc}
                         alt={alt || caption}
                         style={{ maxWidth: '90vw', maxHeight: '80vh', borderRadius: '10px', boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
                     />

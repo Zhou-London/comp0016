@@ -4,6 +4,9 @@ import styles from '../App.module.css'
 import ImageWithCaption from '../components/ImageWithCaption'
 import SectionHeader from '../components/SectionHeader'
 
+const BASE = import.meta.env.BASE_URL
+const resolveAsset = (path) => path.startsWith('/') ? BASE + path.slice(1) : path
+
 /* ── Scroll-reveal animation hook ── */
 function useScrollReveal() {
     const ref = useRef(null)
@@ -127,14 +130,14 @@ function MediaCarousel({ items, width = '60%', height = '340px' }) {
                     style={{...shared, display: 'block'}}
                     onClick={() => { if (!isCurrent) setIdx(i) }}
                 >
-                    <source src={item.src} type="video/mp4" />
+                    <source src={resolveAsset(item.src)} type="video/mp4" />
                 </video>
             )
         }
         return (
             <img
                 key={item.src}
-                src={item.src}
+                src={resolveAsset(item.src)}
                 alt={item.label}
                 style={{...shared, display: 'block', objectFit: 'contain'}}
                 onClick={handleClick}
@@ -272,7 +275,7 @@ function VideoCarousel({ videos }) {
                                 transition: 'opacity 0.4s ease',
                             }}
                         >
-                            <source src={v.src} type="video/mp4" />
+                            <source src={resolveAsset(v.src)} type="video/mp4" />
                         </video>
                     ))}
                 </div>
@@ -713,7 +716,7 @@ export default function ImplementationPage() {
 
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
                         <video controls style={{width: '55%', borderRadius: '10px', border: '1px solid #dde7f3'}}>
-                            <source src="/implementation/whole-match.mp4" type="video/mp4" />
+                            <source src={`${import.meta.env.BASE_URL}implementation/whole-match.mp4`} type="video/mp4" />
                         </video>
                     </div>
 
