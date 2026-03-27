@@ -119,11 +119,11 @@ export default function ResearchPage() {
 
           <h4 style={{marginTop: '1.5rem'}}>Key Takeaways for Our Project</h4>
           <ul style={{marginTop: '0.5rem', paddingLeft: '1.5rem', lineHeight: 1.8}}>
-            <li>Separating gameplay concerns into dedicated manager components scales well when a project contains multiple minigames — we adopted a similar pattern.</li>
-            <li>Externalising motion-control mappings to configuration files makes tuning and adding new modes straightforward — we followed the same approach for our MotionInput setup.</li>
-            <li>Designing with accessibility as a first-class requirement (clear instructions, predictable mechanics, sensory-appropriate visuals) directly shaped our own UI and gameplay choices.</li>
-            <li>Iterating on interface designs through low-fidelity sketches before moving to prototypes consistently produced better results — we replicated this workflow.</li>
-            <li>Providing immediate, multimodal feedback (visual cues paired with sound) proved critical for keeping younger players engaged.</li>
+            <li>Separating gameplay concerns into dedicated manager components scales well when a project contains multiple minigames.</li>
+            <li>Externalising motion-control mappings to configuration files makes tuning and adding new modes straightforward.</li>
+            <li>Treating accessibility as a first-class requirement, including clear instructions, predictable mechanics and sensory-appropriate visuals, leads to better UI and gameplay outcomes.</li>
+            <li>Iterating on interface designs through low-fidelity sketches before moving to prototypes consistently produces better results.</li>
+            <li>Providing immediate, multimodal feedback with visual cues paired with sound is critical for keeping younger players engaged.</li>
           </ul>
         </div>
 </Reveal>
