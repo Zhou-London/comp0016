@@ -39,10 +39,10 @@ function BlogEntry({ weeks, title, body, delay = 0, animClass = '' }) {
 
 export default function BlogPage() {
     const videos = [
-        { label: 'November Video', href: 'https://your-link-here' },
-        { label: 'December Video', href: 'https://your-link-here' },
-        { label: 'February Video', href: 'https://your-link-here' },
-        { label: 'March Video',    href: 'https://your-link-here' },
+        { label: 'December Video', href: 'https://liveuclac-my.sharepoint.com/:v:/g/personal/zcabsub_ucl_ac_uk/IQDFfmYBHsTLSakK1KAcZe-yASfD-jrNGkqZLvhqebWuBhM?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=fZvX2e' },
+        { label: 'January Video', href: 'https://liveuclac-my.sharepoint.com/:v:/g/personal/zcabsub_ucl_ac_uk/IQAcJtVXZrSpQ4Ae_RUdVtKAAeAXh742FMcw_idTelIzAak?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=CUEWnT' },
+        { label: 'February Video', href: 'https://liveuclac-my.sharepoint.com/:v:/g/personal/zcabsub_ucl_ac_uk/IQAIcWVDyAr9TpKwrvGIMDG7Aa70gq86O92gD9fTbX4hl9Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=VJbCdI' },
+        { label: 'March Video',    href: 'https://liveuclac-my.sharepoint.com/:v:/g/personal/zcabsub_ucl_ac_uk/IQCHL_zN-4YdSJ33zBlfwTDXAcnM3Hd-FUW7ogZx4VUt-Sw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=SKqdp1' },
     ]
 
     return (
